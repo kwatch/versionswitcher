@@ -1,8 +1,9 @@
 ##
 ## versionswitch.sh -- switch version of language or application
 ##
-## installation:
-##   $ echo '. /usr/local/bin/versionswitch.sh'
+## setup:
+##   $ VERSIONSWITCH_PATH=$HOME/lang
+##   $ . /some/where/to/versionswitch.sh'
 ##   $ vs --help
 ##
 
@@ -22,11 +23,12 @@ versionswitch () {
 versionswitch - change version of language or application
 release: $release
 examples:
-    $ VERSIONSWITCH_PATH=\$HOME/local/lang
-    $ vs foobar 1.2.3   # use \$HOME/local/lang/foobar/1.2.3
-    $ vs foobar 1.2     # use \$HOME/local/lang/foobar/1.2.x (ex. 1.2.8)
-    $ vs foobar latest  # use latest version under \$HOME/local/lang/foobar
-    $ vs foobar -       # use system-installed (ex. /usr/bin/foobar)
+    $ VERSIONSWITCH_PATH=\$HOME/lang
+    $ vs -h             # show help
+    $ vs foobar 1.2.3   # use \$HOME/lang/foobar/1.2.3
+    $ vs foobar 1.2     # use \$HOME/lang/foobar/1.2.x (ex. 1.2.8)
+    $ vs foobar latest  # use latest version under \$HOME/lang/foobar
+    $ vs foobar -       # use system-installed one (ex. /usr/bin/foobar)
     $ vs foobar         # show installed versions of foobar
     $ vs                # show installed languages
 
