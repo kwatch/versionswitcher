@@ -100,7 +100,7 @@ _versionswitch () {
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
         echo "## versions:"
-        for dir in `echo "$basedir/*/bin"`; do
+        for dir in `echo $basedir/*/bin`; do
             dir=`dirname $dir`
             ver=`basename $dir`
             [ "$ver" != '*' ] && echo $ver
