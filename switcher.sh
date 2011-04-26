@@ -1,28 +1,28 @@
 ##
-## switcher.sh -- switch version of language or application
+## versionswitch.sh -- switch version of language or application
 ##
 ## installation:
-##   $ echo '. /usr/local/bin/switcher.sh'
+##   $ echo '. /usr/local/bin/versionswitch.sh'
 ##   $ sw --help
 ##
 
 
 ##
-#[ -z "$SWITCHER_PATH" ] && SWITCHER_PATH=$HOME/local/lang
+#[ -z "$VERSIONSWITCH_PATH" ] && VERSIONSWITCH_PATH=$HOME/local/lang
 
 
 ##
-switcher () {
+versionswitch () {
     local lang=$1
     local version=$2
     local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
     case $lang in
         -h|--help)
             cat <<END
-switcher - change version of language or application
+versionswitch - change version of language or application
 release: $release
 examples:
-    $ SWITCHER_PATH=\$HOME/local/lang
+    $ VERSIONSWITCH_PATH=\$HOME/local/lang
     $ sw foobar 1.2.3   # use \$HOME/local/lang/foobar/1.2.3
     $ sw foobar 1.2     # use \$HOME/local/lang/foobar/1.2.x (ex. 1.2.8)
     $ sw foobar latest  # use latest version under \$HOME/local/lang/foobar
@@ -31,26 +31,26 @@ examples:
     $ sw                # show installed languages
 
 tips:
-    * Short name 'sw' is an alias to 'switcher'.
-    * It is allowed to set SWITCHER_PATH=path1:path2:path3:...
-    * \$HOME/.switcher/hooks/<language>.sh is imported if exists.
+    * Short name 'sw' is an alias to 'versionswitch'.
+    * It is allowed to set VERSIONSWITCH_PATH=path1:path2:path3:...
+    * \$HOME/.versionswitch/hooks/<language>.sh is imported if exists.
 END
             ;;
         -v|--version)
              echo $release
              ;;
-        ruby|rb)       _switcher ruby      ruby     "$version";;
-        python|py)     _switcher python    python   "$version";;
-        perl)          _switcher perl      perl     "$version";;
-        rubinius|rbx)  _switcher rubinius  rbx      "$version";;
-        gauche|gosh)   _switcher gauche    gosh     "$version";;
-        *)             _switcher $lang     $lang    "$version";;
+        ruby|rb)       _versionswitch ruby      ruby     "$version";;
+        python|py)     _versionswitch python    python   "$version";;
+        perl)          _versionswitch perl      perl     "$version";;
+        rubinius|rbx)  _versionswitch rubinius  rbx      "$version";;
+        gauche|gosh)   _versionswitch gauche    gosh     "$version";;
+        *)             _versionswitch $lang     $lang    "$version";;
     esac
 }
 
 
 ##
-_switcher () {
+_versionswitch () {
     local lang=$1
     local command=$2
     local version=$3
@@ -61,7 +61,7 @@ _switcher () {
     if [ -z "$lang" ]; then
         #echo "## language          # basedir"
         echo "## installed"
-        for dir in `echo $SWITCHER_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
+        for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
             for basedir in `echo $dir/*`; do
                 #if [ "$basedir" != "$dir/*" ]; then
                     list=`echo $basedir/*/bin`
@@ -76,15 +76,15 @@ _switcher () {
     fi
     ## check whether installed or not
     local basedir=''
-    #for dir in `echo $SWITCHER_PATH | sed 's/:/ /g'`; do
-    for dir in `echo $SWITCHER_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
+    #for dir in `echo $VERSIONSWITCH_PATH | sed 's/:/ /g'`; do
+    for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
         if [ -n "$dir" -a -d "$dir/$lang" ]; then
             basedir="$dir/$lang"
             break
         fi
     done
     if [ -z "$basedir" ]; then
-        echo "switcher: $lang is not installed."
+        echo "versionswitch: $lang is not installed."
         return 1
     fi
     ## list available versions if version is not specified
@@ -117,7 +117,7 @@ _switcher () {
         fi
     fi
     if [ -z "$bindir" -a "$version" != "-" ]; then
-        echo "switcher: $lang version $version is not installed."
+        echo "versionswitch: $lang version $version is not installed."
         return 1
     fi
     ## remove current bindir from $PATH
@@ -133,13 +133,13 @@ _switcher () {
         print path;
     }'`
     ## set $PATH
-    local prompt='$'  # or '[switcher]$'
+    local prompt='$'  # or '[versionswitch]$'
     [ -n "$bindir" ] && path=$bindir:$path
     echo "$prompt export PATH=$path"     ; export PATH=$path
     hash -r
     ## set or clear ${lang}root
     local rootvar="${lang}root"
-    #local vervar=`awk 'BEGIN{print toupper("SWITCHER_'$lang'_VERSION")}'`
+    #local vervar=`awk 'BEGIN{print toupper("VERSIONSWITCH_'$lang'_VERSION")}'`
     local vervar="${lang}version"
     if [ -n "$bindir" ]; then
         rootdir=`dirname $bindir`
@@ -153,10 +153,10 @@ _switcher () {
     ## show command path
     echo "$prompt which $command"          ; which $command
     ## import hook script if exists
-    local script="$HOME/.switcher/hooks/$lang.sh"
+    local script="$HOME/.versionswitch/hooks/$lang.sh"
     [ -f "$script" ] && . $script
 }
 
 
 ##
-alias sw=switcher
+alias sw=versionswitch
