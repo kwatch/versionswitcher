@@ -129,7 +129,7 @@ _versionswitch () {
     fi
     ## remove current bindir from $PATH
     #local path=`ruby -e "print ENV['PATH'].split(':').delete_if{|x|x=~%r'^$basedir/.*/bin'}.join(':')"`
-    local path=`echo $PATH | awk -F: '{
+    local newpath=`echo $PATH | awk -F: '{
         path = "";
         rexp = "^'$basedir'/";
         for (i = 1; i <= NF; i++) {
@@ -141,8 +141,8 @@ _versionswitch () {
     }'`
     ## set $PATH
     local prompt='$'  # or '[versionswitch]$'
-    [ -n "$bindir" ] && path=$bindir:$path
-    echo "$prompt export PATH=$path"     ; export PATH=$path
+    [ -n "$bindir" ] && newpath=$bindir:$newpath
+    echo "$prompt export PATH=$newpath"     ; export PATH=$newpath
     hash -r
     ## set or clear ${lang}root
     local rootvar="${lang}root"
