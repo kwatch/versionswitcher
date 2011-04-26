@@ -56,6 +56,11 @@ _versionswitch () {
     local lang=$1
     local command=$2
     local version=$3
+    ## exit if $VERSIONSWITCH_PATH is not set
+    if [ -z "$VERSIONSWITCH_PATH" ]; then
+        echo 'versionswitch: $VERSIONSWITCH_PATH is not set.'
+        return 1
+    fi
     ## show all language names if lang is not specified
     local dir
     local basedir
