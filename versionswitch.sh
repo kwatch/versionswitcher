@@ -39,8 +39,8 @@ tips:
 END
             ;;
         -v|--version)
-             echo $release
-             ;;
+            echo $release
+            ;;
         ruby|rb)       _versionswitch ruby      ruby     "$version";;
         python|py)     _versionswitch python    python   "$version";;
         perl)          _versionswitch perl      perl     "$version";;
