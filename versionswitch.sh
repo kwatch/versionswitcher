@@ -95,7 +95,6 @@ _versionswitch () {
         return 1
     fi
     ## list available versions if version is not specified
-    local dir
     local ver
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
