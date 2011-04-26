@@ -3,7 +3,7 @@
 ##
 ## installation:
 ##   $ echo '. /usr/local/bin/versionswitch.sh'
-##   $ sw --help
+##   $ vs --help
 ##
 
 
@@ -23,15 +23,15 @@ versionswitch - change version of language or application
 release: $release
 examples:
     $ VERSIONSWITCH_PATH=\$HOME/local/lang
-    $ sw foobar 1.2.3   # use \$HOME/local/lang/foobar/1.2.3
-    $ sw foobar 1.2     # use \$HOME/local/lang/foobar/1.2.x (ex. 1.2.8)
-    $ sw foobar latest  # use latest version under \$HOME/local/lang/foobar
-    $ sw foobar -       # use system-installed (ex. /usr/bin/foobar)
-    $ sw foobar         # show installed versions of foobar
-    $ sw                # show installed languages
+    $ vs foobar 1.2.3   # use \$HOME/local/lang/foobar/1.2.3
+    $ vs foobar 1.2     # use \$HOME/local/lang/foobar/1.2.x (ex. 1.2.8)
+    $ vs foobar latest  # use latest version under \$HOME/local/lang/foobar
+    $ vs foobar -       # use system-installed (ex. /usr/bin/foobar)
+    $ vs foobar         # show installed versions of foobar
+    $ vs                # show installed languages
 
 tips:
-    * Short name 'sw' is an alias to 'versionswitch'.
+    * Short name 'vs' is an alias to 'versionswitch'.
     * It is allowed to set VERSIONSWITCH_PATH=path1:path2:path3:...
     * \$HOME/.versionswitch/hooks/<language>.sh is imported if exists.
 END
@@ -159,4 +159,4 @@ _versionswitch () {
 
 
 ##
-alias sw=versionswitch
+alias vs=versionswitch
