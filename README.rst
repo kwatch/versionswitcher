@@ -2,9 +2,9 @@
 README
 ======
 
-$Release: 0.1.0 $
-$Copyright: copyright(c) 2011 kuwata-lab.com all rights reserved $
-$License: Public Domain $
+* $Release: 0.1.0 $
+* $Copyright: copyright(c) 2011 kuwata-lab.com all rights reserved $
+* $License: Public Domain $
 
 
 About VersionSwitcher
