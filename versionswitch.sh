@@ -4,21 +4,21 @@
 ### $License: Public Domain $
 ###
 
-##
-## versionswitch.sh -- switch version of language or application
-##
-## setup:
-##   $ VERSIONSWITCH_PATH=$HOME/lang
-##   $ . /some/where/to/versionswitch.sh'
-##   $ vs --help
-##
+###
+### versionswitch.sh -- switch version of language or application
+###
+### setup:
+###   $ VERSIONSWITCH_PATH=$HOME/lang
+###   $ . /some/where/to/versionswitch.sh'
+###   $ vs --help
+###
 
 
-##
+###
 #[ -z "$VERSIONSWITCH_PATH" ] && VERSIONSWITCH_PATH=$HOME/local/lang
 
 
-##
+###
 versionswitch () {
     local lang=$1
     local version=$2
@@ -57,7 +57,7 @@ END
 }
 
 
-##
+###
 __vs_glob() {
     local pattern=$1
     local filenames
@@ -71,7 +71,7 @@ __vs_glob() {
     fi
 }
 
-##
+###
 __vs_switch() {
     local lang=$1
     local command=$2
@@ -178,5 +178,5 @@ __vs_switch() {
 }
 
 
-##
+###
 alias vs=versionswitch
