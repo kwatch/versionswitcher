@@ -52,6 +52,20 @@ END
 
 
 ##
+__vs_glob() {
+    local pattern=$1
+    local filenames
+    if [ -n "$BASH_VERSIONK" ]; then           # for bash
+        (shopt -s nullglob; echo $pattern)
+    elif [ -n "$ZSH_VERSION" ]; then           # for zsh
+        (setopt nonomatch; setopt nullglob; eval echo $pattern)
+    else                                       # other
+        filenames=`echo $pattern`
+        [ "$filenames" == "$pattern" ] || echo $filenames
+    fi
+}
+
+##
 _versionswitch () {
     local lang=$1
     local command=$2
@@ -69,16 +83,12 @@ _versionswitch () {
         #echo "## language          # basedir"
         echo "## installed"
         for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
-            for basedir in `echo $dir/*`; do                          # bash
-            #for basedir in `(setopt nonomatch; echo $dir/*)`; do     # zsh
-                #if [ "$basedir" != "$dir/*" ]; then
-                    list=`echo $basedir/*/bin`                        # bash
-                    #list=`(setopt nonomatch; echo $basedir/*/bin)`   # zsh
-                    if [ "$list" != "$basedir/*/bin" ]; then
-                        lang=`basename $basedir`
-                        printf "%-20s # %s\n" $lang $basedir
-                    fi
-                #fi
+            for basedir in `__vs_glob "$dir/*"`; do
+                list=`__vs_glob "$basedir/*/bin"`
+                if [ -n "$list" ]; then
+                    lang=`basename $basedir`
+                    printf "%-20s # %s\n" $lang $basedir
+                fi
             done
         done | sort
         return 0
@@ -101,11 +111,8 @@ _versionswitch () {
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
         echo "## versions:"
-        for dir in `echo $basedir/*/bin`; do                          # bash
-        #for dir in `(setopt nonomatch; echo $basedir/*/bin)`; do     # zsh
-            dir=`dirname $dir`
-            ver=`basename $dir`
-            [ "$ver" != '*' ] && echo $ver
+        for dir in `__vs_glob "$basedir/*/bin"`; do
+            basename `dirname $dir`
         done
         return 0
     fi
@@ -114,17 +121,11 @@ _versionswitch () {
     if [ "$version" = "-" ]; then
         bindir=""
     elif [ "$version" = "latest" ]; then
-        #bindir=`/bin/ls -d $basedir/*/bin 2>/dev/null | /usr/bin/tail -1`
-        bindir=`echo $basedir/*/bin | awk '{print $NF}'`                       # bash
-        #bindir=`(setopt nonomatch; echo $basedir/*/bin) | awk '{print $NF}'`  # zsh
-        [ "$bindir" = "$basedir/*/bin" ] && bindir=""
+        bindir=`__vs_glob "$basedir/*/bin"`
     else
         bindir="$basedir/$version/bin"
-        #[ -d "$bindir" ] || bindir=`/bin/ls -d $basedir/$version*/bin | /usr/bin/tail -1`
         if ! [ -d "$bindir" ]; then
-            bindir=`echo $basedir/$version*/bin | awk '{print $NF}'`                       # bash
-            #bindir=`(setopt nonomatch; echo $basedir/$version*/bin) | awk '{print $NF}'`  # zsh
-            [ "$bindir" = "$basedir/$version*/bin" ] && bindir=""
+            bindir=`__vs_glob "$basedir/$version*/bin" | awk '{print $NF}'`
         fi
     fi
     if [ -z "$bindir" -a "$version" != "-" ]; then
