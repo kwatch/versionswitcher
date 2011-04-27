@@ -82,7 +82,7 @@ _versionswitch () {
     if [ -z "$lang" ]; then
         #echo "## language          # basedir"
         echo "## installed"
-        for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
+        for dir in `echo $VERSIONSWITCH_PATH | tr ':' ' '`; do
             for basedir in `__vs_glob "$dir/*"`; do
                 list=`__vs_glob "$basedir/*/bin"`
                 if [ -n "$list" ]; then
@@ -95,8 +95,7 @@ _versionswitch () {
     fi
     ## check whether installed or not
     local basedir=''
-    #for dir in `echo $VERSIONSWITCH_PATH | sed 's/:/ /g'`; do
-    for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
+    for dir in `echo $VERSIONSWITCH_PATH | tr ':' ' '`; do
         if [ -n "$dir" -a -d "$dir/$lang" ]; then
             basedir="$dir/$lang"
             break
