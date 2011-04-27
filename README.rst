@@ -16,6 +16,7 @@ variable, therefore it doesn't depend on a certain programming language
 or application.
 
 Features:
+
 * Switch language version by modifying $PATH environment variable.
 * Supports any programming languages such as Ruby, Python, Node.js, and
   so on (you don't have to change switcher tool for each language).
@@ -43,13 +44,14 @@ Installation
 
 1. Download 'versionswitcher.sh'
 2. Import it.
-3. set $VERSIONSWITCHER_PATH.
+3. Set shell variable $VERSIONSWITCHER_PATH.
 
 An example to install::
 
     $ mkdir ~/lib
     $ cd ~/lib
-    $ wget https://github.com/kwatch/versionswitcher/master/versionswitcher.sh
+    $ url=http://github.com/kwatch/versionswitcher/raw/master
+    $ wget --no-check-certificate $url/versionswitcher.sh
     $ . versionswitcher.sh
     $ VERSIONSWITCHER_PATH=$HOME/lang
     $ vs -h         # show help
