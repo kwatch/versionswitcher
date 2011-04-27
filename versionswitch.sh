@@ -18,8 +18,8 @@ versionswitch () {
     local version=$2
     local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
     case $lang in
-        -h|--help)
-            cat <<END
+    -h|--help)
+        cat <<END
 versionswitch - change version of language or application
 release: $release
 examples:
@@ -37,16 +37,16 @@ tips:
     * It is allowed to set VERSIONSWITCH_PATH=path1:path2:path3:...
     * \$HOME/.versionswitch/hooks/<language>.sh is imported if exists.
 END
-            ;;
-        -v|--version)
-            echo $release
-            ;;
-        ruby|rb)       _versionswitch ruby      ruby     "$version";;
-        python|py)     _versionswitch python    python   "$version";;
-        perl)          _versionswitch perl      perl     "$version";;
-        rubinius|rbx)  _versionswitch rubinius  rbx      "$version";;
-        gauche|gosh)   _versionswitch gauche    gosh     "$version";;
-        *)             _versionswitch $lang     $lang    "$version";;
+        ;;
+    -v|--version)
+        echo $release
+        ;;
+    ruby|rb)       _versionswitch ruby      ruby     "$version";;
+    python|py)     _versionswitch python    python   "$version";;
+    perl)          _versionswitch perl      perl     "$version";;
+    rubinius|rbx)  _versionswitch rubinius  rbx      "$version";;
+    gauche|gosh)   _versionswitch gauche    gosh     "$version";;
+    *)             _versionswitch $lang     $lang    "$version";;
     esac
 }
 
@@ -132,20 +132,23 @@ _versionswitch () {
         return 1
     fi
     ## remove current bindir from $PATH
-    #local path=`ruby -e "print ENV['PATH'].split(':').delete_if{|x|x=~%r'^$basedir/.*/bin'}.join(':')"`
-    local newpath=`echo $PATH | awk -F: '{
-        path = "";
-        rexp = "^'$basedir'/";
-        for (i = 1; i <= NF; i++) {
-            if (! match($i, rexp)) {
-                path = path ? path ":" $i : $i;
-            }
-        }
-        print path;
-    }'`
+    #local newpath=`ruby -e "print ENV['PATH'].split(':').delete_if{|x|x=~%r'^$basedir/.*/bin'}.join(':')"`
+    local newpath=$bindir
+    for dir in `echo $PATH | tr ':' ' '`; do
+        case $dir in
+        $basedir/*/bin*)
+            ;;
+        *)
+            if [ -z "$newpath" ]; then
+                newpath=$dir
+            else
+                newpath=$newpath:$dir
+            fi
+            ;;
+        esac
+    done
     ## set $PATH
     local prompt='$'  # or '[versionswitch]$'
-    [ -n "$bindir" ] && newpath=$bindir:$newpath
     echo "$prompt export PATH=$newpath"     ; export PATH=$newpath
     hash -r
     ## set or clear ${lang}root
