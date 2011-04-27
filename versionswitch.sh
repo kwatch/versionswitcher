@@ -15,7 +15,7 @@
 
 
 ###
-#[ -z "$VERSIONSWITCH_PATH" ] && VERSIONSWITCH_PATH=$HOME/local/lang
+[ -z "$VERSIONSWITCH_PATH" -a -d $HOME/lang ] && VERSIONSWITCH_PATH=$HOME/lang
 
 
 ###
