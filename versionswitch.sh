@@ -41,12 +41,12 @@ END
     -v|--version)
         echo $release
         ;;
-    ruby|rb)       _versionswitch ruby      ruby     "$version";;
-    python|py)     _versionswitch python    python   "$version";;
-    perl)          _versionswitch perl      perl     "$version";;
-    rubinius|rbx)  _versionswitch rubinius  rbx      "$version";;
-    gauche|gosh)   _versionswitch gauche    gosh     "$version";;
-    *)             _versionswitch $lang     $lang    "$version";;
+    ruby|rb)       __vs_switch ruby      ruby     "$version";;
+    python|py)     __vs_switch python    python   "$version";;
+    perl)          __vs_switch perl      perl     "$version";;
+    rubinius|rbx)  __vs_switch rubinius  rbx      "$version";;
+    gauche|gosh)   __vs_switch gauche    gosh     "$version";;
+    *)             __vs_switch $lang     $lang    "$version";;
     esac
 }
 
@@ -66,7 +66,7 @@ __vs_glob() {
 }
 
 ##
-_versionswitch () {
+__vs_switch() {
     local lang=$1
     local command=$2
     local version=$3
