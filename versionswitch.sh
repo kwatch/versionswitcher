@@ -69,9 +69,11 @@ _versionswitch () {
         #echo "## language          # basedir"
         echo "## installed"
         for dir in `echo $VERSIONSWITCH_PATH | awk -F: '{for(i=1;i<=NF;i++){print $i}}'`; do
-            for basedir in `echo $dir/*`; do
+            #for basedir in `echo $dir/*`; do                         # bash
+            for basedir in `(setopt nonomatch; echo $dir/*)`; do      # zsh
                 #if [ "$basedir" != "$dir/*" ]; then
-                    list=`echo $basedir/*/bin`
+                    #list=`echo $basedir/*/bin`                       # bash
+                    list=`(setopt nonomatch; echo $basedir/*/bin)`    # zsh
                     if [ "$list" != "$basedir/*/bin" ]; then
                         lang=`basename $basedir`
                         printf "%-20s # %s\n" $lang $basedir
@@ -99,7 +101,8 @@ _versionswitch () {
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
         echo "## versions:"
-        for dir in `echo $basedir/*/bin`; do
+        #for dir in `echo $basedir/*/bin`; do                         # bash
+        for dir in `(setopt nonomatch; echo $basedir/*/bin)`; do      # zsh
             dir=`dirname $dir`
             ver=`basename $dir`
             [ "$ver" != '*' ] && echo $ver
@@ -112,13 +115,15 @@ _versionswitch () {
         bindir=""
     elif [ "$version" = "latest" ]; then
         #bindir=`/bin/ls -d $basedir/*/bin 2>/dev/null | /usr/bin/tail -1`
-        bindir=`echo $basedir/*/bin | awk '{print $NF}'`
+        #bindir=`echo $basedir/*/bin | awk '{print $NF}'`                    # bash
+        bindir=`(setopt nonomatch; echo $basedir/*/bin) | awk '{print $NF}'` # zsh
         [ "$bindir" = "$basedir/*/bin" ] && bindir=""
     else
         bindir="$basedir/$version/bin"
         #[ -d "$bindir" ] || bindir=`/bin/ls -d $basedir/$version*/bin | /usr/bin/tail -1`
         if ! [ -d "$bindir" ]; then
-            bindir=`echo $basedir/$version*/bin | awk '{print $NF}'`
+            #bindir=`echo $basedir/$version*/bin | awk '{print $NF}'`                     # bash
+            bindir=`(setopt nonomatch; echo $basedir/$version*/bin) | awk '{print $NF}'`  # zsh
             [ "$bindir" = "$basedir/$version*/bin" ] && bindir=""
         fi
     fi
