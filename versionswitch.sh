@@ -58,7 +58,7 @@ _versionswitch () {
     local version=$3
     ## exit if $VERSIONSWITCH_PATH is not set
     if [ -z "$VERSIONSWITCH_PATH" ]; then
-        echo 'versionswitch: $VERSIONSWITCH_PATH is not set.'
+        echo 'versionswitch: $VERSIONSWITCH_PATH is not set.' 2>&1
         return 1
     fi
     ## show all language names if lang is not specified
@@ -91,7 +91,7 @@ _versionswitch () {
         fi
     done
     if [ -z "$basedir" ]; then
-        echo "versionswitch: $lang is not installed."
+        echo "versionswitch: $lang is not installed." 2>&1
         return 1
     fi
     ## list available versions if version is not specified
@@ -123,7 +123,7 @@ _versionswitch () {
         fi
     fi
     if [ -z "$bindir" -a "$version" != "-" ]; then
-        echo "versionswitch: $lang version $version is not installed."
+        echo "versionswitch: $lang version $version is not installed." 2>&1
         return 1
     fi
     ## remove current bindir from $PATH
