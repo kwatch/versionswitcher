@@ -31,11 +31,11 @@ release: $release
 examples:
     $ VERSIONSWITCHER_PATH=\$HOME/lang
     $ vs -h             # show help
-    $ vs foobar 1.2.3   # use \$HOME/lang/foobar/1.2.3
-    $ vs foobar 1.2     # use \$HOME/lang/foobar/1.2.x (ex. 1.2.8)
-    $ vs foobar latest  # use latest version under \$HOME/lang/foobar
-    $ vs foobar -       # use system-installed one (ex. /usr/bin/foobar)
-    $ vs foobar         # show installed versions of foobar
+    $ vs python 2.6.6   # use \$HOME/lang/python/2.6.6
+    $ vs python 2       # use \$HOME/lang/python/2.x.x (ex. 2.7.1)
+    $ vs python latest  # use latest version under \$HOME/lang/python
+    $ vs python -       # use system-installed one (ex. /usr/bin/python)
+    $ vs python         # show installed versions of python
     $ vs                # show installed languages
 
 tips:
