@@ -5,31 +5,31 @@
 ###
 
 ###
-### versionswitch.sh -- switch version of language or application
+### versionswitcher.sh -- switch version of language or application
 ###
 ### setup:
-###   $ VERSIONSWITCH_PATH=$HOME/lang
-###   $ . /some/where/to/versionswitch.sh'
+###   $ VERSIONSWITCHER_PATH=$HOME/lang
+###   $ . /some/where/to/versionswitcher.sh'
 ###   $ vs --help
 ###
 
 
 ###
-[ -z "$VERSIONSWITCH_PATH" -a -d $HOME/lang ] && VERSIONSWITCH_PATH=$HOME/lang
+[ -z "$VERSIONSWITCHER_PATH" -a -d $HOME/lang ] && VERSIONSWITCHER_PATH=$HOME/lang
 
 
 ###
-versionswitch () {
+versionswitcher() {
     local lang=$1
     local version=$2
     local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
     case $lang in
     -h|--help)
         cat <<END
-versionswitch - change version of language or application
+versionswitcher - change version of language or application
 release: $release
 examples:
-    $ VERSIONSWITCH_PATH=\$HOME/lang
+    $ VERSIONSWITCHER_PATH=\$HOME/lang
     $ vs -h             # show help
     $ vs foobar 1.2.3   # use \$HOME/lang/foobar/1.2.3
     $ vs foobar 1.2     # use \$HOME/lang/foobar/1.2.x (ex. 1.2.8)
@@ -39,9 +39,9 @@ examples:
     $ vs                # show installed languages
 
 tips:
-    * Short name 'vs' is an alias to 'versionswitch'.
-    * It is allowed to set VERSIONSWITCH_PATH=path1:path2:path3:...
-    * \$HOME/.versionswitch/hooks/<language>.sh is imported if exists.
+    * Short name 'vs' is an alias to 'versionswitcher'.
+    * It is allowed to set VERSIONSWITCHER_PATH=path1:path2:path3:...
+    * \$HOME/.versionswitcher/hooks/<language>.sh is imported if exists.
 END
         ;;
     -v|--version)
@@ -76,9 +76,9 @@ __vs_switch() {
     local lang=$1
     local command=$2
     local version=$3
-    ## exit if $VERSIONSWITCH_PATH is not set
-    if [ -z "$VERSIONSWITCH_PATH" ]; then
-        echo 'versionswitch: $VERSIONSWITCH_PATH is not set.' 2>&1
+    ## exit if $VERSIONSWITCHER_PATH is not set
+    if [ -z "$VERSIONSWITCHER_PATH" ]; then
+        echo 'versionswitcher: $VERSIONSWITCHER_PATH is not set.' 2>&1
         return 1
     fi
     ## show all language names if lang is not specified
@@ -88,7 +88,7 @@ __vs_switch() {
     if [ -z "$lang" ]; then
         #echo "## language          # basedir"
         echo "## installed"
-        for dir in `echo $VERSIONSWITCH_PATH | tr ':' ' '`; do
+        for dir in `echo $VERSIONSWITCHER_PATH | tr ':' ' '`; do
             for basedir in `__vs_glob "$dir/*"`; do
                 list=`__vs_glob "$basedir/*/bin"`
                 if [ -n "$list" ]; then
@@ -101,14 +101,14 @@ __vs_switch() {
     fi
     ## check whether installed or not
     local basedir=''
-    for dir in `echo $VERSIONSWITCH_PATH | tr ':' ' '`; do
+    for dir in `echo $VERSIONSWITCHER_PATH | tr ':' ' '`; do
         if [ -n "$dir" -a -d "$dir/$lang" ]; then
             basedir="$dir/$lang"
             break
         fi
     done
     if [ -z "$basedir" ]; then
-        echo "versionswitch: $lang is not installed." 2>&1
+        echo "versionswitcher: $lang is not installed." 2>&1
         return 1
     fi
     ## list available versions if version is not specified
@@ -134,7 +134,7 @@ __vs_switch() {
         fi
     fi
     if [ -z "$bindir" -a "$version" != "-" ]; then
-        echo "versionswitch: $lang version $version is not installed." 2>&1
+        echo "versionswitcher: $lang version $version is not installed." 2>&1
         return 1
     fi
     ## remove current bindir from $PATH
@@ -154,12 +154,12 @@ __vs_switch() {
         esac
     done
     ## set $PATH
-    local prompt='$'  # or '[versionswitch]$'
+    local prompt='$'  # or '[versionswitcher]$'
     echo "$prompt export PATH=$newpath"     ; export PATH=$newpath
     hash -r
     ## set or clear ${lang}root
     local rootvar="${lang}root"
-    #local vervar=`awk 'BEGIN{print toupper("VERSIONSWITCH_'$lang'_VERSION")}'`
+    #local vervar=`awk 'BEGIN{print toupper("VERSIONSWITCHER_'$lang'_VERSION")}'`
     local vervar="${lang}version"
     if [ -n "$bindir" ]; then
         rootdir=`dirname $bindir`
@@ -173,10 +173,10 @@ __vs_switch() {
     ## show command path
     echo "$prompt which $command"          ; which $command
     ## import hook script if exists
-    local script="$HOME/.versionswitch/hooks/$lang.sh"
+    local script="$HOME/.versionswitcher/hooks/$lang.sh"
     [ -f "$script" ] && . $script
 }
 
 
 ###
-alias vs=versionswitch
+alias vs=versionswitcher
