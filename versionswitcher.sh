@@ -19,12 +19,7 @@
 
 
 ###
-versionswitcher() {
-    local lang=$1
-    local version=$2
-    local release=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
-    case $lang in
-    -h|--help)
+__vs_help_message() {
         cat <<END
 versionswitcher - change version of language or application
 release: $release
@@ -43,6 +38,17 @@ tips:
     * It is allowed to set VERSIONSWITCHER_PATH=path1:path2:path3:...
     * \$HOME/.versionswitcher/hooks/<language>.sh is imported if exists.
 END
+}
+
+
+###
+versionswitcher() {
+    local lang=$1
+    local version=$2
+    local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
+    case $lang in
+    -h|--help)
+        __vs_help_message
         ;;
     -v|--version)
         echo $release
