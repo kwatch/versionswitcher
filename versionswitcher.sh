@@ -86,6 +86,31 @@ __vs_glob() {
     fi
 }
 
+
+###
+__vs_versions() {
+    local basedir=$1
+    local version=$2
+    __vs_glob "$basedir/$version*/bin" | awk '{
+      for (i=1; i<=NF; i++) {
+        binpath = $i;
+        split(binpath, arr, "/");
+        version = arr[length(arr)-1];
+        split(version, nums, /[^0-9]+/);
+        key = "";
+        len = length(nums);
+        for (j=1; j<=len; j++) {
+          if (length(nums[j]) > 0) {
+            key = key sprintf("%010d", nums[j]) "_";
+          }
+        }
+        if (len == 0) { key = version }
+        print key, version;
+      }
+    }' | sort | awk '{print $2}'
+}
+
+
 ###
 __vs_switch() {
     local lang=$1
