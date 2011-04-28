@@ -125,10 +125,7 @@ __vs_switch() {
     local command=$2
     local version=$3
     ## exit if $VERSIONSWITCHER_PATH is not set
-    if [ -z "$VERSIONSWITCHER_PATH" ]; then
-        echo 'versionswitcher: $VERSIONSWITCHER_PATH is not set.' 2>&1
-        return 1
-    fi
+    [ -n "$VERSIONSWITCHER_PATH" ] || __vs_error '$VERSIONSWITCHER_PATH is not set.' || return 1
     ## show all language names if lang is not specified
     local dir
     local basedir
@@ -155,10 +152,7 @@ __vs_switch() {
             break
         fi
     done
-    if [ -z "$basedir" ]; then
-        echo "versionswitcher: $lang is not installed." 2>&1
-        return 1
-    fi
+    [ -n "$basedir" ] || __vs_error "$lang is not installed." || return 1
     ## list available versions if version is not specified
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
@@ -183,10 +177,7 @@ __vs_switch() {
             [ -n "$ver" ] && bindir="$basedir/$ver/bin"
         fi
     fi
-    if [ -z "$bindir" -a "$version" != "-" ]; then
-        echo "versionswitcher: $lang version $version is not installed." 2>&1
-        return 1
-    fi
+    [ -n "$bindir" -o "$version" = "-" ] || __vs_error "$lang version $version is not installed." || return 1
     ## remove current bindir from $PATH
     #local newpath=`ruby -e "print ENV['PATH'].split(':').delete_if{|x|x=~%r'^$basedir/.*/bin'}.join(':')"`
     local newpath=$bindir
