@@ -111,6 +111,14 @@ __vs_versions() {
 }
 
 
+##
+__vs_error() {
+    local msg=$1
+    echo "versionswitcher: $msg" 2>&1
+    return 1
+}
+
+
 ###
 __vs_switch() {
     local lang=$1
