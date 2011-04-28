@@ -197,7 +197,7 @@ __vs_switch() {
     done
     ## set $PATH
     local prompt='$'  # or '[versionswitcher]$'
-    echo "$prompt export PATH=$newpath"     ; export PATH=$newpath
+    echo "$prompt export PATH=$newpath"    ; export PATH=$newpath
     hash -r
     ## set or clear ${lang}root
     local rootvar="${lang}root"
