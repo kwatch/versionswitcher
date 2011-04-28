@@ -61,7 +61,7 @@ END
 __vs_glob() {
     local pattern=$1
     local filenames
-    if [ -n "$BASH_VERSIONK" ]; then           # for bash
+    if [ -n "$BASH_VERSION" ]; then            # for bash
         (shopt -s nullglob; echo $pattern)
     elif [ -n "$ZSH_VERSION" ]; then           # for zsh
         (setopt nonomatch; setopt nullglob; eval echo $pattern)
