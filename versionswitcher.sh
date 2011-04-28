@@ -43,22 +43,28 @@ END
 
 ###
 versionswitcher() {
-    local lang=$1
-    local version=$2
+    local lang
+    local version
     local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
-    case $lang in
+    case $1 in
     -h|--help)
         __vs_help_message
         ;;
     -v|--version)
         echo $release
         ;;
-    ruby|rb)       __vs_switch ruby      ruby     "$version";;
-    python|py)     __vs_switch python    python   "$version";;
-    perl)          __vs_switch perl      perl     "$version";;
-    rubinius|rbx)  __vs_switch rubinius  rbx      "$version";;
-    gauche|gosh)   __vs_switch gauche    gosh     "$version";;
-    *)             __vs_switch $lang     $lang    "$version";;
+    *)
+        lang=$1
+        version=$2
+        case $lang in
+        ruby|rb)       __vs_switch ruby      ruby     "$version";;
+        python|py)     __vs_switch python    python   "$version";;
+        perl)          __vs_switch perl      perl     "$version";;
+        rubinius|rbx)  __vs_switch rubinius  rbx      "$version";;
+        gauche|gosh)   __vs_switch gauche    gosh     "$version";;
+        *)             __vs_switch $lang     $lang    "$version";;
+        esac
+        ;;
     esac
 }
 
