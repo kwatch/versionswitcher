@@ -53,6 +53,9 @@ versionswitcher() {
     -v|--version)
         echo $release
         ;;
+    -*)
+        echo "versionswitcher: $1: unknown option." 2>&1
+        ;;
     *)
         lang=$1
         version=$2
