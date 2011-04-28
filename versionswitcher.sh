@@ -152,13 +152,10 @@ __vs_switch() {
         return 1
     fi
     ## list available versions if version is not specified
-    local ver
     if [ -z "$version" ]; then
         echo "## basedir: $basedir"
         echo "## versions:"
-        for dir in `__vs_glob "$basedir/*/bin"`; do
-            basename `dirname $dir`
-        done
+        __vs_versions "$basedir"
         return 0
     fi
     ## find 'bin' directory
