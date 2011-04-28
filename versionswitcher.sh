@@ -160,14 +160,19 @@ __vs_switch() {
     fi
     ## find 'bin' directory
     local bindir
+    local ver
     if [ "$version" = "-" ]; then
         bindir=""
     elif [ "$version" = "latest" ]; then
-        bindir=`__vs_glob "$basedir/*/bin"`
+        ver=`__vs_versions "$basedir" | tail -1`
+        bindir=""
+        [ -n "$ver" ] && bindir="$basedir/$ver/bin"
     else
         bindir="$basedir/$version/bin"
         if ! [ -d "$bindir" ]; then
-            bindir=`__vs_glob "$basedir/$version*/bin" | awk '{print $NF}'`
+            ver=`__vs_versions "$basedir" "$version" | tail -1`
+            bindir=""
+            [ -n "$ver" ] && bindir="$basedir/$ver/bin"
         fi
     fi
     if [ -z "$bindir" -a "$version" != "-" ]; then
