@@ -2,7 +2,7 @@
 README
 ======
 
-:Release:    0.0.0
+:Release:    0.1.1
 :Copyright:  copyright(c) 2011 kuwata-lab.com all rights reserved
 :License:    Public Domain
 
@@ -163,6 +163,9 @@ Tips
 
 Changes
 =======
+
+Relesae 0.1.1 (2011-04-28)
+    * Fix a typo
 
 Release 0.1.0 (2011-04-27)
     * Public release
