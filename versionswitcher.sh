@@ -53,6 +53,10 @@ versionswitcher() {
     -v|--version)
         echo $release
         ;;
+    -i|--install)
+        lang=$2; version=$3
+        __vs_install "$lang" "$version"
+        ;;
     -*)
         echo "versionswitcher: $1: unknown option." 2>&1
         ;;
@@ -216,6 +220,99 @@ __vs_switch() {
     ## import hook script if exists
     local script="$HOME/.versionswitcher/hooks/$lang.sh"
     [ -f "$script" ] && . $script
+}
+
+
+###
+__vs_download() {
+    local filename=$1
+    local url="http://versionswitcher.appspot.com/$filename"
+    if [ -n "$VS_DEBUG" ]; then
+        url="http://localhost:8080/$filename"
+    fi
+    local vs_home="$HOME/.versionswitcher"
+    local dir=`dirname $filename`
+    [ "$dir" = "." ] && dir=""
+    if [ -n "$dir" -a ! -d "$vs_home/$dir" ]; then
+        mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
+    fi
+    (cd $vs_home/$dir; wget -Nq $url) || __vs_error "Failed: wget -Nq $url" || return 1
+    echo $vs_home/$filename
+}
+
+
+###
+__vs_install() {
+    local lang=$1
+    local version=$2
+    local filepath
+    local prompt='**'
+    ## list all languages when lang is not specified
+    if [ -z "$lang" ]; then
+        filepath=`__vs_download versions/INDEX.txt`
+        [ -f "$filepath" ] || __vs_error "INDEX.txt: not found." || return 1
+        echo "## try 'vs --install LANG' where LANG is one of:"
+        cat $filepath
+        return 0
+    fi
+    ## find version file
+    filepath=`__vs_download versions/${lang}.txt`
+    [ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
+    ## show all versions when version is not specified
+    if [ -z "$version" ]; then
+        echo "## try 'vs --install $lang VERSION' where VERSION is one of:"
+        cat $filepath
+        return 0
+    fi
+    ## detect latest version when 'latest' is specified
+    local input
+    local found=""
+    local ver
+    if [ "$version" = "latest" ]; then
+        version=`awk 'NR==1{print $1}' "$filepath"`
+        [ -n "$version" ] || __vs_error "failed to detect latest version." || return 1
+        echo "$prompt latest version is $version"
+    ## verify version
+    else
+        for ver in `cat $filepath`; do
+            [ "$ver" = "$version" ] && found=true
+        done
+        if [ -z "$found" ]; then
+            echo -n "$prompt Are you really to install $lang $version? [y/N]: "
+            read input
+            [ -z "$input" ] && input="n"
+            case $input in
+            y*|Y*)  ;;
+            *)      return 1;;
+            esac
+        fi
+    fi
+    ## find installer script file
+    local script_file=`__vs_download scripts/vs_install_${lang}.sh`
+    [ -f "$script_file" ] || __vs_error "$lang is not supported to install." || return 1
+    ## confirm PREFIX directory
+    [ -n "$VERSIONSWITCHER_PATH" ] || __vs_error "Set \$VERSIONSWITCHER_PATH before installation." || return 1
+    local inst_dir=`echo $VERSIONSWITCHER_PATH | awk -F: '{print $1}'`
+    local prefix="$inst_dir/$lang/$version"
+    echo -n "$prompt Install into '$prefix'. OK? [Y/n]: "
+    read input
+    [ -z "$input" ] && input="y"
+    case "$input" in
+    y*|Y*)
+        ;;
+    *)
+        echo -n "$prompt Enter direcotry (full path): "
+        read prefix
+        [ -n "$prefix" ] || __vs_error "Install path is not entered." || return 1
+        ;;
+    esac
+    ## invoke installer script
+    local shell=$SHELL
+    [ -z "$shell" ] && shell="/bin/sh"
+    $shell "$script_file" "$version" "$prefix" || __vs_error "Failed to install." || return 1
+    ## switch to it
+    echo
+    echo "$prompt vs $lang $version"  ; versionswitcher $lang $version
 }
 
 
