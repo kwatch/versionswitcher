@@ -30,7 +30,7 @@ Modified by kuwata-lab.com
     <?py for fname in js_files: ?>
     <script language="javascript" type="text/javascript" src="/js/${fname}"></script>
     <?py #endfor ?>
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
   </head>
   <body>
     <div id="wrapper">

@@ -10,6 +10,11 @@ handlers:
     static_dir: static/js
   - url: /img
     static_dir: static/img
+  - url: /favicon.ico
+    static_files: static/img/favicon.ico
+    upload: static/img/favicon.ico
+    mime_type: image/x-icon
+    #mime_type: image/vnd.microsoft.icon
   - url: /versionswitcher\.sh
     static_files: static/versionswitcher.sh
     upload: static/versionswitcher\.sh
