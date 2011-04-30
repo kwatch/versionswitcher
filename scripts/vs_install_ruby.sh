@@ -80,7 +80,7 @@ _install_ruby() {
             echo "$prompt RubyGems installed successfully."
             ;;
         *)
-            echo "$prompt skip to install RubyGems"
+            echo "$prompt Skip to install RubyGems"
             ;;
         esac
         ;;
