@@ -17,6 +17,22 @@ _install_ruby() {
     local prefix=$2
     local lang='ruby'
     local prompt="**"
+    ## confirm configure option
+    local input
+    local configure="./configure --prefix=$prefix"
+    echo -n "$prompt Configure is '$configure'. OK? [Y/n]: "
+    read input;  [ -z "$input" ] && input="y"
+    case "$input" in
+    y*|Y*) ;;
+    *)
+        echo -n "$prompt Enter configure command: "
+        read configure
+        if [ -z "$configure"]; then
+            echo "$prompt ERROR: configure command is not entered." >&1
+            return 1
+        fi
+        ;;
+    esac
     ## donwload, compile and install
     local ver
     case $version in
@@ -29,7 +45,7 @@ _install_ruby() {
     _cmd "rm -rf $base"
     _cmd "tar xjf $base.tar.bz2"
     _cmd "cd $base/"
-    _cmd "time ./configure --prefix=$prefix"
+    _cmd "time $configure"
     _cmd "time make"
     _cmd "time make install"
     _cmd "cd .."
@@ -43,7 +59,6 @@ _install_ruby() {
         return 1
     fi
     ## install or update RubyGems
-    local input
     case "$version" in
     1.8*)
         echo
