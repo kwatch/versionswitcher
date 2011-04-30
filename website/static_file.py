@@ -65,7 +65,6 @@ class StaticFileHandler(webapp.RequestHandler):
                 return
             filepath += 'index.html'
         ## get content
-        sys.stderr.write("\033[0;31m*** debug: filepath=%r\033[0m\n" % (filepath, ))
         if os.path.exists(filepath):
             content = self._read_content(filepath)
         else:
