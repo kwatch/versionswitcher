@@ -1,0 +1,10 @@
+*~
+*.pyc
+*.rbc
+*.cache
+*.DS_Store
+__pycache__/*
+misc/*
+tmp/*
+.hg/*
+.hgigore
