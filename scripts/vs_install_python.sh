@@ -146,7 +146,7 @@ _install_python() {
     ## install 'readline' package (for Mac OS X)
     if [ -n "$readline_required" -a -n "$easy_install_path" ]; then
         echo
-        echo -n "$prompt Install 'readline' package? (recommended) [Y/n]: "
+        echo -n "$prompt Install 'readline' package? (recommended for Mac OS X) [Y/n]: "
         read input;  [ -z "$input"] && input="y"
         case "$input" in
         y*|Y*)
