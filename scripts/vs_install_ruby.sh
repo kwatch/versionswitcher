@@ -33,6 +33,15 @@ _install_ruby() {
         fi
         ;;
     esac
+    ## *.tar.bz2 is provided since 1.8.5-p52
+    local ext='tar.bz2'
+    local tar='tar xjf'
+    case $version in
+    1.8.[0-5]*)
+        ext='tar.gz'
+        tar='tar xzf'
+        ;;
+    esac
     ## donwload, compile and install
     local ver
     case $version in
@@ -44,9 +53,9 @@ _install_ruby() {
         ;;
     esac
     base="ruby-$version"
-    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.bz2"
+    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext"
     _cmd "rm -rf $base"
-    _cmd "tar xjf $base.tar.bz2"
+    _cmd "$tar $base.tar.bz2"
     _cmd "cd $base/"
     _cmd "time $configure"
     _cmd "time make"
