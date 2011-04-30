@@ -10,7 +10,7 @@ body {
 	padding: 0;
 	background: #FFFFFF url(images/img01.jpg) repeat-x left top;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	/*font-size: 12px;*/
 	color: #787878;
 }
 
@@ -26,7 +26,8 @@ h1 {
 }
 
 h2 {
-	font-size: 2.4em;
+	/*font-size: 2.4em;*/
+	font-size: 2em;
 }
 
 h3 {
@@ -80,16 +81,19 @@ a:hover {
 
 #logo h1 {
 	float: left;
-	padding-left: 80px;
+	/*padding-left: 80px;*/
+	padding-left: 90px;
 	letter-spacing: -1px;
-	text-transform: lowercase;
-	font-size: 3.8em;
+	/*text-transform: lowercase;*/
+	/*font-size: 3.8em;*/
+	font-size: 40px;
 }
 
 #logo p {
-	float: left;
-	margin: 0;
-	padding: 26px 0 0 10px;
+	/*float: left;*/
+	margin: 0 0 0 90px;
+	/*padding: 26px 0 0 10px;*/
+	padding: 50px 0 0 0;
 	font: normal 14px Georgia, "Times New Roman", Times, serif;
 	font-style: italic;
 	color: #FFFFFF;
@@ -167,13 +171,15 @@ a:hover {
 
 #menu a {
 	display: block;
-	width: 155px;
+	/*width: 155px;*/
+	width: 140px;
 	height: 33px;
 	padding-top: 16px;
 	text-decoration: none;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
+	/*font-size: 13px;*/
+	font-size: 18px;
 	font-weight: bold;
 	color: #FFFFFF;
 	border: none;
@@ -378,11 +384,174 @@ a:hover {
 	padding-top: 20px;
 	line-height: normal;
 	font-size: 10px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	text-align: center;
 	color: #A0A0A0;
 }
 
 #footer a {
 	color: #5389E0;
+}
+
+
+/* ======================================== */
+h2 {
+	color: #30476A;
+	margin-bottom: 30px;
+}
+div.section {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	color: #444;
+	font-size: 14px;
+}
+div.section h3 {
+	margin-bottom: 20px;
+	color: #32639A;
+}
+pre.code {
+	background: #DDD;
+	padding: 5px 10px;
+	border: solid 1px #999;
+}
+pre.terminal {
+	background: #333;
+	color: #FFF;
+	padding: 5px 10px;
+	border: solid 1px #000;
+}
+dl.form dt {
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+	display: inline;
+}
+dl.form dd {
+	margin: 5px 0 15px 0;
+}
+dl.list dd {
+	margin-bottom: 10px;
+}
+
+ul, ol {
+	padding: 0 25px;
+}
+p.version {
+	color: #FFF;
+	font-size: 20px;
+}
+#sidebar li {
+	font-size: 13px !important;
+}
+#sidebar li h3 {
+	padding-left: 30px;
+	height: 38px;
+}
+.lang-selector {
+	font-size: 14px;
+	text-align: right;
+}
+.lang-selector span {
+	color: #FFF;
+}
+.lang-selector a {
+	color: #32639A;
+}
+table.table {
+	border-collapse: collapse;
+	border: solid 1px #CCC;
+}
+table.table tr {
+	border: solid 1px #CCC;
+}
+table.table th {
+	background: #EEE;
+}
+
+table.table td, table.table th {
+	border: solid 1px #CCC;
+	padding: 3px 5px;
+}
+table.table .strong {
+	background: #FEE;
+}
+
+
+div.errors {
+	background: #FDD;
+	color: #F00;
+	padding: 10px 20px;
+	border: solid 1px #F00;
+}
+
+dl.display dt {
+	display: block;
+	float: left;
+	width: 100px;
+	text-align: right;
+	margin-right: 10px;
+	font-weight: bold;
+}
+dl.display dd {
+	margin-bottom: 10px;
+}
+dl.display dt.error {
+	color: #F00;
+}
+dl.display dd.error input {
+	background: #FDD;
+	color: #F00;
+}
+dl.display dd.error em {
+	color: #F00;
+	font-style: normal;
+}
+
+.msg {
+	border: solid 1px #0F0;
+	background: #DFD;
+	color: #060;
+}
+
+.has-errors {
+	border: solid 1px #F00;
+	background: #FDD;
+	color: #F00;
+	padding: 5px 10px;
+}
+
+
+label.has-error {
+	Xborder: 1px solid #F00;
+	Xbackground: #FDD;
+	color: #F00;
+}
+/*
+.has-error textarea {
+	background: #FDD;
+	border: solid 2px #F00;
+}
+*/
+div.has-error, span.has-error {
+	border: solid 2px #F00;
+	background: #FDD;
+}
+div.has-error {
+	display: inline-block;
+}
+/*
+span.has-error input[type=text],
+span.has-error input[type=password],
+span.has-error textarea {
+	background: #FDD;
+	border: solid 2px #F00;
+}
+*/
+.error-msg {
+	color: #F00;
+}
+
+.flash-message, .system-message {
+	border: solid 1px #0F0;
+	background: #EFE;
+	padding: 5px 10px;
 }

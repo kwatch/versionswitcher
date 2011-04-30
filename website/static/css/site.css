@@ -1,0 +1,92 @@
+
+.odd {
+  background: #F6F6FF;
+}
+.even {
+  background: #FFFFF6;
+}
+
+.back-to-top {
+  text-align: right;
+}
+
+table.list {
+  border-collapse: collapse;
+}
+table.list th,
+table.list td {
+  border: solid 1px #CCC;
+}
+table.list th {
+  vertical-align: top;
+  text-align: left;
+}
+
+dl.dl dd {
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+
+
+pre strong {
+  color: #FFFF99;
+}
+
+
+
+#download {
+  float: right;
+  width: 280px;
+  height: 80px;
+  padding: 20px 0px 0px 0px;
+  background: #A8CF64;
+  border-bottom: 4px solid #FFFFFF;
+
+  text-align: center;
+}
+
+/*
+#download form {
+	height: 41px;
+	margin: 0;
+	padding: 10px 0 0 20px;
+}
+
+#download fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#download-text {
+	width: 170px;
+	padding: 6px 5px 2px 5px;
+	border: none;
+	background: #FFFFFF;
+	text-transform: lowercase;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #5D781D;
+}
+
+#download-submit {
+	width: 50px;
+	height: 23px;
+	border: 1px solid #89B056;
+	background: none;
+	font-weight: bold;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+*/
+
+
+#download a {
+  color: #FFF;
+  font-size: 35px;
+}
+
+#download-version {
+  font-size: 18px;
+}
