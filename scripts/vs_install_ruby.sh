@@ -75,6 +75,7 @@ _install_ruby() {
             _cmd "cd rubygems-1.7.2/"
             _cmd "$prefix/bin/ruby setup.rb"
             _cmd "cd .."
+            _cmd "$prefix/bin/gem update --system"
             _cmd "$prefix/bin/gem --version"
             echo "$prompt RubyGems installed successfully."
             ;;
