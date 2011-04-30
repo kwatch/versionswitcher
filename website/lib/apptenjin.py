@@ -39,13 +39,14 @@ del logging
 import tenjin
 from tenjin.helpers import *
 from tenjin.helpers.html import *
-from my_template import MyTemplate
 #if AppTenjin.config.encoding != 'utf-8':
 #    to_str = tenjin.helpers.generate_tostrfunc(encode=AppTenjin.config.encoding)
 tenjin.logger = AppTenjin.logger
-shared_cache = tenjin.GaeMemcacheCacheStorage()
+import tenjin.gae
+tenjin.gae.init()
+shared_cache = tenjin.gae.GaeMemcacheCacheStorage()
 engine = tenjin.Engine(path=AppTenjin.config.template_path, cache=shared_cache,
-                       layout=AppTenjin.config.layout_template, templateclass=MyTemplate)
+                       layout=AppTenjin.config.layout_template)
 
 
 ##
@@ -59,7 +60,7 @@ class Script(tenjin.Template):
 
 
 ## change tenjin.Engine class to generate Script object for script (*.cgi)
-def _create_template(self, filepath, _context, _globals):
+def _create_template(self, input=None, filepath=None, _context=None, _globals=None):
     if filepath and self.preprocess:
         s = self._preprocess(filepath, _context, _globals)
         template = self.templateclass(None, **self.kwargs)
