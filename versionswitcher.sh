@@ -304,7 +304,7 @@ __vs_install() {
     ## invoke installer script
     local shell=$SHELL
     [ -z "$shell" ] && shell="/bin/sh"
-    $shell "$script_file" "$version" "$prefix"
+    $shell "$script_file" "$version" "$prefix" || __vs_error "Failed to install." || return 1
     ## switch to it
     echo
     echo "$prompt vs $lang $version"  ; versionswitcher $lang $version
