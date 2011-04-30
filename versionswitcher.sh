@@ -226,7 +226,18 @@ __vs_switch() {
 ###
 __vs_download() {
     local filename=$1
-    echo $HOME/src/versionswitcher/$filename
+    local url="http://versionswitcher.appspot.com/$filename"
+    if [ -n "$VS_DEBUG" ]; then
+        url="http://localhost:8080/$filename"
+    fi
+    local vs_home="$HOME/.versionswitcher"
+    local dir=`dirname $filename`
+    [ "$dir" = "." ] && dir=""
+    if [ -n "$dir" -a ! -d "$vs_home/$dir" ]; then
+        mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
+    fi
+    (cd $vs_home/$dir; wget -Nq $url) || __vs_error "Failed: wget -Nq $url" || return 1
+    echo $vs_home/$filename
 }
 
 
