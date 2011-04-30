@@ -1,4 +1,5 @@
 lua         # http://www.lua.org/
+luajit      # http://luajit.org/
 node        # http://nodejs.org/
 python      # http://www.python.org/
 ruby        # http://www.ruby-lang.org/
