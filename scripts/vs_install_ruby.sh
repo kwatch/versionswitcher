@@ -8,7 +8,12 @@
 
 _cmd() {
     echo '$' $1
-    eval $1
+    if eval $1; then
+        return 0
+    else
+        echo "** FAILED: $1" 2>&1
+        return 1
+    fi
 }
 
 _install_ruby() {
@@ -53,18 +58,18 @@ _install_ruby() {
         ;;
     esac
     base="ruby-$version"
-    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext"
-    _cmd "rm -rf $base"
-    _cmd "$tar $base.tar.bz2"
-    _cmd "cd $base/"
-    _cmd "time $configure"
-    _cmd "time make"
-    _cmd "time make install"
-    _cmd "cd .."
+    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext" || return 1
+    _cmd "rm -rf $base"                           || return 1
+    _cmd "$tar $base.tar.bz2"                     || return 1
+    _cmd "cd $base/"                              || return 1
+    _cmd "time $configure"                        || return 1
+    _cmd "time make"                              || return 1
+    _cmd "time make install"                      || return 1
+    _cmd "cd .."                                  || return 1
     ## verify
-    _cmd "export PATH=$prefix/bin:$PATH"
-    _cmd "hash -r"
-    _cmd "which ruby"
+    _cmd "export PATH=$prefix/bin:$PATH"          || return 1
+    _cmd "hash -r"                                || return 1
+    _cmd "which ruby"                             || return 1
     if [ "$prefix/bin/ruby" != `which ruby` ]; then
         echo "$prompt failed: ruby command seems not installed correctly." 2>&1
         echo "$prompt exit 1" 2>&1
@@ -79,13 +84,13 @@ _install_ruby() {
         [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            _cmd "wget -N http://production.cf.rubygems.org/rubygems/rubygems-1.7.2.tgz"
-            _cmd "tar xjf rubygems-1.7.2.tgz"
-            _cmd "cd rubygems-1.7.2/"
-            _cmd "$prefix/bin/ruby setup.rb"
-            _cmd "cd .."
-            _cmd "$prefix/bin/gem update --system"
-            _cmd "$prefix/bin/gem --version"
+            _cmd "wget -N http://production.cf.rubygems.org/rubygems/rubygems-1.7.2.tgz" || return 1
+            _cmd "tar xjf rubygems-1.7.2.tgz"                || return 1
+            _cmd "cd rubygems-1.7.2/"                        || return 1
+            _cmd "$prefix/bin/ruby setup.rb"                 || return 1
+            _cmd "cd .."                                     || return 1
+            _cmd "$prefix/bin/gem update --system"           || return 1
+            _cmd "$prefix/bin/gem --version"                 || return 1
             echo "$prompt RubyGems installed successfully."
             ;;
         *)
@@ -100,8 +105,8 @@ _install_ruby() {
         [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            _cmd "$prefix/bin/gem update --system"
-            _cmd "$prefix/bin/gem --version"
+            _cmd "$prefix/bin/gem update --system"          || return 1
+            _cmd "$prefix/bin/gem --version"                || return 1
             echo "$prompt RubyGems updated successfully."
             ;;
         *)
