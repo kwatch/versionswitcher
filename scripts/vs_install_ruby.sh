@@ -24,10 +24,11 @@ _install_ruby() {
     1.9*)  ver="1.9";;
     *)     echo "versionswitcher: internal error: version=$version" 2>&1;;
     esac
-    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/ruby-$version.tar.bz2"
-    _cmd "rm -rf ruby-$version"
-    _cmd "tar xjf ruby-$version.tar.bz2"
-    _cmd "cd ruby-$version/"
+    base="ruby-$version"
+    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.bz2"
+    _cmd "rm -rf $base"
+    _cmd "tar xjf $base.tar.bz2"
+    _cmd "cd $base/"
     _cmd "time ./configure --prefix=$prefix"
     _cmd "time make"
     _cmd "time make install"
