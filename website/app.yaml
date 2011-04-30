@@ -1,0 +1,16 @@
+application: versionswitcher
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+  - url: /css
+    static_dir: css
+  - url: /js
+    static_dir: js
+  - url: /img
+    static_dir: img
+  - url: /download
+    static_dir: download
+  - url: /.*
+    script: index.py
