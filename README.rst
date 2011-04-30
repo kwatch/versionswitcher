@@ -39,24 +39,31 @@ Usage
     $ vs                # show all languages installed
 
 
-Installation
-============
+Install VersionSwitcher
+=======================
 
-1. Download 'versionswitcher.sh'
-2. Import it.
-3. Set shell variable $VERSIONSWITCHER_PATH.
+1. Download 'versionswitcher.sh' and import it.
+2. Set shell variable $VERSIONSWITCHER_PATH.
+3. Type 'vs -h' to show help message.
 
 An example to install::
 
-    $ mkdir ~/lib
-    $ cd ~/lib
-    $ url=http://github.com/kwatch/versionswitcher/raw/master
-    $ wget --no-check-certificate $url/versionswitcher.sh
+    $ wget http://versionswitcher.appspot.com/versionswitcher.sh
     $ . versionswitcher.sh
     $ VERSIONSWITCHER_PATH=$HOME/lang
     $ vs -h         # show help
-    $ echo '. $HOME/lib/versionswitcher.sh'   >> ~/.bashrc
+
+And add settings to your ~/.bashrc or ~/.zshrc:
+
+    $ dir=~/.versionswitcher
+    $ mkdir $dir
+    $ mv versionswitcher.sh $dir
+    $ echo ". $dir/versionswitcher.sh"        >> ~/.bashrc
     $ echo 'VERSIONSWITCHER_PATH=$HOME/lang'  >> ~/.bashrc
+
+
+Install Languages
+=================
 
 All languages which you want to switch should be installed into $HOME/lang
 (or other directory where you specified by $VERSIONSWITCHER_PATH) such as::
@@ -64,77 +71,93 @@ All languages which you want to switch should be installed into $HOME/lang
     + $HOME/
       + lang/
         + ruby/
-          + 1.8.6-p369/
           + 1.8.7-p334/
+	    + bin/
+	      - ruby*
           + 1.9.2-p378/
+	    + bin/
+	      - ruby*
         + python/
-          + 2.5.5/
           + 2.6.6/
+	    + bin/
+	      - python*
           + 2.7.1/
+	    + bin/
+	      - python*
           + 3.2.0/
+	    + bin/
+	      - python*
         + node/
-          + 0.4.2/
           + 0.4.7/
+	    + bin/
+	      - node*
 
-The following is an example to install Ruby 1.9.2 into $HOME/lang/ruby::
+VersionSwitcher supports ANY programming languages to switch
+as long as they are installed according to the above structure.
 
-    $ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p180.tar.bz2
-    $ tar xjf ruby-1.9.2-p180.tar.bz2
-    $ cd ruby-1.9.2-p180/
-    $ ./configure --prefix=$HOME/lang/ruby/1.9.2-p180
-    $ JOBS=2 make
-    $ make install
-    $ vs ruby 1.9.2       # or vs ruby latest
-    $ which ruby
-    /home/yourname/lang/ruby/1.9.2-p378/bin/ruby
-    $ which gem
-    /home/yourname/lang/ruby/1.9.2-p378/bin/gem
-    $ gem -v
-    1.3.7
-    $ gem update --system
-    $ gem -v
-    1.7.2
+In addition, VersionSwitcher has a feature to install the following
+languages easily::
 
-The following is an example to install Python 3.2 and distribute module into $HOME/lang/python::
+* Ruby
+* Python
+* Node.js
+* Lua
+* LuaJIT
 
-    $ wget http://www.python.org/ftp/python/3.2/Python-3.2.tar.bz2
-    $ tar xjf Python-3.2.tar.bz2
-    $ cd Python-3.2/
-    $ ./configure --prefix=$HOME/lang/python/3.2.0    # not '3.2'!
-    $ JOBS=2 make
-    $ make install
-    $ (cd $HOME/lang/python/3.2.0/bin; ln python3.2 python)
-    $ vs python 3.2       # or vs python latest
-    $ which python
-    /home/yourname/lang/python/3.2.0/bin/python
-    $ wget http://python-distribute.org/distribute_setup.py
-    $ python distribute_setup.py
-    $ which easy_install
-    /home/yourname/lang/python/3.2.0/bin/easy_install
-    $ easy_install --version
-    distribute 0.6.15
-    $ easy_install readline     # for Mac OS X
+The following is an exaple to install Node.js (and npm command)::
 
-The following is an example to install Node.js 0.4.7 into $HOME/lang/node::
-
-    $ wget http://nodejs.org/dist/node-v0.4.7.tar.gz
+    bash> vs -i
+    ## try 'vs --install LANG' where LANG is one of:
+    lua         # http://www.lua.org/
+    luajit      # http://luajit.org/
+    node        # http://nodejs.org/
+    python      # http://www.python.org/
+    ruby        # http://www.ruby-lang.org/
+    bash> vs -i node
+    ## try 'vs --install node VERSION' where VERSION is one of:
+    0.4.7
+    0.4.6
+    0.4.5
+    0.4.4
+    bash> vs -i node latest    # or vs -i node 0.4.7
+    ** latest version is 0.4.7
+    ** Install into '/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
+    ** Configure is './configure --prefix=/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
+    $ wget -nc http://nodejs.org/dist/node-v0.4.7.tar.gz
     $ tar xzf node-v0.4.7.tar.gz
     $ cd node-v0.4.7/
-    $ ./configure --prefix=$HOME/lang/node/0.4.7
-    $ JOBS=2 make
-    $ make test
-    $ make install
-    $ vs node 0.4.7       # or vs node latest
+    $ time ./configure --prefix=/home/yourname/lang/node/0.4.7
+    ...(snip)...
+    $ time JOBS=2 make
+    ...(snip)...
+    $ cd ..
+    $ hash -r
     $ which node
     /home/yourname/lang/node/0.4.7/bin/node
-    $ node -v
-    v0.4.7
-    $ wget http://npmjs.org/install.sh
-    $ sh install.sh
-    $ which npm
-    /home/yourname/lang/node/0.4.7/bin/npm
-    $ npm -v
-    0.3.18
+    
+    ** Install npm (Node Package Manger)? [Y/n]: 
+    $ wget -qO - http://npmjs.org/install.sh | sh
+    fetching: http://registry.npmjs.org/npm/-/npm-0.3.18.tgz
+    0.4.7
+    ! [ -d .git ] || git submodule update --init
+    node cli.js cache clean
+    ...(snip)...
+    ** npm installed successfully.
+    
+    ** Installation is finished successfully.
+    **   language:  node
+    **   version:   0.4.7
+    **   directory: /home/yourname/lang/node/0.4.7
+    
+    ** vs node 0.4.7
+    $ export PATH=/home/yourname/lang/node/0.4.7/bin:/usr/local/bin:/usr/bin:/bin
+    $ noderoot='/home/yourname/lang/node/0.4.7'
+    $ nodeversion='0.4.7'
+    $ which node
+    /home/yourname/lang/node/0.4.7/bin/node
+
+The above steps are same for other languages such as ruby, python, lua
+and luajit.
 
 
 Tips
