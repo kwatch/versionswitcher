@@ -279,26 +279,20 @@ __vs_install() {
     ## find installer script file
     local script_file=`__vs_download scripts/vs_install_${lang}.sh`
     [ -f "$script_file" ] || __vs_error "$lang is not supported to install." || return 1
-    ## where to install?
-    local inst_dir=`echo $VERSIONSWITCHER_PATH | awk -F: '{print $1}'`
-    echo -n "$prompt Where to install? [$inst_dir]: "
-    read input
-    [ -n "$input" ] && inst_dir=$input
-    [ -n "$inst_dir" ] || __vs_error "set \$VERSIONSWITCHER_PATH or specify directory name." || return 1
-    [ -d "$inst_dir" ] || __vs_error "'$inst_dir' is not a directory." || return 1
     ## confirm PREFIX directory
+    [ -n "$VERSIONSWITCHER_PATH" ] || __vs_error "Set \$VERSIONSWITCHER_PATH before installation." || return 1
+    local inst_dir=`echo $VERSIONSWITCHER_PATH | awk -F: '{print $1}'`
     local prefix="$inst_dir/$lang/$version"
     echo -n "$prompt Install into '$prefix'. OK? [Y/n]: "
     read input
     [ -z "$input" ] && input="y"
-    case $input in
+    case "$input" in
     y*|Y*)
         ;;
     *)
-        echo -n "$prompt Enter directory (full path): "
-        read input
-        [ -n "$input" ] || __vs_error "directory path is not entered." || return 1
-        prefix=$input
+        echo -n "$prompt Enter direcotry (full path): "
+        read prefix
+        [ -n "$prefix" ] || __vs_error "Install path is not entered." || return 1
         ;;
     esac
     ## invoke installer script
