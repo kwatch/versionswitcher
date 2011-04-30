@@ -1,0 +1,557 @@
+
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #FFFFFF url(images/img01.jpg) repeat-x left top;
+	font-family: Arial, Helvetica, sans-serif;
+	/*font-size: 12px;*/
+	color: #787878;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	color: #32639A;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	/*font-size: 2.4em;*/
+	font-size: 2em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #4486C7;
+}
+
+a:hover {
+}
+
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Header */
+
+#header {
+	width: 940px;
+	height: 148px;
+	margin: 0 auto;
+	background: url(images/img04.jpg) no-repeat left 20px;
+}
+
+/* Logo */
+
+#logo {
+	float: left;
+	margin: 0;
+	padding-top: 30px;
+	color: #000000;
+}
+
+#logo h1, #logo p {
+	margin: 0;
+	padding: 0;
+}
+
+#logo h1 {
+	float: left;
+	/*padding-left: 80px;*/
+	padding-left: 90px;
+	letter-spacing: -1px;
+	/*text-transform: lowercase;*/
+	/*font-size: 3.8em;*/
+	font-size: 40px;
+}
+
+#logo p {
+	/*float: left;*/
+	margin: 0 0 0 90px;
+	/*padding: 26px 0 0 10px;*/
+	padding: 50px 0 0 0;
+	font: normal 14px Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+	color: #FFFFFF;
+} 
+
+#logo a {
+	border: none;
+	background: none;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Search */
+
+#search {
+	float: right;
+	width: 280px;
+	height: 60px;
+	padding: 20px 0px 0px 0px;
+	background: #A8CF64;
+	border-bottom: 4px solid #FFFFFF;
+}
+
+#search form {
+	height: 41px;
+	margin: 0;
+	padding: 10px 0 0 20px;
+}
+
+#search fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#search-text {
+	width: 170px;
+	padding: 6px 5px 2px 5px;
+	border: none;
+	background: #FFFFFF;
+	text-transform: lowercase;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #5D781D;
+}
+
+#search-submit {
+	width: 50px;
+	height: 23px;
+	border: 1px solid #89B056;
+	background: none;
+	font-weight: bold;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+/* Menu */
+
+#menu {
+	width: 940px;
+	height: 49px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	line-height: normal;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu a {
+	display: block;
+	/*width: 155px;*/
+	width: 140px;
+	height: 33px;
+	padding-top: 16px;
+	text-decoration: none;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	/*font-size: 13px;*/
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFFFFF;
+	border: none;
+}
+
+#menu a:hover, #menu .current_page_item a {
+	background: #659CEF url(images/img03.jpg) repeat-x left bottom;
+	text-decoration: none;
+}
+
+#menu .current_page_item a {
+	background: #FBFBFC url(images/img02.jpg) repeat-x left bottom;
+	padding-left: 0;
+	color: #30476A;
+}
+
+/* Page */
+
+#page {
+	width: 940px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#page-bgtop {
+	padding: 20px px;
+}
+
+#page-bgbtm {
+}
+
+/* Content */
+
+#content {
+	float: left;
+	width: 620px;
+	padding: 30px 0px 0px 0px;
+}
+
+.post {
+	margin-bottom: 15px;
+}
+
+.post-bgtop {
+}
+
+.post-bgbtm {
+}
+
+.post .title {
+	margin-bottom: 10px;
+	padding: 12px 0 0 0px;
+	letter-spacing: -.5px;
+	color: #000000;
+}
+
+.post .title a {
+	color: #32639A;
+	border: none;
+}
+
+.post .meta {
+	height: 30px;
+	background: #D8E7FE;
+	margin: 0px;
+	padding: 0px 0px 0px 0px;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.post .meta .date {
+	float: left;
+	height: 24px;
+	padding: 3px 15px;
+	color: #4A81DE;
+}
+
+.post .meta .posted {
+	float: right;
+	height: 24px;
+	padding: 3px 15px;
+	background: #A8CF64;
+	color: #FFFFFF;
+}
+
+.post .meta a {
+	color: #FFFFFF;
+}
+
+.post .entry {
+	padding: 0px 0px 20px 0px;
+	padding-bottom: 20px;
+	text-align: justify;
+}
+
+.links {
+	padding-top: 20px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: right;
+	width: 280px;
+	padding: 0px;
+	color: #787878;
+	background: #FFFFFF;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin: 0;
+	padding: 0;
+	border-left: 1px solid #E2E2E2;
+}
+
+#sidebar li ul {
+	margin: 0px 0px;
+	padding-bottom: 30px;
+}
+
+#sidebar li li {
+	line-height: 35px;
+	border-bottom: 1px dashed #D1D1D1;
+	margin: 0px 30px;
+	border-left: none;
+}
+
+#sidebar li li span {
+	display: block;
+	margin-top: -20px;
+	padding: 0;
+	font-size: 11px;
+	font-style: italic;
+}
+
+#sidebar h2 {
+	height: 38px;
+	padding-left: 30px;
+	letter-spacing: -.5px;
+	font-size: 1.8em;
+}
+
+#sidebar p {
+	margin: 0 0px;
+	padding: 0px 30px 20px 30px;
+	text-align: justify;
+}
+
+#sidebar a {
+	border: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+	color: #8A8A8A;
+}
+
+/* Calendar */
+
+#calendar {
+}
+
+#calendar_wrap {
+	padding: 20px;
+}
+
+#calendar table {
+	width: 100%;
+}
+
+#calendar tbody td {
+	text-align: center;
+}
+
+#calendar #next {
+	text-align: right;
+}
+
+/* Footer */
+
+#footer {
+	height: 50px;
+	margin: 0 auto;
+	padding: 0px 0 15px 0;
+	background: #D8E7FE;
+	border-top: 1px solid #D3DEF0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 20px;
+	line-height: normal;
+	font-size: 10px;
+	/*text-transform: uppercase;*/
+	text-align: center;
+	color: #A0A0A0;
+}
+
+#footer a {
+	color: #5389E0;
+}
+
+
+/* ======================================== */
+h2 {
+	color: #30476A;
+	margin-bottom: 30px;
+}
+div.section {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	color: #444;
+	font-size: 14px;
+}
+div.section h3 {
+	margin-bottom: 20px;
+	color: #32639A;
+}
+pre.code {
+	background: #DDD;
+	padding: 5px 10px;
+	border: solid 1px #999;
+}
+pre.terminal {
+	background: #333;
+	color: #FFF;
+	padding: 5px 10px;
+	border: solid 1px #000;
+}
+dl.form dt {
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+	display: inline;
+}
+dl.form dd {
+	margin: 5px 0 15px 0;
+}
+dl.list dd {
+	margin-bottom: 10px;
+}
+
+ul, ol {
+	padding: 0 25px;
+}
+p.version {
+	color: #FFF;
+	font-size: 20px;
+}
+#sidebar li {
+	font-size: 13px !important;
+}
+#sidebar li h3 {
+	padding-left: 30px;
+	height: 38px;
+}
+.lang-selector {
+	font-size: 14px;
+	text-align: right;
+}
+.lang-selector span {
+	color: #FFF;
+}
+.lang-selector a {
+	color: #32639A;
+}
+table.table {
+	border-collapse: collapse;
+	border: solid 1px #CCC;
+}
+table.table tr {
+	border: solid 1px #CCC;
+}
+table.table th {
+	background: #EEE;
+}
+
+table.table td, table.table th {
+	border: solid 1px #CCC;
+	padding: 3px 5px;
+}
+table.table .strong {
+	background: #FEE;
+}
+
+
+div.errors {
+	background: #FDD;
+	color: #F00;
+	padding: 10px 20px;
+	border: solid 1px #F00;
+}
+
+dl.display dt {
+	display: block;
+	float: left;
+	width: 100px;
+	text-align: right;
+	margin-right: 10px;
+	font-weight: bold;
+}
+dl.display dd {
+	margin-bottom: 10px;
+}
+dl.display dt.error {
+	color: #F00;
+}
+dl.display dd.error input {
+	background: #FDD;
+	color: #F00;
+}
+dl.display dd.error em {
+	color: #F00;
+	font-style: normal;
+}
+
+.msg {
+	border: solid 1px #0F0;
+	background: #DFD;
+	color: #060;
+}
+
+.has-errors {
+	border: solid 1px #F00;
+	background: #FDD;
+	color: #F00;
+	padding: 5px 10px;
+}
+
+
+label.has-error {
+	Xborder: 1px solid #F00;
+	Xbackground: #FDD;
+	color: #F00;
+}
+/*
+.has-error textarea {
+	background: #FDD;
+	border: solid 2px #F00;
+}
+*/
+div.has-error, span.has-error {
+	border: solid 2px #F00;
+	background: #FDD;
+}
+div.has-error {
+	display: inline-block;
+}
+/*
+span.has-error input[type=text],
+span.has-error input[type=password],
+span.has-error textarea {
+	background: #FDD;
+	border: solid 2px #F00;
+}
+*/
+.error-msg {
+	color: #F00;
+}
+
+.flash-message, .system-message {
+	border: solid 1px #0F0;
+	background: #EFE;
+	padding: 5px 10px;
+}

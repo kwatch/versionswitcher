@@ -1,0 +1,31 @@
+application: versionswitcher
+version: 0001_0001
+runtime: python
+api_version: 1
+
+handlers:
+  - url: /css
+    static_dir: static/css
+  - url: /js
+    static_dir: static/js
+  - url: /img
+    static_dir: static/img
+  - url: /versionswitcher\.sh
+    static_files: static/versionswitcher.sh
+    upload: static/versionswitcher\.sh
+    mime_type: text/plain
+  #- url: /static
+  #  static_dir: static
+  #- url: /versions
+  #  static_dir: static/versions
+  #- url: /scripts
+  #  static_dir: static/scripts
+  - url: /versions/.*
+    script: static_file.py
+  - url: /scripts/.*
+    script: static_file.py
+  - url: /archives
+    static_dir: static/archives
+    mime_type: text/plain
+  - url: /.*
+    script: index.py
