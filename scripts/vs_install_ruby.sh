@@ -38,7 +38,10 @@ _install_ruby() {
     case $version in
     1.8*)  ver="1.8";;
     1.9*)  ver="1.9";;
-    *)     echo "versionswitcher: internal error: version=$version" 2>&1;;
+    *)
+        echo "$prompt ERROR: version $version is not supported to install." 2>&1
+        return 1
+        ;;
     esac
     base="ruby-$version"
     _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.bz2"
