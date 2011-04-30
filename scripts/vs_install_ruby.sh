@@ -58,7 +58,8 @@ _install_ruby() {
         ;;
     esac
     local base="ruby-$version"
-    _cmd "wget -N ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext" || return 1
+    local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext"
+    _cmd "wget -N $url"                           || return 1
     _cmd "rm -rf $base"                           || return 1
     _cmd "$tar $base.tar.bz2"                     || return 1
     _cmd "cd $base/"                              || return 1
@@ -84,9 +85,11 @@ _install_ruby() {
         [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            _cmd "wget -N http://production.cf.rubygems.org/rubygems/rubygems-1.7.2.tgz" || return 1
-            _cmd "tar xjf rubygems-1.7.2.tgz"                || return 1
-            _cmd "cd rubygems-1.7.2/"                        || return 1
+            base="rubygems-1.7.2"
+            url="http://production.cf.rubygems.org/rubygems/$base.tgz"
+            _cmd "wget -N $url"                              || return 1
+            _cmd "tar xjf $base.tgz"                         || return 1
+            _cmd "cd $base/"                                 || return 1
             _cmd "$prefix/bin/ruby setup.rb"                 || return 1
             _cmd "cd .."                                     || return 1
             _cmd "$prefix/bin/gem update --system"           || return 1
