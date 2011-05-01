@@ -183,5 +183,13 @@ Tips
 Changes
 =======
 
+Release 0.2.0 (2011-05-01)
+    * Enhance to support '-i' option to install languages.
+    * Changed to sort version number correctly when detecting latest version.
+    * Document updated.
+
+Release 0.1.1 (2011-04-28)
+    * Fix a typo.
+
 Release 0.1.0 (2011-04-27)
     * Public release
