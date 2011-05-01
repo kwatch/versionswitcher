@@ -10,7 +10,7 @@
     </form>
     <?py #endif ?>
     <div>
-      <a href="/static/download/versionswitcher.sh">DOWNLOAD<div id="download-version">(version 0.1.1)</div></a>
+      <a href="/static/download/versionswitcher.sh">DOWNLOAD<div id="download-version">(version 0.2.0)</div></a>
     </div>
   </div>
   <div style="clear: both;">&nbsp;</div>
@@ -53,6 +53,7 @@
 <li>
   <h2>Archives</h2>
   <ul>
+    <li><a href="/archives/0.2.0/versionswitcher.sh">Release 0.2.0</a> (2011-05-01)</li>
     <li><a href="/archives/0.1.1/versionswitcher.sh">Release 0.1.1</a> (2011-04-28)</li>
     <li><a href="/archives/0.1.0/versionswitcher.sh">Release 0.1.0</a> (2011-04-27)</li>
   </ul>
