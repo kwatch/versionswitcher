@@ -254,7 +254,7 @@ __vs_install() {
     if [ -z "$lang" ]; then
         filepath=`__vs_download versions/INDEX.txt`
         [ -f "$filepath" ] || __vs_error "INDEX.txt: not found." || return 1
-        echo "## try 'vs --install LANG' where LANG is one of:"
+        echo "## try 'vs -i LANG' where LANG is one of:"
         cat $filepath
         return 0
     fi
@@ -263,7 +263,7 @@ __vs_install() {
     [ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
     ## show all versions when version is not specified
     if [ -z "$version" ]; then
-        echo "## try 'vs --install $lang VERSION' where VERSION is one of:"
+        echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
         cat $filepath
         return 0
     fi
