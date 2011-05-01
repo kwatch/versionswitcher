@@ -5,7 +5,7 @@ from glob import glob
 import time
 
 
-release = prop('release', '0.0.0')
+release = prop('release', '0.2.0')
 
 
 @recipe
