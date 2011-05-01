@@ -11,10 +11,13 @@ release = prop('release', '0.0.0')
 @recipe
 def task_update(c):
     """update 'website/static' according current branch name"""
-    if current_branch_name() == 'release':
+    branch_name = current_branch_name()
+    if branch_name.startswith('rel-'):
         task_update_sh(c)
-    else:
+    elif branch_name == 'master':
         task_update_files(c)
+    else:
+        assert False, "branch_name=%r" % branch_name
 
 
 @recipe
