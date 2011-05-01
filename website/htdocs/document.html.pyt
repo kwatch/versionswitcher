@@ -6,140 +6,48 @@
 
 <div class="post" id="Usage">
   <h2 class="title"><a href="#Usage">Usage</a></h2>
-<pre class="terminal">
-$ . /some/where/to/versionswitcher.sh
-$ VERSIONSWITCHER_PATH=$HOME/lang
-$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
-$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
-$ vs python latest  # use latest version under $HOME/lang/python
-$ vs python -       # use system-installed one (ex. /usr/bin/python)
-$ vs python         # show installed versions of python
-$ vs                # show all languages installed
-</pre>
-</div>
-
-
-<div class="post" id="Installation">
-  <h2 class="title"><a href="#Installation">Installation</a></h2>
-  <ol class="arabic simple">
-    <li>Download '<a href="/versionswitcher.sh">versionswitcher.sh</a>' and import it.</li>
-    <li>Set shell variable $VERSIONSWITCHER_PATH.</li>
-    <li>Type 'vs -h' to show help message.</li>
-  </ol>
-  <p>An example to install:</p>
   <pre class="terminal">
-$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-$ . versionswitcher.sh
-$ VERSIONSWITCHER_PATH=$HOME/lang
-$ vs -h         # show help
+[bash]$ ls -F $HOME/lang/python           # several versions are installed
+2.5.5/          2.7.1/          3.1.3/
+2.6.6/          3.0.1/          3.2.0/
+[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
+[bash]$ . versionswitcher.sh              # import versionswitcher.sh
+[bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
+[bash]$ which python          # using system-installed python
+/usr/bin/python
+[bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
+[bash]$ which python
+/home/yourname/lang/python/<strong>2.6.6</strong>/bin/python
+[bash]$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
+[bash]$ which python
+/home/yourname/lang/python/<strong>2.7.1</strong>/bin/python
+[bash]$ <strong>vs python latest</strong>      # switch to latest version
+[bash]$ which python
+/home/yourname/lang/python/<strong>3.2.0</strong>/bin/python
+[bash]$ <strong>vs python -</strong>           # switch to system-installed python
+[bash]$ which python
+/usr/bin/python
+[bash]$ <strong>vs python</strong>             # list python verions installed
+[bash]$ <strong>vs</strong>                    # list language names installed
 </pre>
-  <p>And add settings to your ~/.bashrc or ~/.zshrc:</p>
-  <pre class="terminal">
-$ mkdir ~/lib
-$ mv versionswitcher.sh ~/lib
-$ echo '. $HOME/lib/versionswitcher.sh'   &gt;&gt; ~/.bashrc
-$ echo 'VERSIONSWITCHER_PATH=$HOME/lang'  &gt;&gt; ~/.bashrc
-</pre>
-  <p>All languages which you want to switch should be installed into $HOME/lang
-    (or other directory where you specified by $VERSIONSWITCHER_PATH) such as:</p>
-<pre class="code">
-+ $HOME/
-  + lang/
-    + ruby/
-      + 1.8.6-p369/
-      + 1.8.7-p334/
-      + 1.9.2-p378/
-    + python/
-      + 2.5.5/
-      + 2.6.6/
-      + 2.7.1/
-      + 3.2.0/
-    + node/
-      + 0.4.2/
-      + 0.4.7/
-</pre>
-
-  <h3 class="title">Ruby</h3>
-  <p>The following is an example to install Ruby 1.9.2 into $HOME/lang/ruby:</p>
+<!--
 <pre class="terminal">
-$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p180.tar.bz2
-$ tar xjf ruby-1.9.2-p180.tar.bz2
-$ cd ruby-1.9.2-p180/
-$ ./configure --prefix=$HOME/lang/ruby/1.9.2-p180
-$ JOBS=2 make
-$ make install
-$ vs ruby 1.9.2       # or vs ruby latest
-$ which ruby
-/home/yourname/lang/ruby/1.9.2-p378/bin/ruby
-$ which gem
-/home/yourname/lang/ruby/1.9.2-p378/bin/gem
-$ gem -v
-1.3.7
-$ gem update --system
-$ gem -v
-1.7.2
+[bash]$ . /some/where/to/versionswitcher.sh
+[bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+[bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
+[bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
+[bash]$ vs python latest  # use latest version under $HOME/lang/python
+[bash]$ vs python -       # use system-installed one (ex. /usr/bin/python)
+[bash]$ vs python         # show installed versions of python
+[bash]$ vs                # show all languages installed
 </pre>
-
-  <h3 class="title">Python</h3>
-  <p>The following is an example to install Python 3.2 and distribute module into $HOME/lang/python:</p>
-<pre class="terminal">
-$ wget http://www.python.org/ftp/python/3.2/Python-3.2.tar.bz2
-$ tar xjf Python-3.2.tar.bz2
-$ cd Python-3.2/
-$ ./configure --prefix=$HOME/lang/python/3.2.0    # not '3.2'!
-$ JOBS=2 make
-$ make install
-$ (cd $HOME/lang/python/3.2.0/bin; ln python3.2 python)
-$ vs python 3.2       # or vs python latest
-$ which python
-/home/yourname/lang/python/3.2.0/bin/python
-$ wget http://python-distribute.org/distribute_setup.py
-$ python distribute_setup.py
-$ which easy_install
-/home/yourname/lang/python/3.2.0/bin/easy_install
-$ easy_install --version
-distribute 0.6.15
-$ easy_install readline     # for Mac OS X
-</pre>
-
-  <h3 class="title">Node.js</h3>
-  <p>The following is an example to install Node.js 0.4.7 into $HOME/lang/node:</p>
-<pre class="terminal">
-$ wget http://nodejs.org/dist/node-v0.4.7.tar.gz
-$ tar xzf node-v0.4.7.tar.gz
-$ cd node-v0.4.7/
-$ ./configure --prefix=$HOME/lang/node/0.4.7
-$ JOBS=2 make
-$ make test
-$ make install
-$ vs node 0.4.7       # or vs node latest
-$ which node
-/home/yourname/lang/node/0.4.7/bin/node
-$ node -v
-v0.4.7
-$ wget http://npmjs.org/install.sh
-$ sh install.sh
-$ which npm
-/home/yourname/lang/node/0.4.7/bin/npm
-$ npm -v
-0.3.18
-</pre>
-
-</div>
-
-
-<div class="post" id="Tips">
-  <h2 class="title"><a href="#Tips">Tips</a></h2>
-  <ul>
-    <li><p class="first">Short name 'vs' is an alias to function 'versionswitcher()'.</p>
-    </li>
-    <li><p class="first">It is allowed to set VERSIONSWITCHER_PATH=path1:path2:path3:...</p>
-    </li>
-    <li><p class="first">VersionSwitcher sets $xxxroot and $xxxversion shell variables.
-        For example, if you execute 'vs ruby 1.9', $rubyroot and
-        $rubyversion shell variables will be set.</p>
-    </li>
-    <li><p class="first">$HOME/.versionswitcher/hooks/&lt;language&gt;.sh is imported if exists.
+-->
+  <div class="tips">
+    <p>Tips: Shell variables $<em>xxx</em>root and $<em>xxx</em>version are set automatically when switching.
+        For example, shell variables $rubyroot and $rubyversion are set when you execute <code>vs ruby 1.9</code>.</p>
+  </div>
+  <div class="tips">
+    <p>Tips: $HOME/.versionswitcher/hooks/&lt;language&gt;.sh is imported if exists.
         For example:</p>
 <pre class="code">
 ## $HOME/.versionswitcher/hooks/ruby.sh
@@ -151,6 +59,229 @@ else
     PS1=&quot;&gt; &quot;
 fi
 </pre>
-    </li>
+    </p>
+  </div>
+</div>
+
+
+<div class="post" id="Install-VersionSwitcher">
+  <h2 class="title"><a href="#Install-VersionSwitcher">Install VersionSwitcher</a></h2>
+  <ol class="arabic simple">
+    <li>Download '<a href="/versionswitcher.sh">versionswitcher.sh</a>' and import it.</li>
+    <li>Set shell variable $VERSIONSWITCHER_PATH.</li>
+    <!--li>Type 'vs -h' to show help message.</li-->
+    <li>Add settings into your ~/.bashrc or ~/.zshrc.</li>
+  </ol>
+  <p>An example to install:</p>
+  <pre class="terminal">
+[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
+[bash]$ . versionswitcher.sh
+[bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+[bash]$ vs -h         # show help
+[bash]$ mkdir ~/.versionswitcher
+[bash]$ mv versionswitcher.sh ~/.versionswitcher/
+[bash]$ echo '. ~/.versionswitcher/versionswitcher.sh' &gt;&gt; ~/.bashrc
+[bash]$ echo 'VERSIONSWITCHER_PATH=$HOME/lang'         &gt;&gt; ~/.bashrc
+</pre>
+</div>
+
+
+<div class="post" id="Install-Languages">
+  <h2 class="title"><a href="#Directory-Structure">Directory Structure</a></h2>
+  <p>All languages you want to switch should be installed into $HOME/lang
+    (or other directory where you specified by $VERSIONSWITCHER_PATH) such as:</p>
+<pre class="code">
++ $HOME/
+  + lang/
+    + ruby/
+      + 1.8.7-p334/
+        + bin/
+          - ruby
+      + 1.9.2-p180/
+        + bin/
+          - ruby
+    + python/
+      + 2.6.6/
+        + bin/
+          - python
+      + 2.7.1/
+        + bin/
+          - python
+      + 3.2.0/
+        + bin/
+          - python
+    + node/
+      + 0.4.7/
+        + bin/
+          - node
+</pre>
+  <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
+  <div class="tips">
+    <p>Tips: You can specify several directories to $VERSIONSWITCHER_PATH such as <code>VERSIONSWITCHER_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
+  </div>
+  <div class="tips">
+    <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>
+  </div>
+</div>
+
+
+<div class="post" id="Install-Languages">
+  <h2 class="title"><a href="#Language-Installer">Language Installer</a></h2>
+  <p>VersionSwitcher has a feature to install the following languages easily:</p>
+  <ul>
+    <li>Ruby (<a href="http://www.ruby-lang.org/">http://www.ruby-lang.org/</a>)</li>
+    <li>Python (<a href="http://www.python.org/">http://www.python.org/</a>)</li>
+    <li>Node.js (<a href="http://nodejs.org/">http://nodejs.org/</a>)</li>
+    <li>Lua (<a href="http://www.lua.org/">http://www.lua.org/</a>)</li>
+    <li>LuaJIT (<a href="http://luajit.org/">http://luajit.org/</a>)</li>
   </ul>
+  <div class="tips">
+    <p>Tips: You must install development tools (such as compiler, header files) and wget command <em>BEFORE</em> installing languages. For example:
+      <pre class="terminal">
+### Debian or Ubuntu
+[bash]$ sudo apt-get update
+[bash]$ sudo apt-get install wget gcc g++ make patch
+[bash]$ sudo apt-get install libc6-dev zlib1g-dev libssl-dev
+[bash]$ sudo apt-get install libncurses5-dev libreadline-dev libgdbm-dev
+[bash]$ sudo apt-get install libyaml-dev libffi-dev  # for ruby1.9
+[bash]$ sudo apt-get install pkg-config              # for node.js
+### Mac OS X (install XCode and MacPorts at first!)
+[bash]$ which gcc
+/usr/bin/gcc
+[bash]$ sudo port sync
+[bash]$ sudo port install wget
+[bash]$ sudo port install readline subversion        # for Python2.5
+</pre>
+    </p>
+  </div>
+  <p>The following is an exaple to install Node.js (and npm command):</p>
+  <pre class="terminal">
+[bash]$ <strong>vs -i</strong>                # or vs --install
+## try 'vs -i LANG' where LANG is one of:
+lua         # http://www.lua.org/
+luajit      # http://luajit.org/
+node        # http://nodejs.org/
+python      # http://www.python.org/
+ruby        # http://www.ruby-lang.org/
+[bash]$ <strong>vs -i node</strong>
+## try 'vs -i node VERSION' where VERSION is one of:
+0.4.7
+0.4.6
+0.4.5
+0.4.4
+[bash]$ <strong>vs -i node latest</strong>    # or vs -i node 0.4.7
+** latest version is 0.4.7
+** Install into '/home/yourname/lang/node/0.4.7'. OK? [Y/n]: <strong>y</strong>
+** Configure is './configure --prefix=/home/yourname/lang/node/0.4.7'. OK? [Y/n]: <strong>y</strong>
+$ wget -nc http://nodejs.org/dist/node-v0.4.7.tar.gz
+$ tar xzf node-v0.4.7.tar.gz
+$ cd node-v0.4.7/
+$ time ./configure --prefix=/home/yourname/lang/node/0.4.7
+...(snip)...
+$ time JOBS=2 make
+...(snip)...
+$ cd ..
+$ hash -r
+$ which node
+/home/yourname/lang/node/0.4.7/bin/node
+
+** Install npm (Node Package Manger)? [Y/n]: <strong>y</strong>
+$ wget -qO - http://npmjs.org/install.sh | sh
+fetching: http://registry.npmjs.org/npm/-/npm-0.3.18.tgz
+0.4.7
+! [ -d .git ] || git submodule update --init
+node cli.js cache clean
+...(snip)...
+** npm installed successfully.
+
+** Installation is finished successfully.
+**   language:  node
+**   version:   0.4.7
+**   directory: /home/yourname/lang/node/0.4.7
+
+** vs node 0.4.7
+$ export PATH=/home/yourname/lang/node/0.4.7/bin:/usr/local/bin:/usr/bin:/bin
+$ noderoot='/home/yourname/lang/node/0.4.7'
+$ nodeversion='0.4.7'
+$ which node
+/home/yourname/lang/node/0.4.7/bin/node
+</pre>
+  <p>The above steps are same for other languages such as ruby, python, lua and luajit.</p>
+  <div class="tips">
+    <p>Tips: VersionSwitcher installs package manager for each language:</p>
+    <ul>
+      <li><a href="https://rubygems.org/pages/download">RubyGems</a> (for Ruby)</li>
+      <li><a href="http://packages.python.org/distribute/">Distribute</a> (for Python)</li>
+      <li><a href="http://npmjs.org/">npm</a> (for Node.js)</li>
+    </ul>
+  </div>
+  
+<!--
+  <h3 class="title">Ruby</h3>
+  <p>The following is an example to install Ruby 1.9.2 into $HOME/lang/ruby:</p>
+<pre class="terminal">
+[bash]$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p180.tar.bz2
+[bash]$ tar xjf ruby-1.9.2-p180.tar.bz2
+[bash]$ cd ruby-1.9.2-p180/
+[bash]$ ./configure --prefix=$HOME/lang/ruby/1.9.2-p180
+[bash]$ JOBS=2 make
+[bash]$ make install
+[bash]$ vs ruby 1.9.2       # or vs ruby latest
+[bash]$ which ruby
+/home/yourname/lang/ruby/1.9.2-p378/bin/ruby
+[bash]$ which gem
+/home/yourname/lang/ruby/1.9.2-p378/bin/gem
+[bash]$ gem -v
+1.3.7
+[bash]$ gem update --system
+[bash]$ gem -v
+1.7.2
+</pre>
+
+  <h3 class="title">Python</h3>
+  <p>The following is an example to install Python 3.2 and distribute module into $HOME/lang/python:</p>
+<pre class="terminal">
+[bash]$ wget http://www.python.org/ftp/python/3.2/Python-3.2.tar.bz2
+[bash]$ tar xjf Python-3.2.tar.bz2
+[bash]$ cd Python-3.2/
+[bash]$ ./configure --prefix=$HOME/lang/python/3.2.0    # not '3.2'!
+[bash]$ JOBS=2 make
+[bash]$ make install
+[bash]$ (cd $HOME/lang/python/3.2.0/bin; ln python3.2 python)
+[bash]$ vs python 3.2       # or vs python latest
+[bash]$ which python
+/home/yourname/lang/python/3.2.0/bin/python
+[bash]$ wget http://python-distribute.org/distribute_setup.py
+[bash]$ python distribute_setup.py
+[bash]$ which easy_install
+/home/yourname/lang/python/3.2.0/bin/easy_install
+[bash]$ easy_install --version
+distribute 0.6.15
+[bash]$ easy_install readline     # for Mac OS X
+</pre>
+
+  <h3 class="title">Node.js</h3>
+  <p>The following is an example to install Node.js 0.4.7 into $HOME/lang/node:</p>
+<pre class="terminal">
+[bash]$ wget http://nodejs.org/dist/node-v0.4.7.tar.gz
+[bash]$ tar xzf node-v0.4.7.tar.gz
+[bash]$ cd node-v0.4.7/
+[bash]$ ./configure --prefix=$HOME/lang/node/0.4.7
+[bash]$ JOBS=2 make
+[bash]$ make test
+[bash]$ make install
+[bash]$ vs node 0.4.7       # or vs node latest
+[bash]$ which node
+/home/yourname/lang/node/0.4.7/bin/node
+[bash]$ node -v
+v0.4.7
+[bash]$ wget http://npmjs.org/install.sh
+[bash]$ sh install.sh
+[bash]$ which npm
+/home/yourname/lang/node/0.4.7/bin/npm
+[bash]$ npm -v
+0.3.18
+</pre>
+-->
+
 </div>

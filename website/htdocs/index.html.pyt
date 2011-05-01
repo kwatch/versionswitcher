@@ -18,26 +18,28 @@
 <div class="post" id="Example">
   <h2 class="title"><a href="#Example">Example</a></h2>
   <pre class="terminal">
-$ ls -F $HOME/lang/python           # several versions are installed
+[bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
 2.6.6/          3.0.1/          3.2.0/
-$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-$ . versionswitcher.sh              # import versionswitcher.sh
-$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
-$ which python          # using system-installed python
+[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
+[bash]$ . versionswitcher.sh              # import versionswitcher.sh
+[bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
+[bash]$ which python          # using system-installed python
 /usr/bin/python
-$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
-$ which python
+[bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
+[bash]$ which python
 /home/yourname/lang/python/<strong>2.6.6</strong>/bin/python
-$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
-$ which python
+[bash]$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
+[bash]$ which python
 /home/yourname/lang/python/<strong>2.7.1</strong>/bin/python
-$ <strong>vs python latest</strong>      # switch to latest version
-$ which python
+[bash]$ <strong>vs python latest</strong>      # switch to latest version
+[bash]$ which python
 /home/yourname/lang/python/<strong>3.2.0</strong>/bin/python
-$ <strong>vs python -</strong>           # switch to system-installed python
-$ which python
+[bash]$ <strong>vs python -</strong>           # switch to system-installed python
+[bash]$ which python
 /usr/bin/python
+[bash]$ <strong>vs python</strong>             # list python verions installed
+[bash]$ <strong>vs</strong>                    # list language names installed
 </pre>
 </div>
 

@@ -28,8 +28,9 @@
   <h2>Document</h2>
   <ul>
     <li><a href="/document.html#Usage">Usage</a></li>
-    <li><a href="/document.html#Installation">Installation</a></li>
-    <li><a href="/document.html#Tips">Tips</a></li>
+    <li><a href="/document.html#Install-VersionSwitcher">Install VerionSwitcher</a></li>
+    <li><a href="/document.html#Directory-Structure">Directory Structure</a></li>
+    <li><a href="/document.html#Language-Installer">Language Installer</a></li>
   </ul>
 </li>
 

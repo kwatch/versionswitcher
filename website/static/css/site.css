@@ -90,3 +90,12 @@ pre strong {
 #download-version {
   font-size: 18px;
 }
+
+
+.tips {
+  border: solid 2px #FFFF77;
+  background: #FFFFDD;
+  color: #AA8888;
+  margin: 5px 0;
+  padding: 5px 10px;
+}
