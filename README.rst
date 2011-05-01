@@ -29,14 +29,14 @@ Usage
 
 ::
 
-    $ . /some/where/to/versionswitcher.sh
-    $ VERSIONSWITCHER_PATH=$HOME/lang
-    $ vs python 2.6.6   # use $HOME/lang/python/2.6.6
-    $ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
-    $ vs python latest  # use latest version under $HOME/lang/python
-    $ vs python -       # use system-installed one (ex. /usr/bin/python)
-    $ vs python         # show installed versions of python
-    $ vs                # show all languages installed
+    [bash]$ . /some/where/to/versionswitcher.sh
+    [bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+    [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
+    [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
+    [bash]$ vs python latest  # use latest version under $HOME/lang/python
+    [bash]$ vs python -       # use system-installed one (ex. /usr/bin/python)
+    [bash]$ vs python         # show installed versions of python
+    [bash]$ vs                # show all languages installed
 
 
 Install VersionSwitcher
@@ -44,22 +44,18 @@ Install VersionSwitcher
 
 1. Download 'versionswitcher.sh' and import it.
 2. Set shell variable $VERSIONSWITCHER_PATH.
-3. Type 'vs -h' to show help message.
+3. Add settings into your ~/.bashrc or ~/.zshrc.
 
 An example to install::
 
-    $ wget http://versionswitcher.appspot.com/versionswitcher.sh
-    $ . versionswitcher.sh
-    $ VERSIONSWITCHER_PATH=$HOME/lang
-    $ vs -h         # show help
-
-And add settings to your ~/.bashrc or ~/.zshrc:
-
-    $ dir=~/.versionswitcher
-    $ mkdir $dir
-    $ mv versionswitcher.sh $dir
-    $ echo ". $dir/versionswitcher.sh"        >> ~/.bashrc
-    $ echo 'VERSIONSWITCHER_PATH=$HOME/lang'  >> ~/.bashrc
+    [bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
+    [bash]$ . versionswitcher.sh
+    [bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+    [bash]$ vs -h         # show help
+    [bash]$ mkdir ~/.versionswitcher
+    [bash]$ mv versionswitcher.sh ~/.versionswitcher/
+    [bash]$ echo '. ~/.versionswitcher/versionswitcher.sh' >> ~/.bashrc
+    [bash]$ echo 'VERSIONSWITCHER_PATH=$HOME/lang'         >> ~/.bashrc
 
 
 Install Languages
@@ -73,24 +69,24 @@ All languages which you want to switch should be installed into $HOME/lang
         + ruby/
           + 1.8.7-p334/
 	    + bin/
-	      - ruby*
-          + 1.9.2-p378/
+	      - ruby
+          + 1.9.2-p180/
 	    + bin/
-	      - ruby*
+	      - ruby
         + python/
           + 2.6.6/
 	    + bin/
-	      - python*
+	      - python
           + 2.7.1/
 	    + bin/
-	      - python*
+	      - python
           + 3.2.0/
 	    + bin/
-	      - python*
+	      - python
         + node/
           + 0.4.7/
 	    + bin/
-	      - node*
+	      - node
 
 VersionSwitcher supports ANY programming languages to switch
 as long as they are installed according to the above structure.
@@ -98,28 +94,28 @@ as long as they are installed according to the above structure.
 In addition, VersionSwitcher has a feature to install the following
 languages easily::
 
-* Ruby
-* Python
-* Node.js
-* Lua
-* LuaJIT
+* Ruby (http://www.ruby-lang.org/)
+* Python (http://www.python.org/)
+* Node.js (http://nodejs.org/)
+* Lua (http://www.lua.org/)
+* LuaJIT (http://luajit.org/)
 
 The following is an exaple to install Node.js (and npm command)::
 
-    bash> vs -i
-    ## try 'vs --install LANG' where LANG is one of:
+    [bash]$ vs -i                # or vs --install
+    ## try 'vs -i LANG' where LANG is one of:
     lua         # http://www.lua.org/
     luajit      # http://luajit.org/
     node        # http://nodejs.org/
     python      # http://www.python.org/
     ruby        # http://www.ruby-lang.org/
-    bash> vs -i node
-    ## try 'vs --install node VERSION' where VERSION is one of:
+    [bash]$ vs -i node
+    ## try 'vs -i node VERSION' where VERSION is one of:
     0.4.7
     0.4.6
     0.4.5
     0.4.4
-    bash> vs -i node latest    # or vs -i node 0.4.7
+    [bash]$ vs -i node latest    # or vs -i node 0.4.7
     ** latest version is 0.4.7
     ** Install into '/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
     ** Configure is './configure --prefix=/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
