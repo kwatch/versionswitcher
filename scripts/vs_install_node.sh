@@ -64,7 +64,9 @@ _install_node() {
     case "$input" in
     y*|Y*)
         #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
-        _cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
+        #_cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
+        _cmd "wget -N http://npmjs.org/install.sh" || return 1
+        _cmd "sh install.sh"                    || return 1
         local npm_path=`which npm`
         if [ "$npm_path" != "$prefix/bin/npm" ]; then
             echo "$prefix ERROR: npm command seems not installed correctly." 2>&1
