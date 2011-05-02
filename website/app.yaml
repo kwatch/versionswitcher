@@ -37,3 +37,16 @@ handlers:
     login: admin
   - url: /.*
     script: index.py
+
+
+skip_files: |
+  ^(.*/)?(
+  (app\.ya?ml)|
+  (index\.ya?ml)|
+  (#.*#)|
+  (.*~)|
+  (.*\.py[co])|
+  (.*/RCS/.*)|
+  (\..*)|
+  (test/.*)|
+  )$
