@@ -32,5 +32,8 @@ handlers:
   - url: /archives
     static_dir: static/archives
     mime_type: text/plain
+  - url: /versionwatcher
+    script: koko.versionwatcher_handler.py
+    login: admin
   - url: /.*
     script: index.py
