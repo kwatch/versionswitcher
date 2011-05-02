@@ -86,7 +86,7 @@ _install_python() {
     local ver=`echo $version | sed 's/\.0$//'`
     local base="Python-$ver"
     local url="http://www.python.org/ftp/python/$ver/$base.tar.bz2"
-    _cmd "wget -nc $url"                          || return 1
+    _cmd "wget -N $url"                           || return 1
     _cmd "rm -rf $base"                           || return 1
     _cmd "tar xjf $base.tar.bz2"                  || return 1
     _cmd "cd $base/"                              || return 1
@@ -128,7 +128,7 @@ _install_python() {
     case "$input" in
     y*|Y*)
         url="http://python-distribute.org/$script"
-        _cmd "wget -nc $url"                      || return 1
+        _cmd "wget -N $url"                       || return 1
         _cmd "$prefix/bin/python $script"         || return 1
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`

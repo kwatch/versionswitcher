@@ -41,7 +41,7 @@ _install_node() {
     ## donwload, compile and install
     local base="node-v$version"
     local url="http://nodejs.org/dist/$base.tar.gz"
-    _cmd "wget -nc $url"                          || return 1
+    _cmd "wget -N $url"                           || return 1
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     _cmd "time $configure"                        || return 1
