@@ -11,9 +11,16 @@ def server(c, *args, **kwargs):
     system(c%"$(python) $(gae_home)/dev_appserver.py -p $(port) .")
 
 @recipe
+@spices("--cron: upload only 'cron.yaml'")
+@spices("--index: upload only 'index.yaml'")
 def upload(c, *args, **kwargs):
     """upload to appengine"""
-    system(c%"$(python) $(gae_home)/appcfg.py update .")
+    if kwargs.get('cron'):
+        system(c%"$(python) $(gae_home)/appcfg.py update_cron .")
+    elif kwargs.get('index'):
+        system(c%"$(python) $(gae_home)/appcfg.py update_indexes .")
+    else:
+        system(c%"$(python) $(gae_home)/appcfg.py update .")
 
 
 #|$ python /usr/local/google_appengine/appcfg.py update .
