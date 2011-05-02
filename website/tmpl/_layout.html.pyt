@@ -1,5 +1,5 @@
 <?py # -*- coding: utf-8 -*- ?>
-<?py #@ARGS _content, self, page_title ?>
+<?py #@ARGS _content, self, page_title, _sidebar ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -70,7 +70,11 @@ Modified by kuwata-lab.com
 
             <div id="sidebar">
               <ul>
-                <?py include('_sidebar.html.pyt') ?>
+                <?py if _sidebar is None: ?>
+                <?py     include('_sidebar.html.pyt') ?>
+                <?py elif _sidebar: ?>
+                <?py     include(_sidebar + '.html.pyt') ?>
+                <?py #endif ?>
               </ul>
             </div><!-- /sidebar -->
 
