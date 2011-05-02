@@ -1,4 +1,5 @@
 <?py # -*- coding: utf-8 -*- ?>
+<?py #@ARGS _content, self, page_title ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -16,7 +17,7 @@ Modified by kuwata-lab.com
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <title>VersionSwitcher - ${self.context.get('page_title')}</title>
+    <title>VersionSwitcher - ${page_title}</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
