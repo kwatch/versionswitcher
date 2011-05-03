@@ -1,8 +1,9 @@
 from __future__ import with_statement
 
-import sys, os, re
+import sys, os, re, time
 from glob import glob
-import time
+urllib = None   # on-demand import
+
 
 
 release = prop('release', '0.0.0')
@@ -83,3 +84,102 @@ def task_edit(c):
         (r'\$Release:.*?\$', '$Release: %s $' % release),
     ]
     edit('README.rst', 'versionswitcher.sh', by=replacer)
+
+
+@recipe
+@spices("-o: override 'versions/node.txt' when changed")
+def task_node_vers(c, *args, **kwargs):
+    """check node's versions"""
+    filename = "versions/node.txt"
+    known_versions   = _get_known_versions(filename)
+    fetched_versions = _fetch_node_versions()
+    _compare_versions(fetched_versions, known_versions,
+                      kwargs.get('o') and _generate_node_text or None)
+
+
+@recipe
+@spices("-o: override 'versions/ruby.txt' when changed")
+def task_ruby_vers(c, *args, **kwargs):
+    """check ruby's versions"""
+    filename = "versions/ruby.txt"
+    known_versions = _get_known_versions(filename)
+    fetched_versions = _fetch_ruby_versions()
+    _compare_versions(fetched_versions, known_versions,
+                      kwargs.get('o') and _generate_ruby_text or None)
+
+
+def _compare_versions(fetched_versions, known_versions, text_func):
+    if sorted(fetched_versions) == sorted(known_versions):
+        print("not changed.")
+    else:
+        set1, set2 = set(fetched_versions), set(known_versions)
+        print("new versions: %s" % ', '.join(set1 - set2))
+        print("disappeared: %s" % ', '.join(set2 - set1))
+        if text_func:
+            text = text_func(versions)
+            with open(filename, 'w') as f:
+                f.write(text)
+
+def _get_known_versions(filename):
+    with open(filename) as f:
+        content = f.read()
+    return content.split()
+
+def _fetch_node_versions():
+    url  = 'http://nodejs.org/dist/'
+    rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
+    html = _fetch_page(url)
+    versions = [ m.group(1) for m in rexp.finditer(html) ]
+    versions = [ ver for ver in versions if _normalize(ver) > '000.004.003' ]
+    return versions
+
+def _fetch_ruby_versions():
+    url  = 'http://www.ring.gr.jp/archives/lang/ruby/'
+    rexp = re.compile(r'href="ruby-(\d+\.\d+\.\d+(?:-p?\d.*?)?)\.tar.gz"')
+    versions = []
+    for ver in ('1.8', '1.9'):
+        html = _fetch_page(url + ver + '/')
+        versions.extend( m.group(1) for m in rexp.finditer(html) )
+    return versions
+
+def _fetch_page(url):
+    global urllib
+    if not urllib: import urllib
+    f = urllib.urlopen(url)
+    content = f.read()
+    f.close()
+    return content
+
+def _normalize(ver):
+    return ".".join("%03d" % int(d.group(0)) for d in re.finditer(r'\d+', ver))
+
+def _generate_node_text(versions):
+    vers = sorted(versions, key=_normalize, reverse=True)
+    return "\n".join(vers)
+
+def _generate_ruby_text(versions):
+    vals = {}
+    for ver in sorted(versions, key=_normalize, reverse=True):
+        key = ver.split('-')[0]
+        vals.setdefault(key, []).append(ver)
+    pop = vals.pop
+    rows = []
+    rows.append(pop('1.9.2'))
+    rows.append(pop('1.9.1') + [''] + pop('1.9.0'))
+    rows.append(pop('1.8.7'))
+    rows.append(pop('1.8.6'))
+    rows.append(pop('1.8.5') + ['']
+                + pop('1.8.4') + pop('1.8.3') + pop('1.8.2')
+                + pop('1.8.1') + pop('1.8.0'))
+    assert not vals, "vals is expected to be empty but it is: %r" % vals
+    #length = max( len(row) for row in rows )
+    #for row in rows:
+    #    for i in range(length - len(row)):
+    #        row.append('')
+    #map(lambda *args: list(args), *rows)
+    #transposed = map(lambda *args: [ x or "" for x in args ], *rows)
+    buf = []
+    for row in map(None, *rows):
+        cols = ( '%-15s' % (s or '') for s in row )
+        buf.append(''.join(cols).rstrip() + "\n")
+    return "".join(buf)
