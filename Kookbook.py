@@ -2,7 +2,7 @@ from __future__ import with_statement
 
 import sys, os, re, time
 from glob import glob
-urllib = None   # on-demand import
+urllib2 = None   # on-demand import
 
 
 
@@ -108,6 +108,23 @@ def task_ruby_vers(c, *args, **kwargs):
                       kwargs.get('o') and _generate_ruby_text or None)
 
 
+@recipe
+@spices("-o: override 'versions/python.txt' when changed")
+def task_python_vers(c, *args, **kwargs):
+    """check python's versions"""
+    filename = "versions/python.txt"
+    known_versions = _get_known_versions(filename)
+    fetched_versions = _fetch_python_versions()
+    set1, set2 = set(fetched_versions), set(known_versions)
+    for ver in set1 - set2:
+        if not _is_python_released(ver):
+            fetched_versions.remove(ver)
+    _compare_versions(fetched_versions, known_versions,
+                      kwargs.get('o') and _generate_python_text or None)
+    text = _generate_python_text(fetched_versions)
+    print text
+
+
 def _compare_versions(fetched_versions, known_versions, text_func):
     if sorted(fetched_versions) == sorted(known_versions):
         print("not changed.")
@@ -142,10 +159,28 @@ def _fetch_ruby_versions():
         versions.extend( m.group(1) for m in rexp.finditer(html) )
     return versions
 
+def _fetch_python_versions():
+    url  = 'http://www.python.org/ftp/python/'
+    rexp = re.compile(r'href="(\d\.\d(?:\.\d)?)/?"')
+    html = _fetch_page(url)
+    versions = [ m.group(1) for m in rexp.finditer(html) ]
+    return [ ver.count('.') == 1 and ver + '.0' or ver
+               for ver in versions if _normalize(ver) >= '002.002']
+
+def _is_python_released(version):
+    ver = version.count('.') > 1 and re.sub(r'\.0$', '', version) or version
+    try:
+        html = _fetch_page('http://www.python.org/ftp/python/%s/%s.tar.gz' % (ver, ver))
+        return True
+    except urllib2.HTTPError, ex:
+    #except Exception, ex:
+        return False
+
+
 def _fetch_page(url):
-    global urllib
-    if not urllib: import urllib
-    f = urllib.urlopen(url)
+    global urllib2
+    if not urllib2: import urllib2
+    f = urllib2.urlopen(url)
     content = f.read()
     f.close()
     return content
@@ -181,5 +216,23 @@ def _generate_ruby_text(versions):
     buf = []
     for row in map(None, *rows):
         cols = ( '%-15s' % (s or '') for s in row )
+        buf.append(''.join(cols).rstrip() + "\n")
+    return "".join(buf)
+
+def _generate_python_text(versions):
+    vals = {}
+    for ver in sorted(versions, key=_normalize, reverse=True):
+        key = ver[0:3]
+        vals.setdefault(key, []).append(ver)
+    pop = vals.pop
+    rows = []
+    rows.append(pop('3.2') + [''] + pop('3.1') + [''] + pop('3.0'))
+    rows.append(pop('2.7') + [''] + pop('2.6'))
+    rows.append(pop('2.5') + [''] + pop('2.4'))
+    rows.append(pop('2.3') + [''] + pop('2.2'))
+    assert not vals, "vals is expected to be empty but it is: %r" % vals
+    buf = []
+    for row in map(None, *rows):
+        cols = ( '%-10s' % (s or '') for s in row )
         buf.append(''.join(cols).rstrip() + "\n")
     return "".join(buf)
