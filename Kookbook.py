@@ -87,9 +87,23 @@ def task_edit(c):
 
 
 @recipe
+@spices("-o: override 'versions/LANG.txt' when changed", "[LANG...]")
+def task_check(c, *args, **kwargs):
+    """check versions of node.js, ruby, and python"""
+    if not args: args = ['node', 'ruby', 'python']
+    gvars = globals()
+    for lang in args:
+        func = gvars['task_' + lang + '_vers']
+        if not func:
+            raise ValueError("%s: unsupported language name." % lang)
+        sys.stdout.write('- ' + lang + ': ')
+        func(c, *args, **kwargs)
+
+
+@recipe
 @spices("-o: override 'versions/node.txt' when changed")
 def task_node_vers(c, *args, **kwargs):
-    """check node's versions"""
+    #"""check node's versions"""
     filename = "versions/node.txt"
     known_versions   = _get_known_versions(filename)
     fetched_versions = _fetch_node_versions()
@@ -100,7 +114,7 @@ def task_node_vers(c, *args, **kwargs):
 @recipe
 @spices("-o: override 'versions/ruby.txt' when changed")
 def task_ruby_vers(c, *args, **kwargs):
-    """check ruby's versions"""
+    #"""check ruby's versions"""
     filename = "versions/ruby.txt"
     known_versions = _get_known_versions(filename)
     fetched_versions = _fetch_ruby_versions()
@@ -111,7 +125,7 @@ def task_ruby_vers(c, *args, **kwargs):
 @recipe
 @spices("-o: override 'versions/python.txt' when changed")
 def task_python_vers(c, *args, **kwargs):
-    """check python's versions"""
+    #"""check python's versions"""
     filename = "versions/python.txt"
     known_versions = _get_known_versions(filename)
     fetched_versions = _fetch_python_versions()
@@ -121,8 +135,6 @@ def task_python_vers(c, *args, **kwargs):
             fetched_versions.remove(ver)
     _compare_versions(fetched_versions, known_versions,
                       kwargs.get('o') and _generate_python_text or None)
-    text = _generate_python_text(fetched_versions)
-    print text
 
 
 def _compare_versions(fetched_versions, known_versions, text_func):
