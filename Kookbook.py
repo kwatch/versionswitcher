@@ -87,164 +87,183 @@ def task_edit(c):
 
 
 @recipe
-@spices("-o: override 'versions/LANG.txt' when changed", "[LANG...]")
+@spices("-o: override 'versions/LANG.txt' when changed", "-D:", "[LANG...]")
 def task_check(c, *args, **kwargs):
     """check versions of node.js, ruby, and python"""
     if not args: args = ['node', 'ruby', 'python']
+    flag_overwrite = bool(kwargs.get('o'))
     gvars = globals()
+    pairs = []
     for lang in args:
-        func = gvars['task_' + lang + '_vers']
-        if not func:
+        classname = lang.capitalize() + 'Checker'
+        classobj = gvars.get(classname)
+        if not classobj:
             raise ValueError("%s: unsupported language name." % lang)
-        sys.stdout.write('- ' + lang + ': ')
-        func(c, *args, **kwargs)
+        pairs.append((lang, classobj))
+    for lang, classobj in pairs:
+        sys.stdout.write("- %s: " % lang)
+        checker = classobj(flag_overwrite)
+        #checker.run()
+        fetched_versions, known_versions = checker.run()
+        if kwargs.get('D'):
+            text = checker.build_text(fetched_versions)
+            sys.stdout.write("--------------------\n")
+            sys.stdout.write(text)
+            sys.stdout.write("--------------------\n")
 
 
-@recipe
-@spices("-o: override 'versions/node.txt' when changed")
-def task_node_vers(c, *args, **kwargs):
-    #"""check node's versions"""
-    filename = "versions/node.txt"
-    known_versions   = _get_known_versions(filename)
-    fetched_versions = _fetch_node_versions()
-    _compare_versions(fetched_versions, known_versions,
-                      kwargs.get('o') and _generate_node_text or None)
+class Checker(object):
 
+    filename = None
+    overwrite = False
 
-@recipe
-@spices("-o: override 'versions/ruby.txt' when changed")
-def task_ruby_vers(c, *args, **kwargs):
-    #"""check ruby's versions"""
-    filename = "versions/ruby.txt"
-    known_versions = _get_known_versions(filename)
-    fetched_versions = _fetch_ruby_versions()
-    _compare_versions(fetched_versions, known_versions,
-                      kwargs.get('o') and _generate_ruby_text or None)
+    def __init__(self, overwrite=False):
+        self.overwrite = overwrite
 
-
-@recipe
-@spices("-o: override 'versions/python.txt' when changed")
-def task_python_vers(c, *args, **kwargs):
-    #"""check python's versions"""
-    filename = "versions/python.txt"
-    known_versions = _get_known_versions(filename)
-    fetched_versions = _fetch_python_versions()
-    set1, set2 = set(fetched_versions), set(known_versions)
-    for ver in set1 - set2:
-        if not _is_python_released(ver):
-            fetched_versions.remove(ver)
-    _compare_versions(fetched_versions, known_versions,
-                      kwargs.get('o') and _generate_python_text or None)
-
-
-def _compare_versions(fetched_versions, known_versions, text_func):
-    if sorted(fetched_versions) == sorted(known_versions):
-        print("not changed.")
-    else:
-        set1, set2 = set(fetched_versions), set(known_versions)
-        print("new versions: %s" % ', '.join(set1 - set2))
-        print("disappeared: %s" % ', '.join(set2 - set1))
-        if text_func:
-            text = text_func(versions)
-            with open(filename, 'w') as f:
+    def run(self):
+        known_versions   = self.get_known_versions()
+        fetched_versions = self.fetch_versions()
+        self.compare(fetched_versions, known_versions)
+        if self.overwrite:
+            text = self.build_text(fetched_versions)
+            assert text, "text should not be empty but it is: %r" % (text,)
+            with open(self.filename, 'w') as f:
                 f.write(text)
+        return fetched_versions, known_versions
 
-def _get_known_versions(filename):
-    with open(filename) as f:
+    def compare(self, fetched_versions, known_versions):
+        if sorted(fetched_versions) == sorted(known_versions):
+            print("not changed.")
+        else:
+            set1, set2 = set(fetched_versions), set(known_versions)
+            print("new versions: %s" % ', '.join(set1 - set2))
+            print("disappeared: %s" % ', '.join(set2 - set1))
+            if self.overwrite:
+                text = self.build_text(fetched_versions)
+                with open(self.filename, 'w') as f:
+                    f.write(text)
+
+    def get_known_versions(self):
+        with open(self.filename) as f:
+            content = f.read()
+        return content.split()
+
+    def fetch_versions(self):
+        raise NotImplementedError("%s.fetch_versions(): not implemented yet." % self.__class__.__name__)
+
+    def fetch_page(self, url):
+        global urllib2
+        if not urllib2: import urllib2
+        f = urllib2.urlopen(url)
         content = f.read()
-    return content.split()
+        f.close()
+        return content
 
-def _fetch_node_versions():
-    url  = 'http://nodejs.org/dist/'
-    rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
-    html = _fetch_page(url)
-    versions = [ m.group(1) for m in rexp.finditer(html) ]
-    versions = [ ver for ver in versions if _normalize(ver) > '000.004.003' ]
-    return versions
-
-def _fetch_ruby_versions():
-    url  = 'http://www.ring.gr.jp/archives/lang/ruby/'
-    rexp = re.compile(r'href="ruby-(\d+\.\d+\.\d+(?:-p?\d.*?)?)\.tar.gz"')
-    versions = []
-    for ver in ('1.8', '1.9'):
-        html = _fetch_page(url + ver + '/')
-        versions.extend( m.group(1) for m in rexp.finditer(html) )
-    return versions
-
-def _fetch_python_versions():
-    url  = 'http://www.python.org/ftp/python/'
-    rexp = re.compile(r'href="(\d\.\d(?:\.\d)?)/?"')
-    html = _fetch_page(url)
-    versions = [ m.group(1) for m in rexp.finditer(html) ]
-    return [ ver.count('.') == 1 and ver + '.0' or ver
-               for ver in versions if _normalize(ver) >= '002.002']
-
-def _is_python_released(version):
-    ver = version.count('.') > 1 and re.sub(r'\.0$', '', version) or version
-    try:
-        html = _fetch_page('http://www.python.org/ftp/python/%s/%s.tar.gz' % (ver, ver))
-        return True
-    except urllib2.HTTPError, ex:
-    #except Exception, ex:
-        return False
+    def normalize(self, ver):
+        return ".".join("%03d" % int(d.group(0)) for d in re.finditer(r'\d+', ver))
 
 
-def _fetch_page(url):
-    global urllib2
-    if not urllib2: import urllib2
-    f = urllib2.urlopen(url)
-    content = f.read()
-    f.close()
-    return content
+class NodeChecker(Checker):
 
-def _normalize(ver):
-    return ".".join("%03d" % int(d.group(0)) for d in re.finditer(r'\d+', ver))
+    filename = "versions/node.txt"
+    url = "http://nodejs.org/dist/"
 
-def _generate_node_text(versions):
-    vers = sorted(versions, key=_normalize, reverse=True)
-    return "\n".join(vers)
+    def fetch_versions(self):
+        rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
+        html = self.fetch_page(self.url)
+        versions = [ m.group(1) for m in rexp.finditer(html) ]
+        versions = [ ver for ver in versions if self.normalize(ver) > '000.004.003' ]
+        return versions
 
-def _generate_ruby_text(versions):
-    vals = {}
-    for ver in sorted(versions, key=_normalize, reverse=True):
-        key = ver.split('-')[0]
-        vals.setdefault(key, []).append(ver)
-    pop = vals.pop
-    rows = []
-    rows.append(pop('1.9.2'))
-    rows.append(pop('1.9.1') + [''] + pop('1.9.0'))
-    rows.append(pop('1.8.7'))
-    rows.append(pop('1.8.6'))
-    rows.append(pop('1.8.5') + ['']
-                + pop('1.8.4') + pop('1.8.3') + pop('1.8.2')
-                + pop('1.8.1') + pop('1.8.0'))
-    assert not vals, "vals is expected to be empty but it is: %r" % vals
-    #length = max( len(row) for row in rows )
-    #for row in rows:
-    #    for i in range(length - len(row)):
-    #        row.append('')
-    #map(lambda *args: list(args), *rows)
-    #transposed = map(lambda *args: [ x or "" for x in args ], *rows)
-    buf = []
-    for row in map(None, *rows):
-        cols = ( '%-15s' % (s or '') for s in row )
-        buf.append(''.join(cols).rstrip() + "\n")
-    return "".join(buf)
+    def build_text(self, versions):
+        vers = sorted(versions, key=self.normalize, reverse=True)
+        vers.append("")
+        return "\n".join(vers)
 
-def _generate_python_text(versions):
-    vals = {}
-    for ver in sorted(versions, key=_normalize, reverse=True):
-        key = ver[0:3]
-        vals.setdefault(key, []).append(ver)
-    pop = vals.pop
-    rows = []
-    rows.append(pop('3.2') + [''] + pop('3.1') + [''] + pop('3.0'))
-    rows.append(pop('2.7') + [''] + pop('2.6'))
-    rows.append(pop('2.5') + [''] + pop('2.4'))
-    rows.append(pop('2.3') + [''] + pop('2.2'))
-    assert not vals, "vals is expected to be empty but it is: %r" % vals
-    buf = []
-    for row in map(None, *rows):
-        cols = ( '%-10s' % (s or '') for s in row )
-        buf.append(''.join(cols).rstrip() + "\n")
-    return "".join(buf)
+
+class RubyChecker(Checker):
+
+    filename = "versions/ruby.txt"
+    url = "http://www.ring.gr.jp/archives/lang/ruby/"
+
+    def fetch_versions(self):
+        rexp = re.compile(r'href="ruby-(\d+\.\d+\.\d+(?:-p?\d.*?)?)\.tar.gz"')
+        versions = []
+        for ver in ('1.8', '1.9'):
+            html = self.fetch_page(self.url + ver + '/')
+            versions.extend( m.group(1) for m in rexp.finditer(html) )
+        return versions
+
+    def build_text(self, versions):
+        vals = {}
+        for ver in sorted(versions, key=self.normalize, reverse=True):
+            key = ver.split('-')[0]
+            vals.setdefault(key, []).append(ver)
+        pop = vals.pop
+        rows = []
+        rows.append(pop('1.9.2'))
+        rows.append(pop('1.9.1') + [''] + pop('1.9.0'))
+        rows.append(pop('1.8.7'))
+        rows.append(pop('1.8.6'))
+        rows.append(pop('1.8.5') + ['']
+                    + pop('1.8.4') + pop('1.8.3') + pop('1.8.2')
+                    + pop('1.8.1') + pop('1.8.0'))
+        assert not vals, "vals is expected to be empty but it is: %r" % vals
+        #length = max( len(row) for row in rows )
+        #for row in rows:
+        #    for i in range(length - len(row)):
+        #        row.append('')
+        #map(lambda *args: list(args), *rows)
+        #transposed = map(lambda *args: [ x or "" for x in args ], *rows)
+        buf = []
+        for row in map(None, *rows):
+            cols = ( '%-15s' % (s or '') for s in row )
+            buf.append(''.join(cols).rstrip() + "\n")
+        return "".join(buf)
+
+
+class PythonChecker(Checker):
+
+    filename = "versions/python.txt"
+    url = "http://www.python.org/ftp/python/"
+
+    def compare(self, fetched_versions, known_versions):
+        set1, set2 = set(fetched_versions), set(known_versions)
+        for ver in set1 - set2:
+            if not self._is_released(ver):
+                fetched_versions.remove(ver)
+        return Checker.compare(self, fetched_versions, known_versions)
+
+    def fetch_versions(self):
+        rexp = re.compile(r'href="(\d\.\d(?:\.\d)?)/?"')
+        html = self.fetch_page(self.url)
+        versions = [ m.group(1) for m in rexp.finditer(html) ]
+        return [ ver.count('.') == 1 and ver + '.0' or ver
+                   for ver in versions if self.normalize(ver) >= '002.002']
+
+    def _is_released(self, version):
+        ver = version.count('.') > 1 and re.sub(r'\.0$', '', version) or version
+        try:
+            self.fetch_page(self.url + '%s/%s.tar.gz' % (ver, ver))
+            return True
+        except urllib2.HTTPError, ex:
+        #except Exception, ex:
+            return False
+
+    def build_text(self, versions):
+        vals = {}
+        for ver in sorted(versions, key=self.normalize, reverse=True):
+            key = ver[0:3]
+            vals.setdefault(key, []).append(ver)
+        pop = vals.pop
+        rows = []
+        rows.append(pop('3.2') + [''] + pop('3.1') + [''] + pop('3.0'))
+        rows.append(pop('2.7') + [''] + pop('2.6'))
+        rows.append(pop('2.5') + [''] + pop('2.4'))
+        rows.append(pop('2.3') + [''] + pop('2.2'))
+        assert not vals, "vals is expected to be empty but it is: %r" % vals
+        buf = []
+        for row in map(None, *rows):
+            cols = ( '%-10s' % (s or '') for s in row )
+            buf.append(''.join(cols).rstrip() + "\n")
+        return "".join(buf)
