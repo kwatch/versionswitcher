@@ -90,7 +90,7 @@ def task_edit(c):
 @spices("-o: override 'versions/LANG.txt' when changed", "-D:", "[LANG...]")
 def task_check(c, *args, **kwargs):
     """check versions of node.js, ruby, and python"""
-    if not args: args = ['node', 'ruby', 'python', 'lua', 'luajit', 'pypy']
+    if not args: args = ['node', 'ruby', 'python', 'lua', 'luajit', 'pypy', 'rubinius']
     flag_overwrite = bool(kwargs.get('o'))
     gvars = globals()
     pairs = []
@@ -318,3 +318,14 @@ class PypyChecker(Checker):
     def compare(self, fetched_versions, known_versions):
         tweaked = [ re.sub(r'\.0$', '', v) for v in known_versions ]
         return Checker.compare(self, fetched_versions, tweaked)
+
+
+class RubiniusChecker(Checker):
+
+    filename = "versions/rubinius.txt"
+    url = "http://rubini.us/releases/"
+    version_rexp = re.compile(r'href="/releases/(\d+\.\d+(?:\.\d+)?)/"')
+
+    def fetch_versions(self):
+        return [ ver for ver in Checker.fetch_versions(self)
+                     if self.normalize(ver) >= '001.002.003' ]
