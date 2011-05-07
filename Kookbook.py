@@ -173,17 +173,6 @@ class Checker(object):
         return "\n".join(vers)
 
 
-class NodeChecker(Checker):
-
-    filename = "versions/node.txt"
-    url = "http://nodejs.org/dist/"
-    version_rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
-
-    def fetch_versions(self):
-        return [ ver for ver in Checker.fetch_versions(self)
-                     if self.normalize(ver) > '000.004.003' ]
-
-
 class RubyChecker(Checker):
 
     filename = "versions/ruby.txt"
@@ -270,6 +259,17 @@ class PythonChecker(Checker):
             cols = ( '%-10s' % (s or '') for s in row )
             buf.append(''.join(cols).rstrip() + "\n")
         return "".join(buf)
+
+
+class NodeChecker(Checker):
+
+    filename = "versions/node.txt"
+    url = "http://nodejs.org/dist/"
+    version_rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
+
+    def fetch_versions(self):
+        return [ ver for ver in Checker.fetch_versions(self)
+                     if self.normalize(ver) > '000.004.003' ]
 
 
 class PypyChecker(Checker):
