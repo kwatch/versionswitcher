@@ -90,7 +90,7 @@ def task_edit(c):
 @spices("-o: override 'versions/LANG.txt' when changed", "-D:", "[LANG...]")
 def task_check(c, *args, **kwargs):
     """check versions of node.js, ruby, and python"""
-    if not args: args = ['node', 'ruby', 'python']
+    if not args: args = ['node', 'ruby', 'python', 'pypy']
     flag_overwrite = bool(kwargs.get('o'))
     gvars = globals()
     pairs = []
@@ -267,3 +267,25 @@ class PythonChecker(Checker):
             cols = ( '%-10s' % (s or '') for s in row )
             buf.append(''.join(cols).rstrip() + "\n")
         return "".join(buf)
+
+
+class PypyChecker(Checker):
+
+    filename = "versions/pypy.txt"
+    url = "http://pypy.org/download/"
+
+    def fetch_versions(self):
+        rexp = re.compile(r'href="pypy-(\d+\.\d+(?:\.\d+)?)-src\.tar.bz2"')
+        html = self.fetch_page(self.url)
+        versions = [ m.group(1) for m in rexp.finditer(html) ]
+        versions = [ ver for ver in versions if self.normalize(ver) >= '001.004' ]
+        return versions
+
+    def build_text(self, versions):
+        vers = sorted(versions, key=self.normalize, reverse=True)
+        vers.append("")
+        return "\n".join(vers)
+
+    def compare(self, fetched_versions, known_versions):
+        tweaked = [ re.sub(r'\.0$', '', v) for v in known_versions ]
+        return Checker.compare(self, fetched_versions, tweaked)
