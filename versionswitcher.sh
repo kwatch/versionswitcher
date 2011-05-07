@@ -320,4 +320,7 @@ __vs_install() {
 
 
 ###
-alias vs=versionswitcher
+#alias vs=versionswitcher
+vs() {
+    versionswitcher $@
+}
