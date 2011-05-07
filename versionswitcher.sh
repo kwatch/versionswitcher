@@ -148,7 +148,7 @@ __vs_switch() {
                     printf "%-20s # %s\n" $lang $basedir
                 fi
             done
-        done | sort
+        done | awk '{if(++D[$1]==1)print}' | sort
         return 0
     fi
     ## check whether installed or not
