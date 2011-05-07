@@ -162,6 +162,11 @@ class Checker(object):
     def normalize(self, ver):
         return ".".join("%03d" % int(d.group(0)) for d in re.finditer(r'\d+', ver))
 
+    def build_text(self, versions):
+        vers = sorted(versions, key=self.normalize, reverse=True)
+        vers.append("")
+        return "\n".join(vers)
+
 
 class NodeChecker(Checker):
 
@@ -174,11 +179,6 @@ class NodeChecker(Checker):
         versions = [ m.group(1) for m in rexp.finditer(html) ]
         versions = [ ver for ver in versions if self.normalize(ver) > '000.004.003' ]
         return versions
-
-    def build_text(self, versions):
-        vers = sorted(versions, key=self.normalize, reverse=True)
-        vers.append("")
-        return "\n".join(vers)
 
 
 class RubyChecker(Checker):
@@ -280,11 +280,6 @@ class PypyChecker(Checker):
         versions = [ m.group(1) for m in rexp.finditer(html) ]
         versions = [ ver for ver in versions if self.normalize(ver) >= '001.004' ]
         return versions
-
-    def build_text(self, versions):
-        vers = sorted(versions, key=self.normalize, reverse=True)
-        vers.append("")
-        return "\n".join(vers)
 
     def compare(self, fetched_versions, known_versions):
         tweaked = [ re.sub(r'\.0$', '', v) for v in known_versions ]
