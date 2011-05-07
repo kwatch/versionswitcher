@@ -3,4 +3,5 @@ luajit      # http://luajit.org/
 node        # http://nodejs.org/
 pypy        # http://pypy.org/
 python      # http://www.python.org/
+rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
