@@ -90,7 +90,7 @@ def task_edit(c):
 @spices("-o: override 'versions/LANG.txt' when changed", "-D:", "[LANG...]")
 def task_check(c, *args, **kwargs):
     """check versions of node.js, ruby, and python"""
-    if not args: args = ['node', 'ruby', 'python', 'lua', 'pypy']
+    if not args: args = ['node', 'ruby', 'python', 'lua', 'luajit', 'pypy']
     flag_overwrite = bool(kwargs.get('o'))
     gvars = globals()
     pairs = []
@@ -285,6 +285,24 @@ class LuaChecker(Checker):
     def compare(self, fetched_versions, known_versions):
         tweaked = [ re.sub(r'\.0$', '', v) for v in known_versions ]
         return Checker.compare(self, fetched_versions, tweaked)
+
+
+class LuajitChecker(Checker):
+
+    filename = "versions/luajit.txt"
+    url = "http://luajit.org/download.html"
+    version_rexp = re.compile(r'href="download/LuaJIT-(\d+\.\d+(?:\.\d+)?(?:-beta\d+)?)\.tar\.gz"')
+
+    def fetch_versions(self):
+        versions = []
+        for version in Checker.fetch_versions(self):
+            ver = self.normalize(version)
+            if ver < '001.001.006':
+                continue
+            if '002' <= ver and ver <= '002.000.000.005':
+                continue
+            versions.append(version)
+        return versions
 
 
 class PypyChecker(Checker):
