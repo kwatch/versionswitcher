@@ -148,8 +148,13 @@ class Checker(object):
             content = f.read()
         return content.split()
 
+    version_rexp = re.compile(r'href=".*?-(\d+\.\d+(?:\.\d+)?).*?\.(?:tar\.gz|tar\.bz2|tgz)"')
+
     def fetch_versions(self):
-        raise NotImplementedError("%s.fetch_versions(): not implemented yet." % self.__class__.__name__)
+        rexp = self.version_rexp
+        html = self.fetch_page(self.url)
+        versions = [ m.group(1) for m in rexp.finditer(html) ]
+        return versions
 
     def fetch_page(self, url):
         global urllib2
@@ -172,22 +177,21 @@ class NodeChecker(Checker):
 
     filename = "versions/node.txt"
     url = "http://nodejs.org/dist/"
+    version_rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
 
     def fetch_versions(self):
-        rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
-        html = self.fetch_page(self.url)
-        versions = [ m.group(1) for m in rexp.finditer(html) ]
-        versions = [ ver for ver in versions if self.normalize(ver) > '000.004.003' ]
-        return versions
+        return [ ver for ver in Checker.fetch_versions(self)
+                     if self.normalize(ver) > '000.004.003' ]
 
 
 class RubyChecker(Checker):
 
     filename = "versions/ruby.txt"
     url = "http://www.ring.gr.jp/archives/lang/ruby/"
+    version_rexp = re.compile(r'href="ruby-(\d+\.\d+\.\d+(?:-p?\d.*?)?)\.tar.gz"')
 
     def fetch_versions(self):
-        rexp = re.compile(r'href="ruby-(\d+\.\d+\.\d+(?:-p?\d.*?)?)\.tar.gz"')
+        rexp = self.version_rexp
         versions = []
         for ver in ('1.8', '1.9'):
             html = self.fetch_page(self.url + ver + '/')
@@ -226,6 +230,7 @@ class PythonChecker(Checker):
 
     filename = "versions/python.txt"
     url = "http://www.python.org/ftp/python/"
+    version_rexp = re.compile(r'href="(\d\.\d(?:\.\d)?)/?"')
 
     def compare(self, fetched_versions, known_versions):
         set1, set2 = set(fetched_versions), set(known_versions)
@@ -235,11 +240,9 @@ class PythonChecker(Checker):
         return Checker.compare(self, fetched_versions, known_versions)
 
     def fetch_versions(self):
-        rexp = re.compile(r'href="(\d\.\d(?:\.\d)?)/?"')
-        html = self.fetch_page(self.url)
-        versions = [ m.group(1) for m in rexp.finditer(html) ]
         return [ ver.count('.') == 1 and ver + '.0' or ver
-                   for ver in versions if self.normalize(ver) >= '002.002']
+                   for ver in Checker.fetch_versions(self)
+                   if self.normalize(ver) >= '002.002' ]
 
     def _is_released(self, version):
         ver = version.count('.') > 1 and re.sub(r'\.0$', '', version) or version
@@ -273,13 +276,11 @@ class PypyChecker(Checker):
 
     filename = "versions/pypy.txt"
     url = "http://pypy.org/download/"
+    version_rexp = re.compile(r'href="pypy-(\d+\.\d+(?:\.\d+)?)-src\.tar.bz2"')
 
     def fetch_versions(self):
-        rexp = re.compile(r'href="pypy-(\d+\.\d+(?:\.\d+)?)-src\.tar.bz2"')
-        html = self.fetch_page(self.url)
-        versions = [ m.group(1) for m in rexp.finditer(html) ]
-        versions = [ ver for ver in versions if self.normalize(ver) >= '001.004' ]
-        return versions
+        return [ ver for ver in Checker.fetch_versions(self)
+                     if self.normalize(ver) >= '001.004' ]
 
     def compare(self, fetched_versions, known_versions):
         tweaked = [ re.sub(r'\.0$', '', v) for v in known_versions ]
