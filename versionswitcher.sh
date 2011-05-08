@@ -102,7 +102,7 @@ __vs_glob() {
         (setopt nonomatch; setopt nullglob; eval echo $pattern)
     else                                       # other
         filenames=`echo $pattern`
-        [ "$filenames" == "$pattern" ] || echo $filenames
+        [ "$filenames" = "$pattern" ] || echo $filenames
     fi
 }
 
