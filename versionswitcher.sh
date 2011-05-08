@@ -49,7 +49,13 @@ versionswitcher() {
     local lang
     local version
     local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
-    case $1 in
+    __vs_option_quiet=''
+    case "$1" in
+    -q)
+        __vs_option_quiet='true'
+        shift;;
+    esac
+    case "$1" in
     -h|--help)
         __vs_help_message
         ;;
@@ -76,6 +82,7 @@ versionswitcher() {
         esac
         ;;
     esac
+    unset __vs_option_quiet
 }
 
 
@@ -90,6 +97,14 @@ __vs_glob() {
     else                                       # other
         filenames=`echo $pattern`
         [ "$filenames" == "$pattern" ] || echo $filenames
+    fi
+}
+
+
+###
+__vs_echo() {
+    if [ -z "$__vs_option_quiet" ]; then
+        echo $1
     fi
 }
 
@@ -139,7 +154,7 @@ __vs_switch() {
     local list
     if [ -z "$lang" ]; then
         #echo "## language          # basedir"
-        echo "## installed"
+        __vs_echo "## installed"
         for dir in `echo $VERSIONSWITCHER_PATH | tr ':' ' '`; do
             for basedir in `__vs_glob "$dir/*"`; do
                 list=`__vs_glob "$basedir/*/bin"`
@@ -162,8 +177,8 @@ __vs_switch() {
     [ -n "$basedir" ] || __vs_error "$lang is not installed." || return 1
     ## list available versions if version is not specified
     if [ -z "$version" ]; then
-        echo "## basedir: $basedir"
-        echo "## versions:"
+        __vs_echo "## basedir: $basedir"
+        __vs_echo "## versions:"
         __vs_versions "$basedir"
         return 0
     fi
@@ -203,7 +218,7 @@ __vs_switch() {
     done
     ## set $PATH
     local prompt='$'  # or '[versionswitcher]$'
-    echo "$prompt export PATH=$newpath"    ; export PATH=$newpath
+    __vs_echo "$prompt export PATH=$newpath"    ; export PATH=$newpath
     hash -r
     ## set or clear ${lang}root
     local rootvar="${lang}root"
@@ -212,11 +227,11 @@ __vs_switch() {
     if [ -n "$bindir" ]; then
         rootdir=`dirname $bindir`
         version=`basename $rootdir`
-        echo "$prompt $rootvar='$rootdir'" ; eval "$rootvar=$rootdir"
-        echo "$prompt $vervar='$version'"  ; eval "$vervar='$version'"
+        __vs_echo "$prompt $rootvar='$rootdir'" ; eval "$rootvar=$rootdir"
+        __vs_echo "$prompt $vervar='$version'"  ; eval "$vervar='$version'"
     else
-        echo "$prompt unset $rootvar"      ; unset $rootvar
-        echo "$prompt unset $vervar"       ; unset $vervar
+        __vs_echo "$prompt unset $rootvar"      ; unset $rootvar
+        __vs_echo "$prompt unset $vervar"       ; unset $vervar
     fi
     ## show command path
     echo "$prompt which $command"          ; which $command
@@ -254,7 +269,7 @@ __vs_install() {
     if [ -z "$lang" ]; then
         filepath=`__vs_download versions/INDEX.txt`
         [ -f "$filepath" ] || __vs_error "INDEX.txt: not found." || return 1
-        echo "## try 'vs -i LANG' where LANG is one of:"
+        __vs_echo "## try 'vs -i LANG' where LANG is one of:"
         cat $filepath
         return 0
     fi
@@ -263,7 +278,7 @@ __vs_install() {
     [ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
     ## show all versions when version is not specified
     if [ -z "$version" ]; then
-        echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
+        __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
         cat $filepath
         return 0
     fi
@@ -274,7 +289,7 @@ __vs_install() {
     if [ "$version" = "latest" ]; then
         version=`awk 'NR==1{print $1}' "$filepath"`
         [ -n "$version" ] || __vs_error "failed to detect latest version." || return 1
-        echo "$prompt latest version is $version"
+        __vs_echo "$prompt latest version is $version"
     ## verify version
     else
         for ver in `cat $filepath`; do
