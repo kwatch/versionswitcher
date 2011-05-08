@@ -29,7 +29,6 @@ Usage
 
 ::
 
-    [bash]$ . /some/where/to/versionswitcher.sh
     [bash]$ VERSIONSWITCHER_PATH=$HOME/lang
     [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
     [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
@@ -42,20 +41,32 @@ Usage
 Install VersionSwitcher
 =======================
 
-1. Download 'versionswitcher.sh' and import it.
-2. Set shell variable $VERSIONSWITCHER_PATH.
-3. Add settings into your ~/.bashrc or ~/.zshrc.
+Steps:
 
-An example to install::
+1. Download 'install.sh'.
+2. Start it with bash (for bash user) or zsh (for zsh user).
+3. Log out or restart bash or zsh to enable settings.
 
-    [bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-    [bash]$ . versionswitcher.sh
-    [bash]$ VERSIONSWITCHER_PATH=$HOME/lang
-    [bash]$ vs -h         # show help
-    [bash]$ mkdir ~/.versionswitcher
-    [bash]$ mv versionswitcher.sh ~/.versionswitcher/
-    [bash]$ echo '. ~/.versionswitcher/versionswitcher.sh' >> ~/.bashrc
-    [bash]$ echo 'VERSIONSWITCHER_PATH=$HOME/lang'         >> ~/.bashrc
+Example::
+
+    [bash]$ wget http://versionswitcher.appspot.com/install.sh
+    [bash]$ bash install.sh    # or zsh install.sh if you are a zsh user
+    ...(snip)...
+    ***
+    *** You have to write the following lines into your ~/.bashrc:
+    ***
+    ***     VERSIONSWITCHER_PATH=$HOME/langs     # or other directories
+    ***     . $HOME/.versionswitcher/bootstrap.sh
+    ***
+    *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
+    ***
+    *** You should log out or restart bash to enable settings.
+    ***
+    *** Installation is finished successfully.
+    *** See http://localhost:8080/ for details.
+    *** Thank you.
+    [bash]$ bash       # start new bash process
+    [bash]$ vs -h      # show help
 
 
 Install Languages
@@ -158,8 +169,6 @@ and luajit.
 
 Tips
 ====
-
-* Short name 'vs' is an alias to function 'versionswitcher()'.
 
 * It is allowed to set VERSIONSWITCHER_PATH=path1:path2:path3:...
 
