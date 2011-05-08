@@ -3,7 +3,7 @@
 
 <div class="post">
   <h2 class="title"><a href="#">Release 0.3.0</a></h2>
-  <p class="meta"><span class="date">??? ??, 2010</span><span class="posted"><a href="/archives/0.3.0/versionswitcher.sh">download</a></span></p>
+  <p class="meta"><span class="date">May 08, 2011</span><span class="posted"><a href="/archives/0.3.0/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
     <ul>
@@ -19,7 +19,7 @@
 
 <div class="post">
   <h2 class="title"><a href="#">Release 0.2.0</a></h2>
-  <p class="meta"><span class="date">May 01, 2010</span><span class="posted"><a href="/archives/0.2.0/versionswitcher.sh">download</a></span></p>
+  <p class="meta"><span class="date">May 01, 2011</span><span class="posted"><a href="/archives/0.2.0/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
     <ul>
@@ -34,7 +34,7 @@
 
 <div class="post">
   <h2 class="title"><a href="#">Release 0.1.1</a></h2>
-  <p class="meta"><span class="date">April 28, 2010</span><span class="posted"><a href="/archives/0.1.1/versionswitcher.sh">download</a></span></p>
+  <p class="meta"><span class="date">April 28, 2011</span><span class="posted"><a href="/archives/0.1.1/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
     <ul>
