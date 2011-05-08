@@ -1,5 +1,5 @@
 ###
-### $Release: 0.0.0 $
+### $Release: 0.3.0 $
 ### $Copyright: copyright(c) 2011 kuwata-lab.com all rights reserved $
 ### $License: Public Domain $
 ###
@@ -54,7 +54,7 @@ END
 versionswitcher() {
     local lang
     local version
-    local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
+    local release=`echo '$Release: 0.3.0 $' | awk '{print $2}'`
     __vs_option_quiet=''
     case "$1" in
     -q)

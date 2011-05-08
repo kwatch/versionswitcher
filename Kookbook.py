@@ -6,7 +6,7 @@ urllib2 = None   # on-demand import
 
 
 
-release = prop('release', '0.0.0')
+release = prop('release', '0.3.0')
 
 
 @recipe
