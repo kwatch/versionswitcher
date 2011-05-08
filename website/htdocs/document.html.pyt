@@ -14,7 +14,7 @@
 [bash]$ wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
-[bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
+[bash]$ VS_PATH=$HOME/lang    # setup
 [bash]$ which python          # using system-installed python
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
@@ -35,7 +35,7 @@
 <!--
 <pre class="terminal">
 [bash]$ . /some/where/to/versionswitcher.sh
-[bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+[bash]$ VS_PATH=$HOME/lang
 [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
 [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
 [bash]$ vs python latest  # use latest version under $HOME/lang/python
@@ -49,10 +49,10 @@
         For example, shell variables $rubyroot and $rubyversion are set when you execute <code>vs ruby 1.9</code>.</p>
   </div>
   <div class="tips">
-    <p>Tips: $HOME/.versionswitcher/hooks/&lt;language&gt;.sh is imported if exists.
+    <p>Tips: $HOME/.vs/hooks/&lt;language&gt;.sh is imported if exists.
         For example:</p>
 <pre class="code">
-## $HOME/.versionswitcher/hooks/ruby.sh
+## $HOME/.vs/hooks/ruby.sh
 if [ -n &quot;$rubyroot&quot; ]; then
     ## set prompt to show ruby version
     PS1=&quot;ruby&#64;$rubyversion&gt; &quot;
@@ -82,8 +82,8 @@ fi
 ***
 *** You have to write the following lines into your ~/.bashrc:
 ***
-***     VERSIONSWITCHER_PATH=$HOME/langs     # or other directories
-***     . $HOME/.versionswitcher/bootstrap.sh
+***     VS_PATH=$HOME/langs     # or other directories
+***     . $HOME/.vs/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
 ***
@@ -101,7 +101,7 @@ fi
 <div class="post" id="Directory-Structure">
   <h2 class="title"><a href="#Directory-Structure">Directory Structure</a></h2>
   <p>All languages you want to switch should be installed into $HOME/lang
-    (or other directory where you specified by $VERSIONSWITCHER_PATH) such as:</p>
+    (or other directory where you specified by $VS_PATH) such as:</p>
 <pre class="code">
 + $HOME/
   + lang/
@@ -129,7 +129,7 @@ fi
 </pre>
   <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
   <div class="tips">
-    <p>Tips: You can specify several directories to $VERSIONSWITCHER_PATH such as <code>VERSIONSWITCHER_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
+    <p>Tips: You can specify several directories to $VS_PATH such as <code>VS_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
   </div>
   <div class="tips">
     <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>
