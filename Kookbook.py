@@ -25,6 +25,8 @@ def task_update(c):
 @ingreds('create_dirs')
 def task_update_files(c):
     """update 'website/static/{versions,script}/*'"""
+    for x in ('website/static/versions', 'website/static/scripts'):
+        os.path.isdir(x) or mkdir(x)
     fnames = []
     fnames.extend(glob("versions/*.txt"))
     fnames.extend(glob("scripts/*.sh"))
