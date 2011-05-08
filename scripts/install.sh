@@ -35,7 +35,7 @@ vs_install() {
     wget_path=`which wget`
     curl_path=`which curl`
     if   [ -n "$wget_path" ]; then  wget="wget -qN"
-    elif [ -n "$curl_path" ]; then  wget="curl -OR"
+    elif [ -n "$curl_path" ]; then  wget="curl -sORL"
     else
         echo "$prompt ERROR: 'wget' or 'curl' required." 2>&1
         return 1
