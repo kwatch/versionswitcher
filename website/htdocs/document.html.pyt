@@ -10,8 +10,9 @@
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
 2.6.6/          3.0.1/          3.2.0/
-[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-[bash]$ . versionswitcher.sh              # import versionswitcher.sh
+[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
+[bash]$ bash                  # restart bash or zsh to enable settings
 [bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
 [bash]$ which python          # using system-installed python
 /usr/bin/python
@@ -66,22 +67,32 @@ fi
 
 <div class="post" id="Install-VersionSwitcher">
   <h2 class="title"><a href="#Install-VersionSwitcher">Install VersionSwitcher</a></h2>
+  <p>Steps:</p>
   <ol class="arabic simple">
-    <li>Download '<a href="/versionswitcher.sh">versionswitcher.sh</a>' and import it.</li>
-    <li>Set shell variable $VERSIONSWITCHER_PATH.</li>
-    <!--li>Type 'vs -h' to show help message.</li-->
-    <li>Add settings into your ~/.bashrc or ~/.zshrc.</li>
+    <li>Download '<a href="/install.sh">install.sh</a>'.</li>
+    <li>Start it with bash (for bash user) or zsh (for zsh user).</li>
+    <li>Log out or restart bash or zsh to enable settings.</li>
   </ol>
-  <p>An example to install:</p>
+  <p>Example:</p>
   <pre class="terminal">
-[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-[bash]$ . versionswitcher.sh
-[bash]$ VERSIONSWITCHER_PATH=$HOME/lang
-[bash]$ vs -h         # show help
-[bash]$ mkdir ~/.versionswitcher
-[bash]$ mv versionswitcher.sh ~/.versionswitcher/
-[bash]$ echo '. ~/.versionswitcher/versionswitcher.sh' &gt;&gt; ~/.bashrc
-[bash]$ echo 'VERSIONSWITCHER_PATH=$HOME/lang'         &gt;&gt; ~/.bashrc
+[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ bash install.sh    # or zsh install.sh if you are a zsh user
+...(snip)...
+***
+*** You have to write the following lines into your ~/.bashrc:
+***
+***     VERSIONSWITCHER_PATH=$HOME/langs     # or other directories
+***     . $HOME/.versionswitcher/bootstrap.sh
+***
+*** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
+***
+*** You should log out or restart bash to enable settings.
+***
+*** Installation is finished successfully.
+*** See http://localhost:8080/ for details.
+*** Thank you.
+[bash]$ bash       # start new bash process
+[bash]$ vs -h      # show help
 </pre>
 </div>
 
