@@ -45,7 +45,7 @@ examples:
 tips:
     * Short name 'vs' is an alias to 'versionswitcher'.
     * It is allowed to set VS_PATH=path1:path2:path3:...
-    * \$HOME/.versionswitcher/hooks/<language>.sh is imported if exists.
+    * \$HOME/.vs/hooks/<language>.sh is imported if exists.
 END
 }
 
@@ -242,7 +242,7 @@ __vs_switch() {
     ## show command path
     echo "$prompt which $command"          ; which $command
     ## import hook script if exists
-    local script="$HOME/.versionswitcher/hooks/$lang.sh"
+    local script="$HOME/.vs/hooks/$lang.sh"
     [ -f "$script" ] && . $script
 }
 
@@ -254,7 +254,7 @@ __vs_download() {
     if [ -n "$VS_DEBUG" ]; then
         url="http://localhost:8080/$filename"
     fi
-    local vs_home="$HOME/.versionswitcher"
+    local vs_home="$HOME/.vs"
     local dir=`dirname $filename`
     [ "$dir" = "." ] && dir=""
     if [ -n "$dir" -a ! -d "$vs_home/$dir" ]; then

@@ -27,7 +27,7 @@ _cmd() {
 
 vs_install() {
     ## settings
-    vs_home="$HOME/.versionswitcher"
+    vs_home="$HOME/.vs"
     vs_url="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && vs_url="http://localhost:8080"
     prompt="***"
@@ -74,7 +74,7 @@ vs_install() {
     echo "$prompt You have to write the following lines into your ~/$rcfile:"
     echo "$prompt"
     echo "$prompt     VS_PATH=\$HOME/langs     # or other directories"
-    echo "$prompt     . \$HOME/.versionswitcher/bootstrap.sh"
+    echo "$prompt     . \$HOME/.vs/bootstrap.sh"
     echo "$prompt"
     echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
     input=""
@@ -82,7 +82,7 @@ vs_install() {
     case "$input" in
     y*|Y*)
         echo "VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
-        echo ". \$HOME/.versionswitcher/bootstrap.sh" >> $HOME/$rcfile
+        echo ". \$HOME/.vs/bootstrap.sh" >> $HOME/$rcfile
         echo "$prompt"
         echo "$prompt You should log out or restart $shell to enable settings."
         ;;
