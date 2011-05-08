@@ -110,7 +110,7 @@ __vs_glob() {
 ###
 __vs_echo() {
     if [ -z "$__vs_option_quiet" ]; then
-        echo $1
+        echo "$1"
     fi
 }
 
@@ -305,7 +305,7 @@ __vs_install() {
             echo -n "$prompt Are you really to install $lang $version? [y/N]: "
             read input
             [ -z "$input" ] && input="n"
-            case $input in
+            case "$input" in
             y*|Y*)  ;;
             *)      return 1;;
             esac
@@ -336,7 +336,7 @@ __vs_install() {
     $shell "$script_file" "$version" "$prefix" || __vs_error "Failed to install." || return 1
     ## switch to it
     echo
-    echo "$prompt vs $lang $version"  ; versionswitcher $lang $version
+    echo "$prompt vs $lang $version"  ; versionswitcher "$lang" "$version"
 }
 
 
