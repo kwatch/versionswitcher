@@ -24,7 +24,7 @@
 [bash]$ wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
-[bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
+[bash]$ VS_PATH=$HOME/lang    # setup
 [bash]$ which python          # using system-installed python
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6

@@ -29,7 +29,7 @@ Usage
 
 ::
 
-    [bash]$ VERSIONSWITCHER_PATH=$HOME/lang
+    [bash]$ VS_PATH=$HOME/lang
     [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
     [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
     [bash]$ vs python latest  # use latest version under $HOME/lang/python
@@ -55,8 +55,8 @@ Example::
     ***
     *** You have to write the following lines into your ~/.bashrc:
     ***
-    ***     VERSIONSWITCHER_PATH=$HOME/langs     # or other directories
-    ***     . $HOME/.versionswitcher/bootstrap.sh
+    ***     VS_PATH=$HOME/langs     # or other directories
+    ***     . $HOME/.vs/bootstrap.sh
     ***
     *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
     ***
@@ -73,7 +73,7 @@ Install Languages
 =================
 
 All languages which you want to switch should be installed into $HOME/lang
-(or other directory where you specified by $VERSIONSWITCHER_PATH) such as::
+(or other directory where you specified by $VS_PATH) such as::
 
     + $HOME/
       + lang/
@@ -174,16 +174,16 @@ and luajit.
 Tips
 ====
 
-* It is allowed to set VERSIONSWITCHER_PATH=path1:path2:path3:...
+* It is allowed to set VS_PATH=path1:path2:path3:...
 
 * VersionSwitcher sets $xxxroot and $xxxversion shell variables.
   For example, if you execute 'vs ruby 1.9', $rubyroot and
   $rubyversion shell variables will be set.
 
-* $HOME/.versionswitcher/hooks/<language>.sh is imported if exists.
+* $HOME/.vs/hooks/<language>.sh is imported if exists.
   For example::
 
-      ## $HOME/.versionswitcher/hooks/ruby.sh
+      ## $HOME/.vs/hooks/ruby.sh
       if [ -n "$rubyroot" ]; then
 	  ## set prompt to show ruby version
 	  PS1="ruby@$rubyversion> "
