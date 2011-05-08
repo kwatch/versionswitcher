@@ -21,8 +21,9 @@
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
 2.6.6/          3.0.1/          3.2.0/
-[bash]$ wget http://versionswitcher.appspot.com/versionswitcher.sh
-[bash]$ . versionswitcher.sh              # import versionswitcher.sh
+[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
+[bash]$ bash                  # restart bash or zsh to enable settings
 [bash]$ VERSIONSWITCHER_PATH=$HOME/lang   # setup
 [bash]$ which python          # using system-installed python
 /usr/bin/python
