@@ -6,6 +6,7 @@
 
 <div class="post" id="Usage">
   <h2 class="title"><a href="#Usage">Usage</a></h2>
+  <p>Go to <a href="#Install-VersionSwitcher">Install VersionSwitcher</a> section at first if you have not installed yet.</p>
   <pre class="terminal">
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
@@ -97,7 +98,7 @@ fi
 </div>
 
 
-<div class="post" id="Install-Languages">
+<div class="post" id="Directory-Structure">
   <h2 class="title"><a href="#Directory-Structure">Directory Structure</a></h2>
   <p>All languages you want to switch should be installed into $HOME/lang
     (or other directory where you specified by $VERSIONSWITCHER_PATH) such as:</p>
@@ -136,13 +137,15 @@ fi
 </div>
 
 
-<div class="post" id="Install-Languages">
+<div class="post" id="Language-Installer">
   <h2 class="title"><a href="#Language-Installer">Language Installer</a></h2>
   <p>VersionSwitcher has a feature to install the following languages easily:</p>
   <ul>
-    <li>Ruby (<a href="http://www.ruby-lang.org/">http://www.ruby-lang.org/</a>)</li>
-    <li>Python (<a href="http://www.python.org/">http://www.python.org/</a>)</li>
     <li>Node.js (<a href="http://nodejs.org/">http://nodejs.org/</a>)</li>
+    <li>Python (<a href="http://www.python.org/">http://www.python.org/</a>)</li>
+    <li>PyPy (<a href="http://pypy.org/">http://pypy.org/</a>)</li>
+    <li>Ruby (<a href="http://www.ruby-lang.org/">http://www.ruby-lang.org/</a>)</li>
+    <li>Rubinius (<a href="http://rubini.us/">http://rubini.us/</a>)</li>
     <li>Lua (<a href="http://www.lua.org/">http://www.lua.org/</a>)</li>
     <li>LuaJIT (<a href="http://luajit.org/">http://luajit.org/</a>)</li>
   </ul>
@@ -172,7 +175,9 @@ fi
 lua         # http://www.lua.org/
 luajit      # http://luajit.org/
 node        # http://nodejs.org/
+pypy        # http://pypy.org/
 python      # http://www.python.org/
+rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
 [bash]$ <strong>vs -i node</strong>
 ## try 'vs -i node VERSION' where VERSION is one of:
@@ -221,9 +226,9 @@ $ which node
   <div class="tips">
     <p>Tips: VersionSwitcher installs package manager for each language:</p>
     <ul>
+      <li><a href="http://npmjs.org/">npm</a> (for Node.js)</li>
       <li><a href="https://rubygems.org/pages/download">RubyGems</a> (for Ruby)</li>
       <li><a href="http://packages.python.org/distribute/">Distribute</a> (for Python)</li>
-      <li><a href="http://npmjs.org/">npm</a> (for Node.js)</li>
     </ul>
   </div>
   
