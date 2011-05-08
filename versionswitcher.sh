@@ -23,6 +23,12 @@ __vs_help_message() {
         cat <<END
 versionswitcher - change version of language or application
 release: $release
+usage: vs [options] [lang] [version]
+   -h        : help
+   -v        : version
+   -i        : install
+   -q        : quiet
+
 examples:
     $ VERSIONSWITCHER_PATH=\$HOME/lang
     $ vs -h               # show help
