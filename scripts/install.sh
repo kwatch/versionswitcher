@@ -26,6 +26,7 @@ _cmd() {
 
 
 vs_install() {
+    install_sh=$1
     ## settings
     vs_home="$HOME/.vs"
     vs_url="http://versionswitcher.appspot.com"
@@ -46,6 +47,8 @@ vs_install() {
     [ ! -d $vs_home/hooks      ] && _cmd "mkdir $vs_home/hooks"
     [ ! -d $vs_home/versions   ] && _cmd "mkdir $vs_home/versions"
     [ ! -d $vs_home/installers ] && _cmd "mkdir $vs_home/installers"
+    ## copy install.sh into ~/.vs/scripts/
+    _cmd "cp -p $install_sh $vs_home/scripts/"              || return 1
     ## download scripts
     _cmd "cd $vs_home/scripts"                              || return 1
     _cmd "$wget $vs_url/scripts/versionswitcher.sh"         || return 1
@@ -113,4 +116,4 @@ if [ "root" = `whoami` ]; then
     echo "*** exit 1" 2>&1
     exit 1
 fi
-vs_install
+vs_install "$0"
