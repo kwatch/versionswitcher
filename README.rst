@@ -196,7 +196,8 @@ Tips
 Changes
 =======
 
-Release 0.3.0 (????-??-??)
+Release 0.3.0 (2011-??-??)
+    * Rename '$VERSIONSWITCHER_PATH' to '$VS_PATH'.
     * Enhance to provide 'install.sh' to make installation easy.
     * Enhance to provide 'bootstrap.sh' to import versionswitcher.sh lazily.
     * Enhance to add PyPy and Rubinius as installable languages.

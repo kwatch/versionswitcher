@@ -10,7 +10,7 @@
     </form>
     <?py #endif ?>
     <div>
-      <a href="/install.sh">DOWNLOAD<div id="download-version">(version 0.2.0)</div></a>
+      <a href="/install.sh">DOWNLOAD<div id="download-version">(version 0.3.0)</div></a>
     </div>
   </div>
   <div style="clear: both;">&nbsp;</div>
