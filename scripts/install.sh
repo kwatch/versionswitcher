@@ -64,8 +64,11 @@ vs_install() {
     done
     ## download hook script examples
     _cmd "cd $vs_home/hooks"                                || return 1
-    _cmd "$wget $vs_url/hooks/python.sh"                    || return 1
-    _cmd "$wget $vs_url/hooks/ruby.sh"                      || return 1
+    for lang in "python" "ruby"; do
+        if [ ! -f "$lang.sh" ]; then
+            _cmd "$wget $vs_url/hooks/$lang.sh"             || return 1
+        fi
+    done
     ## detect bash or zsh
     if   [ -n "$BASH_VERSION" ]; then  shell="bash"
     elif [ -n "$ZSH_VERSION"  ]; then  shell="zsh"
