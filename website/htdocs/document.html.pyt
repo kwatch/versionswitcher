@@ -70,7 +70,7 @@ fi
   <h2 class="title"><a href="#Install-VersionSwitcher">Install VersionSwitcher</a></h2>
   <p>Steps:</p>
   <ol class="arabic simple">
-    <li>Download '<a href="/install.sh">install.sh</a>'.</li>
+    <li>Download '<a href="https://versionswitcher.appspot.com/install.sh">install.sh</a>'.</li>
     <li>Start it with bash (for bash user) or zsh (for zsh user).</li>
     <li>Log out or restart bash or zsh to enable settings.</li>
   </ol>
