@@ -73,7 +73,7 @@ vs_install() {
     echo "$prompt"
     echo "$prompt You have to write the following lines into your ~/$rcfile:"
     echo "$prompt"
-    echo "$prompt     VERSIONSWITCHER_PATH=\$HOME/langs     # or other directories"
+    echo "$prompt     VS_PATH=\$HOME/langs     # or other directories"
     echo "$prompt     . \$HOME/.versionswitcher/bootstrap.sh"
     echo "$prompt"
     echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
@@ -81,7 +81,7 @@ vs_install() {
     read input; [ -z "$input" ] && input="y"
     case "$input" in
     y*|Y*)
-        echo "VERSIONSWITCHER_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
+        echo "VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
         echo ". \$HOME/.versionswitcher/bootstrap.sh" >> $HOME/$rcfile
         echo "$prompt"
         echo "$prompt You should log out or restart $shell to enable settings."
