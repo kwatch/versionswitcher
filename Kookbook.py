@@ -24,12 +24,12 @@ def task_update(c):
 @recipe
 @ingreds('create_dirs')
 def task_update_files(c):
-    """update 'website/static/{versions,script}/*'"""
-    for x in ('website/static/versions', 'website/static/scripts'):
+    """update 'website/static/{versions,installers}/*'"""
+    for x in ('website/static/versions', 'website/static/installers'):
         os.path.isdir(x) or mkdir(x)
     fnames = []
     fnames.extend(glob("versions/*.txt"))
-    fnames.extend(glob("scripts/*.sh"))
+    fnames.extend(glob("installers/*.sh"))
     for fname in fnames:
         src_fname = fname
         dst_fname = "website/static/" + fname
@@ -64,7 +64,7 @@ def task_update_sh(c):
 
 @recipe
 def task_create_dirs(c):
-    for x in ["website/static/versions", "website/static/scripts"]:
+    for x in ["website/static/versions", "website/static/installers"]:
         if not os.path.isdir(x):
             mkdir_p(x)
 
