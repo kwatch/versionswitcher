@@ -41,14 +41,15 @@ vs_install() {
         return 1
     fi
     ## create versionswitcher directory
-    [ ! -d $vs_home          ] && _cmd "mkdir $vs_home"
-    [ ! -d $vs_home/versions ] && _cmd "mkdir $vs_home/versions"
-    [ ! -d $vs_home/scripts  ] && _cmd "mkdir $vs_home/scripts"
-    [ ! -d $vs_home/hooks    ] && _cmd "mkdir $vs_home/hooks"
+    [ ! -d $vs_home            ] && _cmd "mkdir $vs_home"
+    [ ! -d $vs_home/scripts    ] && _cmd "mkdir $vs_home/scripts"
+    [ ! -d $vs_home/hooks      ] && _cmd "mkdir $vs_home/hooks"
+    [ ! -d $vs_home/versions   ] && _cmd "mkdir $vs_home/versions"
+    [ ! -d $vs_home/installers ] && _cmd "mkdir $vs_home/installers"
     ## download scripts
-    _cmd "cd $vs_home"                                      || return 1
-    _cmd "$wget $vs_url/versionswitcher.sh"                 || return 1
-    _cmd "$wget $vs_url/bootstrap.sh"                       || return 1
+    _cmd "cd $vs_home/scripts"                              || return 1
+    _cmd "$wget $vs_url/scripts/versionswitcher.sh"         || return 1
+    _cmd "$wget $vs_url/scripts/bootstrap.sh"               || return 1
     ## download version files
     _cmd "cd $vs_home/versions"                             || return 1
     _cmd "$wget $vs_url/versions/INDEX.txt"                 || return 1
@@ -56,10 +57,10 @@ vs_install() {
     for lang in `echo $langs`; do
         _cmd "$wget $vs_url/versions/$lang.txt"             || return 1
     done
-    ## download installer scripts
-    _cmd "cd $vs_home/scripts"                              || return 1
+    ## download installers
+    _cmd "cd $vs_home/installers"                           || return 1
     for lang in `echo $langs`; do
-        _cmd "$wget $vs_url/scripts/vs_install_$lang.sh"    || return 1
+        _cmd "$wget $vs_url/installers/vs_install_$lang.sh" || return 1
     done
     ## detect bash or zsh
     if   [ -n "$BASH_VERSION" ]; then  shell="bash"
@@ -74,7 +75,7 @@ vs_install() {
     echo "$prompt You have to write the following lines into your ~/$rcfile:"
     echo "$prompt"
     echo "$prompt     VS_PATH=\$HOME/langs     # or other directories"
-    echo "$prompt     . \$HOME/.vs/bootstrap.sh"
+    echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
     echo "$prompt"
     echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
     input=""
@@ -82,7 +83,7 @@ vs_install() {
     case "$input" in
     y*|Y*)
         echo "VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
-        echo ". \$HOME/.vs/bootstrap.sh" >> $HOME/$rcfile
+        echo ". \$HOME/.vs/scripts/bootstrap.sh" >> $HOME/$rcfile
         echo "$prompt"
         echo "$prompt You should log out or restart $shell to enable settings."
         ;;
