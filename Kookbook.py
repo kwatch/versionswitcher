@@ -17,6 +17,10 @@ def task_update(c):
         task_update_sh(c)
     elif branch_name == 'master':
         task_update_files(c)
+    #elif branch_name.startswith('dev-'):
+    #    for x in ['versionswitcher.sh', 'install.sh', 'bootstrap.sh']:
+    #        rm_f(c%"website/static/scripts/$(x)")
+    #        system(c%"ln scripts/$(x) website/static/scripts/$(x)")
     else:
         assert False, "branch_name=%r" % branch_name
 
@@ -58,15 +62,20 @@ def task_update_files(c):
 @ingreds('create_dirs')
 def task_update_sh(c):
     """update 'website/static/versionswitcher.sh'"""
-    fname = 'versionswitcher.sh'
-    cp_p(fname, 'website/static')
+    fnames = []
+    fnames.extend(glob("scripts/*.sh"))
+    fnames.extend(glob("hooks/*.sh"))
+    for x in fnames:
+        base = os.path.basename(x)
+        cp_p(x, "website/static/"+x)
 
 
 @recipe
 def task_create_dirs(c):
-    for x in ["website/static/versions", "website/static/installers"]:
-        if not os.path.isdir(x):
-            mkdir_p(x)
+    for x in ["scripts", "versions", "installers", "hooks"]:
+        dirpath = "website/static/" + x
+        if not os.path.isdir(dirpath):
+            mkdir_p(dirpath)
 
 
 def current_branch_name():
