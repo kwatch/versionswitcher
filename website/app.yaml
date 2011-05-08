@@ -19,6 +19,14 @@ handlers:
     static_files: static/versionswitcher.sh
     upload: static/versionswitcher\.sh
     mime_type: text/plain
+  - url: /install\.sh
+    static_files: static/install.sh
+    upload: static/install\.sh
+    mime_type: text/plain
+  - url: /bootstrap\.sh
+    static_files: static/bootstrap.sh
+    upload: static/bootstrap\.sh
+    mime_type: text/plain
   #- url: /static
   #  static_dir: static
   #- url: /versions
