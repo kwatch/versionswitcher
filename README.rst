@@ -105,9 +105,11 @@ as long as they are installed according to the above structure.
 In addition, VersionSwitcher has a feature to install the following
 languages easily::
 
-* Ruby (http://www.ruby-lang.org/)
-* Python (http://www.python.org/)
 * Node.js (http://nodejs.org/)
+* Python (http://www.python.org/)
+* PyPy (http://pypy.org/)
+* Ruby (http://www.ruby-lang.org/)
+* Rubinius (http://rubini.us/)
 * Lua (http://www.lua.org/)
 * LuaJIT (http://luajit.org/)
 
@@ -118,7 +120,9 @@ The following is an exaple to install Node.js (and npm command)::
     lua         # http://www.lua.org/
     luajit      # http://luajit.org/
     node        # http://nodejs.org/
+    pypy        # http://pypy.org/
     python      # http://www.python.org/
+    rubinius    # http://rubini.us/
     ruby        # http://www.ruby-lang.org/
     [bash]$ vs -i node
     ## try 'vs -i node VERSION' where VERSION is one of:
@@ -191,6 +195,11 @@ Tips
 
 Changes
 =======
+
+Release 0.3.0 (????-??-??)
+    * Enhance to provide 'install.sh' to make installation easy.
+    * Enhance to provide 'bootstrap.sh' to import versionswitcher.sh lazily.
+    * Enhance to add PyPy and Rubinius as installable languages.
 
 Release 0.2.0 (2011-05-01)
     * Enhance to support '-i' option to install languages.
