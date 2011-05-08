@@ -57,11 +57,15 @@ vs_install() {
     for lang in `echo $langs`; do
         _cmd "$wget $vs_url/versions/$lang.txt"             || return 1
     done
-    ## download installers
+    ## download language installers
     _cmd "cd $vs_home/installers"                           || return 1
     for lang in `echo $langs`; do
         _cmd "$wget $vs_url/installers/vs_install_$lang.sh" || return 1
     done
+    ## download hook script examples
+    _cmd "cd $vs_home/hooks"                                || return 1
+    _cmd "$wget $vs_url/hooks/python.sh"                    || return 1
+    _cmd "$wget $vs_url/hooks/ruby.sh"                      || return 1
     ## detect bash or zsh
     if   [ -n "$BASH_VERSION" ]; then  shell="bash"
     elif [ -n "$ZSH_VERSION"  ]; then  shell="zsh"
