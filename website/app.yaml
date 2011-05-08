@@ -39,6 +39,8 @@ handlers:
     script: static_file.py
   - url: /installers/.*
     script: static_file.py
+  - url: /hooks/.*
+    script: static_file.py
   - url: /archives
     static_dir: static/archives
     mime_type: text/plain
