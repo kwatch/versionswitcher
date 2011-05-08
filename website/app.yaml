@@ -15,27 +15,29 @@ handlers:
     upload: static/img/favicon.ico
     mime_type: image/x-icon
     #mime_type: image/vnd.microsoft.icon
-  - url: /versionswitcher\.sh
-    static_files: static/versionswitcher.sh
-    upload: static/versionswitcher\.sh
-    mime_type: text/plain
+#  - url: /versionswitcher\.sh
+#    static_files: static/scripts/versionswitcher.sh
+#    upload: static/scripts/versionswitcher\.sh
+#    mime_type: text/plain
   - url: /install\.sh
-    static_files: static/install.sh
-    upload: static/install\.sh
+    static_files: static/scripts/install.sh
+    upload: static/scripts/install\.sh
     mime_type: text/plain
-  - url: /bootstrap\.sh
-    static_files: static/bootstrap.sh
-    upload: static/bootstrap\.sh
-    mime_type: text/plain
+#  - url: /bootstrap\.sh
+#    static_files: static/scripts/bootstrap.sh
+#    upload: static/scripts/bootstrap\.sh
+#    mime_type: text/plain
   #- url: /static
   #  static_dir: static
   #- url: /versions
   #  static_dir: static/versions
   #- url: /scripts
   #  static_dir: static/scripts
+  - url: /scripts/.*
+    script: static_file.py
   - url: /versions/.*
     script: static_file.py
-  - url: /scripts/.*
+  - url: /installers/.*
     script: static_file.py
   - url: /archives
     static_dir: static/archives

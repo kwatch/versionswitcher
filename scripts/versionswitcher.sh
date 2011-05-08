@@ -312,7 +312,7 @@ __vs_install() {
         fi
     fi
     ## find installer script file
-    local script_file=`__vs_download scripts/vs_install_${lang}.sh`
+    local script_file=`__vs_download installers/vs_install_${lang}.sh`
     [ -f "$script_file" ] || __vs_error "$lang is not supported to install." || return 1
     ## confirm PREFIX directory
     [ -n "$VS_PATH" ] || __vs_error "Set \$VS_PATH before installation." || return 1
