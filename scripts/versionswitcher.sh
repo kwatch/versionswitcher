@@ -54,7 +54,7 @@ END
 versionswitcher() {
     local lang
     local version
-    local release=`echo '$Release: 0.1.0 $' | awk '{print $2}'`
+    local release=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
     __vs_option_quiet=''
     case "$1" in
     -q)
