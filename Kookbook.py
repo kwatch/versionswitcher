@@ -94,7 +94,7 @@ def task_edit(c):
         (r'(:Release:\s+)\S+', lambda m: m.group(1) + release),
         (r'\$Release:.*?\$', '$Release: %s $' % release),
     ]
-    edit(*fnames, by=replacer)
+    edit(fnames, by=replacer)
 
 
 @recipe
