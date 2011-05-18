@@ -58,7 +58,7 @@ _install_ruby() {
         ;;
     esac
     local base="ruby-$version"
-    local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.tar.$ext"
+    local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.$ext"
     _cmd "wget -N $url"                           || return 1
     _cmd "rm -rf $base"                           || return 1
     _cmd "$tar $base.tar.bz2"                     || return 1
