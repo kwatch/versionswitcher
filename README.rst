@@ -196,6 +196,10 @@ Tips
 Changes
 =======
 
+Release 0.3.1 (2011-05-18)
+    * Fix 'ruby' installer to remove duplicated '.tar' extension.
+    * Fix 'versionswitcher.sh' to report error when download by wget is failed.
+
 Release 0.3.0 (2011-05-08)
     * Rename '$VERSIONSWITCHER_PATH' to '$VS_PATH'.
     * Enhance to provide 'install.sh' to make installation easy.
