@@ -63,7 +63,7 @@ Example::
     *** You should log out or restart bash to enable settings.
     ***
     *** Installation is finished successfully.
-    *** See http://localhost:8080/ for details.
+    *** See http://versionswitcher.appspot.com/ for details.
     *** Thank you.
     [bash]$ bash       # start new bash process
     [bash]$ vs -h      # show help
