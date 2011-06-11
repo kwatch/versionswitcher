@@ -7,6 +7,11 @@ urllib2 = None   # on-demand import
 
 
 release = prop('release', '0.0.0')
+DEBUG   = prop('debug', False)
+
+def _debug(msg):
+    if DEBUG:
+        sys.stderr.write("\033[0;31m*** debug: %s\033[0m\n" % (msg, ))
 
 
 @recipe
@@ -175,6 +180,19 @@ class Checker(object):
         f.close()
         return content
 
+    def page_exists(self, url):
+        global urllib2
+        if not urllib2: import urllib2
+        f = None
+        ex = None
+        try:
+            f = urllib2.urlopen(url)
+        except urllib2.HTTPError:
+            ex = sys.exc_info()[1]
+        finally:
+            if f: f.close()
+        return not ex
+
     def normalize(self, ver):
         return ".".join("%03d" % int(d.group(0)) for d in re.finditer(r'\d+', ver))
 
@@ -236,6 +254,7 @@ class PythonChecker(Checker):
         set1, set2 = set(fetched_versions), set(known_versions)
         for ver in set1 - set2:
             if not self._is_released(ver):
+                _debug("%s is removed because not released yet." % (ver,))
                 fetched_versions.remove(ver)
         return Checker.compare(self, fetched_versions, known_versions)
 
@@ -246,12 +265,20 @@ class PythonChecker(Checker):
 
     def _is_released(self, version):
         ver = version.count('.') > 1 and re.sub(r'\.0$', '', version) or version
+        #url = self.url + '%s/Python-%s.tar.bz2' % (ver, ver)
+        #_debug("url=%r" % (url,))
+        #return self.page_exists(url)
+        url = 'http://www.python.org/download/releases/%s/' % (ver,)
         try:
-            self.fetch_page(self.url + '%s/%s.tar.gz' % (ver, ver))
-            return True
-        except urllib2.HTTPError, ex:
-        #except Exception, ex:
+            content = self.fetch_page(url)
+        except urllib2.HTTPError:
+            _debug('failed to open %s' % url)
             return False
+        else:
+            path = "/ftp/python/%s/Python-%s.tar.bz2" % (ver, ver)
+            ret = ('href="%s"' % path) in content
+            ret or _debug('href="Python-%s.tar.bz2" is not found in content' % ver)
+            return ret
 
     def build_text(self, versions):
         vals = {}
