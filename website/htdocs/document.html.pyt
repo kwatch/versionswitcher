@@ -1,7 +1,7 @@
 <?py # -*- coding: utf-8 -*- ?>
 <?py #@ARGS ?>
 <?py
-   _context['page_title'] = 'document'
+   _context['page_title'] = 'Document'
 ?>
 
 <div class="post" id="Usage">
