@@ -2,6 +2,20 @@
 <?py self.context['page_title'] = 'Contact' ?>
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.3.1</a></h2>
+  <p class="meta"><span class="date">May 18, 2011</span><span class="posted"><a href="/archives/0.3.1/versionswitcher.sh">download</a></span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Fix 'ruby' installer to remove duplicated '.tar' extension.</li>
+      <li>Fix 'versionswitcher.sh' to report error when download by wget is failed.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.3.0</a></h2>
   <p class="meta"><span class="date">May 08, 2011</span><span class="posted"><a href="/archives/0.3.0/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
