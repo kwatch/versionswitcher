@@ -1,5 +1,5 @@
 <?py # -*- coding: utf-8 -*- ?>
-<?py self.context['page_title'] = 'Contact' ?>
+<?py self.context['page_title'] = 'History' ?>
 
 <div class="post">
   <h2 class="title"><a href="#">Release 0.3.1</a></h2>
