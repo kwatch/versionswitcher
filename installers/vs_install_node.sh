@@ -40,7 +40,12 @@ _install_node() {
     esac
     ## donwload, compile and install
     local base="node-v$version"
-    local url="http://nodejs.org/dist/$base.tar.gz"
+    local url="http://nodejs.org/dist/v$version/$base.tar.gz"
+    case "$version" in
+    0.5.0|0.4*|0.3*|0.2*|0.1*|0.0*)
+        url="http://nodejs.org/dist/$base.tar.gz"
+        ;;
+    esac
     _cmd "wget -N $url"                           || return 1
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
