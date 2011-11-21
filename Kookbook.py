@@ -100,6 +100,11 @@ def task_edit(c):
         (r'\$Release:.*?\$', '$Release: %s $' % release),
     ]
     edit(fnames, by=replacer)
+    fnames = ['website/tmpl/_sidebar.html.pyt']
+    replacer = [
+        (r'\(version \d+\.\d+\.\d+\)', r'(version %s)' % (release,)),
+    ]
+    edit(fnames, by=replacer)
 
 
 @recipe
