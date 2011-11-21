@@ -6,7 +6,7 @@ urllib2 = None   # on-demand import
 
 
 
-release = prop('release', '0.3.1')
+release = prop('release', '0.3.2')
 DEBUG   = prop('debug', False)
 
 def _debug(msg):
