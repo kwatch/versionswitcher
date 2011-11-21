@@ -83,14 +83,14 @@ fi
 *** You have to write the following lines into your ~/.bashrc:
 ***
 ***     VS_PATH=$HOME/langs     # or other directories
-***     . $HOME/.vs/bootstrap.sh
+***     . $HOME/.vs/scripts/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
 ***
 *** You should log out or restart bash to enable settings.
 ***
 *** Installation is finished successfully.
-*** See http://localhost:8080/ for details.
+*** See http://versionswitcher.appspot.com/ for details.
 *** Thank you.
 [bash]$ bash       # start new bash process
 [bash]$ vs -h      # show help
