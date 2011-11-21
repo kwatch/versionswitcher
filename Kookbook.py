@@ -303,7 +303,7 @@ class NodeChecker(Checker):
 
     filename = "versions/node.txt"
     url = "http://nodejs.org/dist/"
-    version_rexp = re.compile(r'href="node-v(\d+\.\d+(?:\.\d+)?)\.tar.(?:gz|bz2)"')
+    version_rexp = re.compile(r'href="(?:node-)?v(\d+\.\d+(?:\.\d+)?)(?:/|\.tar.gz|\.tar.bz2)"')
 
     def fetch_versions(self):
         return [ ver for ver in Checker.fetch_versions(self)
