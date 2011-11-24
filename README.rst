@@ -2,7 +2,7 @@
 README
 ======
 
-:Release:    0.3.2
+:Release:    0.3.3
 :Copyright:  copyright(c) 2011 kuwata-lab.com all rights reserved
 :License:    Public Domain
 
