@@ -183,6 +183,7 @@ class Checker(object):
         f = urllib2.urlopen(url)
         content = f.read()
         f.close()
+        f = open("fetched.html", 'w'); f.write(content); f.close()
         return content
 
     def page_exists(self, url):
@@ -351,8 +352,8 @@ class LuajitChecker(Checker):
 class PypyChecker(Checker):
 
     filename = "versions/pypy.txt"
-    url = "http://pypy.org/download/"
-    version_rexp = re.compile(r'href="pypy-(\d+\.\d+(?:\.\d+)?)-src\.tar.bz2"')
+    url = "https://bitbucket.org/pypy/pypy/downloads/"
+    version_rexp = re.compile(r'href="/pypy/pypy/downloads/pypy-(\d+\.\d+(?:\.\d+)?)-linux\.tar.bz2"')
 
     def fetch_versions(self):
         return [ ver for ver in Checker.fetch_versions(self)

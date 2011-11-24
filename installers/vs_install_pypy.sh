@@ -39,8 +39,8 @@ _install_pypy() {
     ## donwload, extract, and install
     local ver=`echo $version | sed 's/\.0$//'`
     local base="pypy-$ver-$target"
-    local url="http://pypy.org/download/$base.tar.bz2"
-    _cmd "wget -N $url"                           || return 1
+    local url="https://bitbucket.org/pypy/pypy/downloads/$base.tar.bz2"
+    _cmd "wget -N --no-check-certificate $url"    || return 1
     _cmd "rm -rf $base"                           || return 1
     _cmd "tar xjf $base.tar.bz2"                  || return 1
     local dirname=`tar tjf $base.tar.bz2 | awk -F/ 'NR==1 { print $1 }'`
