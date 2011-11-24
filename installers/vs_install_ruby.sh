@@ -61,7 +61,7 @@ _install_ruby() {
     local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$base.$ext"
     _cmd "wget -N $url"                           || return 1
     _cmd "rm -rf $base"                           || return 1
-    _cmd "$tar $base.tar.bz2"                     || return 1
+    _cmd "$tar $base.$ext"                        || return 1
     _cmd "cd $base/"                              || return 1
     _cmd "time $configure"                        || return 1
     _cmd "time make"                              || return 1
