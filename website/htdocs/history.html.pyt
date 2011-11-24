@@ -2,6 +2,19 @@
 <?py self.context['page_title'] = 'History' ?>
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.3.3</a></h2>
+  <p class="meta"><span class="date">Nov 24, 2011</span><span class="posted"><a href="/archives/0.3.4/versionswitcher.sh">download</a></span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Fix 'ruby' installer to install on Ruby 1.8.5 or older.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.3.2</a></h2>
   <p class="meta"><span class="date">Nov 21, 2011</span><span class="posted"><a href="/archives/0.3.2/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
