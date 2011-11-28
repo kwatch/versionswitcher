@@ -1,0 +1,2 @@
+url='http://rubini.us/releases/'
+rexp='href="/releases/(\d+\.\d+)(?:\.(\d+))?/"'

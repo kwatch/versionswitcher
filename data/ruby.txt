@@ -1,0 +1,4 @@
+url='http://www.ring.gr.jp/archives/lang/ruby/1.8/'
+url2='http://www.ring.gr.jp/archives/lang/ruby/1.9/'
+rexp='href="ruby-(\d+\.\d+\.\d+)-(.*?)\.tar.gz?"'
+sep='-'

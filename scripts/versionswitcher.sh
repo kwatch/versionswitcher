@@ -273,48 +273,15 @@ __vs_versions() {
     local sep='.'
     local url2=''
     case "$lang" in
-    node)
-        url='http://nodejs.org/dist/'
-        rexp='href="v(\d+\.\d+)\.(\d+)\/?"'
-        ;;
-    python|py)
-        lang='python'
-        url='http://www.python.org/ftp/python/'
-        rexp='href="(\d+\.\d+)(?:\.(\d+))?\/?"'
-        ;;
-    pypy)
-        url='https://bitbucket.org/pypy/pypy/downloads/'
-        rexp='href="/pypy/pypy/downloads/pypy-(\d+\.\d+(?:\.\d+)?)-linux\.tar.bz2"'
-        ;;
-    ruby|rb)
-        lang='ruby'
-        url='http://www.ring.gr.jp/archives/lang/ruby/1.8/'
-        url2='http://www.ring.gr.jp/archives/lang/ruby/1.9/'
-        rexp='href="ruby-(\d+\.\d+\.\d+)-(.*?)\.tar.gz?"'
-        sep='-'
-        ;;
-    rubinius|rbx)
-        lang='rubinius'
-        url='http://rubini.us/releases/'
-        rexp='href="/releases/(\d+\.\d+)(?:\.(\d+))?/"'
-        ;;
-    lua)
-        url='http://www.lua.org/ftp/'
-        rexp='(?:HREF|href)="lua-(\d+\.\d+(?:\.\d+)?)\.tar\.gz"'
-        ;;
-    luajit)
-        url='http://luajit.org/download.html'
-        rexp='href="download/LuaJIT-(\d+\.\d+(?:\.\d+)?(?:-\w+)?)\.tar\.gz"'
-        ;;
-    gauche|gosh)
-        lang='gauche'
-        url='http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/'
-        rexp='href="Gauche-(\d+\.\d+(?:\.\d+)?)\.tgz"'
-        ;;
-    *)
-        echo "*** $lang: not supported to install. exit."
-        return 1
+    py)   lang='python';;
+    rb)   lang='ruby';;
+    rbx)  lang='rubinius';;
+    gosh) lang='gauche';;
     esac
+    #
+    local fname="data/$lang.txt"
+    [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
+    . $fname
     #
     perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';

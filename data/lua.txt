@@ -1,0 +1,2 @@
+url='http://www.lua.org/ftp/'
+rexp='(?:HREF|href)="lua-(\d+\.\d+(?:\.\d+)?)\.tar\.gz"'
