@@ -298,7 +298,7 @@ __vs_installable_versions() {
     gosh) lang='gauche';;
     esac
     #
-    local fname="data/$lang.txt"
+    local fname="$HOME/.vs/data/$lang.txt"
     [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
     . $fname
     #
