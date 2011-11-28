@@ -408,9 +408,9 @@ __vs_upgrade() {
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
     local ver=`wget -q -O - $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
-        echo "current version is newest. exist."
+        __vs_echo "current version is newest. exist."
     else
-        echo "upgrade to $ver (current: $__vs_version)"
+        __vs_echo "upgrade to $ver (current: $__vs_version)"
         local dir=$HOME/.vs/scripts
         mkdir -p $dir
         (cd $dir; rm -f install.sh; wget $site/install.sh)
