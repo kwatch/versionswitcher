@@ -283,6 +283,10 @@ __vs_installable_versions() {
     [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
     . $fname
     #
+    [ -n "$url" ]  && echo "## checking $url"
+    [ -n "$url2" ] && echo "## checking $url2"
+    __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
+    #
     perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
     [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
@@ -325,8 +329,6 @@ __vs_install() {
     #[ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
     ## show all versions when version is not specified
     if [ -z "$version" ]; then
-        __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
-        #cat $filepath
         __vs_installable_versions $lang
         return 0
     fi
