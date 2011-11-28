@@ -277,8 +277,8 @@ __vs_installable_langs() {
 ##
 __vs_installable_versions() {
     local lang=$1
-    local showhelp=$2
-    local condense=$3
+    local printmsg=$2   # 'y' or 'n'
+    local condense=$3   # 'y' or 'n'
     local url=''
     local url2=''
     local rexp=''
@@ -296,7 +296,7 @@ __vs_installable_versions() {
     [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
     . $fname
     #
-    if [ "$showhelp" = 'y' ]; then
+    if [ "$printmsg" = 'y' ]; then
         [ -n "$url" ]  && echo "## checking $url"
         [ -n "$url2" ] && echo "## checking $url2"
         __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
@@ -325,12 +325,9 @@ __vs_installable_versions() {
             $rexp = q`'$rexp'`;
             $none = "'$none'";
             while (<>) {
-                if (/$rexp/) {
-                    $ver = $2 || $none;
-                    push @arr, ("x$ver" eq "x" ? $1 : "$1$sep$ver");
-                }
+                push @arr, (($v = $2 ne "" ? $2 : $none) ne "" ? "$1$sep$v" : $1) if /$rexp/;
             }
-            print $_, "\n" for sort {$a <=> $b} @arr;
+            print $_, "\n" for sort @arr;
         '
     fi
     return 0
