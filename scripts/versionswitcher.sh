@@ -266,7 +266,7 @@ __vs_download() {
 
 
 ##
-__vs_versions() {
+__vs_installable_versions() {
     local lang=$1
     local url=$2
     local rexp=$3
@@ -327,7 +327,7 @@ __vs_install() {
     if [ -z "$version" ]; then
         __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
         #cat $filepath
-        __vs_versions $lang
+        __vs_installable_versions $lang
         return 0
     fi
     ## detect latest version when 'latest' is specified
