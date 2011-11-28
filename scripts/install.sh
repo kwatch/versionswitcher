@@ -81,28 +81,30 @@ vs_install() {
     fi
     rcfile=".${shell}rc"
     ## add settings into .bashrc or .zshrc
-    echo "$prompt"
-    echo "$prompt You have to write the following lines into your ~/$rcfile:"
-    echo "$prompt"
-    echo "$prompt     VS_PATH=\$HOME/langs     # or other directories"
-    echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
-    echo "$prompt"
-    echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
-    input=""
-    read input; [ -z "$input" ] && input="y"
-    case "$input" in
-    y*|Y*)
-        echo "VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
-        echo ". \$HOME/.vs/scripts/bootstrap.sh" >> $HOME/$rcfile
+    if [ -z "$VS_PATH" ]; then
         echo "$prompt"
-        echo "$prompt You should log out or restart $shell to enable settings."
-        ;;
-    *)
+        echo "$prompt You have to write following lines into your ~/$rcfile:"
         echo "$prompt"
-        echo "$prompt After adding the above lines into your ~/$rcfile,"
-        echo "$prompt you should log out or restart $shell to enable settings."
-        ;;
-    esac
+        echo "$prompt     export VS_PATH=\$HOME/langs     # or other directories"
+        echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
+        echo "$prompt"
+        echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
+        input=""
+        read input; [ -z "$input" ] && input="y"
+        case "$input" in
+        y*|Y*)
+            echo "export VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
+            echo ". \$HOME/.vs/scripts/bootstrap.sh" >> $HOME/$rcfile
+            echo "$prompt"
+            echo "$prompt You should log out or restart $shell to enable settings."
+            ;;
+        *)
+            echo "$prompt"
+            echo "$prompt After adding the above lines into your ~/$rcfile,"
+            echo "$prompt you should log out or restart $shell to enable settings."
+            ;;
+        esac
+    fi
     ## finish
     echo "$prompt"
     echo "$prompt Installation is finished successfully."
