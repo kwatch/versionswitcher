@@ -1,3 +1,4 @@
 url='http://www.python.org/ftp/python/'
 rexp='href="(\d+\.\d+)(?:\.(\d+))?\/?"'
 sep='.'
+none='0'

@@ -266,12 +266,25 @@ __vs_download() {
 
 
 ##
+__vs_installable_langs() {
+    local filepath="$HOME/.vs/data/INDEX.txt"
+    [ -f "$filepath" ] || __vs_error "$filepath: not found." || return 1
+    __vs_echo "## try 'vs -i LANG' where LANG is one of:"
+    cat $filepath
+}
+
+
+##
 __vs_installable_versions() {
     local lang=$1
-    local url=$2
-    local rexp=$3
-    local sep='.'
+    local showhelp=$2
+    local condense=$3
+    local url=''
     local url2=''
+    local rexp=''
+    local sep='.'
+    local none='';
+    #
     case "$lang" in
     py)   lang='python';;
     rb)   lang='ruby';;
@@ -283,15 +296,18 @@ __vs_installable_versions() {
     [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
     . $fname
     #
-    [ -n "$url" ]  && echo "## checking $url"
-    [ -n "$url2" ] && echo "## checking $url2"
-    __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
+    if [ "$showhelp" = 'y' ]; then
+        [ -n "$url" ]  && echo "## checking $url"
+        [ -n "$url2" ] && echo "## checking $url2"
+        __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
+    fi
     #
     perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
     [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
     #
-    wget -q -O - --no-check-certificate $url $url2 | $perl -e '
+    if [ "$condense" = 'y' ]; then
+        wget -q -O - --no-check-certificate $url $url2 | $perl -e '
         $sep  = "'$sep'";
         $rexp = q`'$rexp'`;
         while (<>) {
@@ -303,6 +319,20 @@ __vs_installable_versions() {
             print "$_$ver\n";
         }
     '
+    else
+        wget -q -O - --no-check-certificate $url $url2 | $perl -e '
+            $sep  = "'$sep'";
+            $rexp = q`'$rexp'`;
+            $none = "'$none'";
+            while (<>) {
+                if (/$rexp/) {
+                    $ver = $2 || $none;
+                    push @arr, ("x$ver" eq "x" ? $1 : "$1$sep$ver");
+                }
+            }
+            print $_, "\n" for sort {$a <=> $b} @arr;
+        '
+    fi
     return 0
 }
 
@@ -316,44 +346,29 @@ __vs_install() {
     local ret
     ## list all languages when lang is not specified
     if [ -z "$lang" ]; then
-        ret=`__vs_download versions/INDEX.txt` || __vs_error "$ret" || return 1
-        filepath="$ret"
-        [ -f "$filepath" ] || __vs_error "INDEX.txt: not found." || return 1
-        __vs_echo "## try 'vs -i LANG' where LANG is one of:"
-        cat $filepath
+        __vs_installable_langs
         return 0
     fi
-    ## find version file
-    #ret=`__vs_download versions/${lang}.txt` || __vs_error "$ret" || return 1
-    #filepath="$ret"
-    #[ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
-    ## show all versions when version is not specified
+    ## show installable versions when version is not specified
     if [ -z "$version" ]; then
-        __vs_installable_versions $lang
+        __vs_installable_versions $lang y y
         return 0
     fi
-    ## detect latest version when 'latest' is specified
+    ## verify version
     local input
     local found=""
     local ver
-    if [ "$version" = "latest" ]; then
-        version=`awk 'NR==1{print $1}' "$filepath"`
-        [ -n "$version" ] || __vs_error "failed to detect latest version." || return 1
-        __vs_echo "$prompt latest version is $version"
-    ## verify version
-    else
-        for ver in `cat $filepath`; do
-            [ "$ver" = "$version" ] && found=true
-        done
-        if [ -z "$found" ]; then
-            echo -n "$prompt Are you really to install $lang $version? [y/N]: "
-            read input
-            [ -z "$input" ] && input="n"
-            case "$input" in
-            y*|Y*)  ;;
-            *)      return 1;;
-            esac
-        fi
+    for ver in `__vs_installable_versions $lang n n`; do
+        [ "$ver" = "$version" ] && found=true
+    done
+    if [ -z "$found" ]; then
+        echo -n "$prompt Are you really to install $lang $version? [y/N]: "
+        read input
+        [ -z "$input" ] && input="n"
+        case "$input" in
+        y*|Y*)  ;;
+        *)      return 1;;
+        esac
     fi
     ## find installer script file
     local script_file=`__vs_download installers/vs_install_${lang}.sh`
