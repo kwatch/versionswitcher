@@ -2,6 +2,20 @@
 <?py self.context['page_title'] = 'History' ?>
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.4.1</a></h2>
+  <p class="meta"><span class="date">Nov 28, 2011</span><span class="posted"><a href="/archives/0.4.0/versionswitcher.sh">download</a></span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Fix Ruby installer to install Rubygems correctly.</li>
+      <li>Update Rubygems version installed to 1.8.11.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.4.0</a></h2>
   <p class="meta"><span class="date">Nov 25, 2011</span><span class="posted"><a href="/archives/0.4.0/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
