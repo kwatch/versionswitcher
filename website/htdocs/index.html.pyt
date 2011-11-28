@@ -18,13 +18,34 @@
 <div class="post" id="Example">
   <h2 class="title"><a href="#Example">Example</a></h2>
   <pre class="terminal">
-[bash]$ ls -F $HOME/lang/python           # several versions are installed
-2.5.5/          2.7.1/          3.1.3/
-2.6.6/          3.0.1/          3.2.0/
+###
+### install versionswitcher
+###
 [bash]$ wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
-[bash]$ VS_PATH=$HOME/lang    # setup
+[bash]$ export VS_PATH=$HOME/lang
+###
+### install python, ruby, node, and so on
+###
+[bash]$ <strong>vs -i</strong>                 # list installable languages
+[bash]$ <strong>vs -i python</strong>          # list installable versions
+[bash]$ <strong>vs -i python 2.6.6</strong>    # install Python 2.6.6
+[bash]$ <strong>vs -i python 2.7.1</strong>    # install Python 2.7.1
+[bash]$ <strong>vs -i python 3.2.0</strong>    # install Python 3.2.0
+[bash]$ ls -F $VS_PATH/python
+2.6.6/          2.7.1/          3.2.0/
+[bash]$ <strong>vs python</strong>             # list python verions installed
+## basedir: /home/yourname/lang/python
+## versions:
+2.6.6
+2.7.1
+3.2.0
+[bash]$ <strong>vs</strong>                    # list language names installed
+python               # /home/yourname/lang/python
+###
+### switch version
+###
 [bash]$ which python          # using system-installed python
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
@@ -39,8 +60,6 @@
 [bash]$ <strong>vs python -</strong>           # switch to system-installed python
 [bash]$ which python
 /usr/bin/python
-[bash]$ <strong>vs python</strong>             # list python verions installed
-[bash]$ <strong>vs</strong>                    # list language names installed
 </pre>
 </div>
 
