@@ -291,13 +291,6 @@ __vs_installable_versions() {
     local sep='.'
     local none='';
     #
-    case "$lang" in
-    py)   lang='python';;
-    rb)   lang='ruby';;
-    rbx)  lang='rubinius';;
-    gosh) lang='gauche';;
-    esac
-    #
     local fname="$HOME/.vs/data/$lang.txt"
     [ -f $fname ] || __vs_error "$lang: not supported ($fname not found)." || return 1
     . $fname
@@ -352,6 +345,13 @@ __vs_install() {
         __vs_installable_langs
         return 0
     fi
+    ## expand shorter name
+    case "$lang" in
+    py)   lang='python';;
+    rb)   lang='ruby';;
+    rbx)  lang='rubinius';;
+    gosh) lang='gauche';;
+    esac
     ## show installable versions when version is not specified
     if [ -z "$version" ]; then
         __vs_installable_versions "$lang" y y
