@@ -1,4 +1,5 @@
 <?py # -*- coding: utf-8 -*- ?>
+<?py version = '$Release: 0.0.0 $'.split(' ')[1] ?>
 <li>
   <div id="download" >
     <?py if False: ?>
@@ -10,7 +11,7 @@
     </form>
     <?py #endif ?>
     <div>
-      <a href="https://versionswitcher.appspot.com/install.sh">DOWNLOAD<div id="download-version">(version 0.4.1)</div></a>
+      <a href="https://versionswitcher.appspot.com/install.sh">DOWNLOAD<div id="download-version">(version ${version})</div></a>
     </div>
   </div>
   <div style="clear: both;">&nbsp;</div>
