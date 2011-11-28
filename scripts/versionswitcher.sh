@@ -413,7 +413,7 @@ __vs_upgrade() {
         echo "upgrade to $ver (current: $__vs_version)"
         local dir=$HOME/.vs/scripts
         mkdir -p $dir
-        (cd $dir; wget -N $site/install.sh)
+        (cd $dir; rm -f install.sh; wget $site/install.sh)
         if [ -n "$BASH_VERSION" ]; then            # for bash
             bash $dir/install.sh
         elif [ -n "$ZSH_VERSION" ]; then           # for zsh
