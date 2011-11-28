@@ -2,6 +2,20 @@
 <?py self.context['page_title'] = 'History' ?>
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.5.0</a></h2>
+  <p class="meta"><span class="posted">Nov 29, 2011</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Enhance '-i' option to access to download page of each language in order to get installable versions.</li>
+      <li>Enhance to add '-U' option for self-upgrade.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.4.1</a></h2>
   <p class="meta"><span class="posted">Nov 28, 2011</span></p>
   <div style="clear: both;">&nbsp;</div>
