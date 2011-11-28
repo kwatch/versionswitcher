@@ -33,11 +33,11 @@ def task_update(c):
 @recipe
 @ingreds('create_dirs')
 def task_update_files(c):
-    """update 'website/static/{versions,installers}/*'"""
-    for x in ('website/static/versions', 'website/static/installers'):
+    """update 'website/static/{data,installers}/*'"""
+    for x in ('website/static/data', 'website/static/installers'):
         os.path.isdir(x) or mkdir(x)
     fnames = []
-    fnames.extend(glob("versions/*.txt"))
+    fnames.extend(glob("data/*.txt"))
     fnames.extend(glob("installers/*.sh"))
     for fname in fnames:
         src_fname = fname
@@ -47,7 +47,7 @@ def task_update_files(c):
         if os.path.isfile(dst_fname):
             with open(dst_fname) as f:
                 dst = f.read()
-            dst = re.sub(r'\$Date:.*?\$', '$Date: $', dst, 1)
+            #dst = re.sub(r'\$Date:.*?\$', '$Date: $', dst, 1)
             flag_eq = src == dst
         else:
             flag_eq = False
@@ -94,15 +94,10 @@ def current_branch_name():
 @recipe
 def task_edit(c):
     """update release number on files"""
-    fnames = ['README.rst', 'scripts/*.sh']
+    fnames = ['README.rst', 'scripts/*.sh', 'website/**/*']
     replacer = [
         (r'(:Release:\s+)\S+', lambda m: m.group(1) + release),
-        (r'\$Release:.*?\$', '$Release: %s $' % release),
-    ]
-    edit(fnames, by=replacer)
-    fnames = ['website/tmpl/_sidebar.html.pyt']
-    replacer = [
-        (r'\(version \d+\.\d+\.\d+\)', r'(version %s)' % (release,)),
+        (r'\$(Release):.*?\$', r'$\1: %s $' % release),
     ]
     edit(fnames, by=replacer)
 
