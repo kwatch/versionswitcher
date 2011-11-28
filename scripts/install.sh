@@ -48,7 +48,9 @@ vs_install() {
     [ ! -d $vs_home/data       ] && _cmd "mkdir $vs_home/data"
     [ ! -d $vs_home/installers ] && _cmd "mkdir $vs_home/installers"
     ## copy install.sh into ~/.vs/scripts/
-    _cmd "cp -p $install_sh $vs_home/scripts/"              || return 1
+    if [ "$install_sh" != "$HOME/.vs/scripts/install.sh" ]; then
+        _cmd "cp -p $install_sh $vs_home/scripts/"          || return 1
+    fi
     ## download scripts
     _cmd "cd $vs_home/scripts"                              || return 1
     _cmd "$wget $vs_url/scripts/versionswitcher.sh"         || return 1
