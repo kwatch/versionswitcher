@@ -2,7 +2,7 @@
 <?py self.context['page_title'] = 'History' ?>
 
 <div class="post">
-  <h2 class="title"><a href="#">Release 0.4.3</a></h2>
+  <h2 class="title"><a href="#">Release 0.4.0</a></h2>
   <p class="meta"><span class="date">Nov 25, 2011</span><span class="posted"><a href="/archives/0.4.0/versionswitcher.sh">download</a></span></p>
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
