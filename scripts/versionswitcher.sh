@@ -27,6 +27,7 @@ usage: vs [options] [lang] [version]
    -h        : help
    -v        : version
    -i        : install
+   -U        : self upgrade
    -q        : quiet
 
 examples:
@@ -71,6 +72,9 @@ versionswitcher() {
     -i|--install)
         lang=$2; version=$3
         __vs_install "$lang" "$version"
+        ;;
+    -U|--upgrade)
+        __vs_upgrade
         ;;
     -*)
         echo "versionswitcher: $1: unknown option." 2>&1
@@ -348,7 +352,7 @@ __vs_install() {
     fi
     ## show installable versions when version is not specified
     if [ -z "$version" ]; then
-        __vs_installable_versions $lang y y
+        __vs_installable_versions "$lang" y y
         return 0
     fi
     ## verify version
@@ -393,6 +397,17 @@ __vs_install() {
     ## switch to it
     echo
     echo "$prompt vs $lang $version"  ; versionswitcher "$lang" "$version"
+}
+
+
+###
+__vs_upgrade() {
+    local script_file=`__vs_download install.sh`
+    if [ -n "$BASH_VERSION" ]; then            # for bash
+        bash $script_file
+    elif [ -n "$ZSH_VERSION" ]; then           # for zsh
+        zsh $script_file
+    fi
 }
 
 
