@@ -265,6 +265,77 @@ __vs_download() {
 }
 
 
+##
+__vs_versions() {
+    local lang=$1
+    local url=$2
+    local rexp=$3
+    local sep='.'
+    local url2=''
+    case "$lang" in
+    node)
+        url='http://nodejs.org/dist/'
+        rexp='href="v(\d+\.\d+)\.(\d+)\/?"'
+        ;;
+    python|py)
+        lang='python'
+        url='http://www.python.org/ftp/python/'
+        rexp='href="(\d+\.\d+)(?:\.(\d+))?\/?"'
+        ;;
+    pypy)
+        url='https://bitbucket.org/pypy/pypy/downloads/'
+        rexp='href="/pypy/pypy/downloads/pypy-(\d+\.\d+(?:\.\d+)?)-linux\.tar.bz2"'
+        ;;
+    ruby|rb)
+        lang='ruby'
+        url='http://www.ring.gr.jp/archives/lang/ruby/1.8/'
+        url2='http://www.ring.gr.jp/archives/lang/ruby/1.9/'
+        rexp='href="ruby-(\d+\.\d+\.\d+)-(.*?)\.tar.gz?"'
+        sep='-'
+        ;;
+    rubinius|rbx)
+        lang='rubinius'
+        url='http://rubini.us/releases/'
+        rexp='href="/releases/(\d+\.\d+)(?:\.(\d+))?/"'
+        ;;
+    lua)
+        url='http://www.lua.org/ftp/'
+        rexp='(?:HREF|href)="lua-(\d+\.\d+(?:\.\d+)?)\.tar\.gz"'
+        ;;
+    luajit)
+        url='http://luajit.org/download.html'
+        rexp='href="download/LuaJIT-(\d+\.\d+(?:\.\d+)?(?:-\w+)?)\.tar\.gz"'
+        ;;
+    gauche|gosh)
+        lang='gauche'
+        url='http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/'
+        rexp='href="Gauche-(\d+\.\d+(?:\.\d+)?)\.tgz"'
+        ;;
+    *)
+        echo "*** $lang: not supported to install. exit."
+        return 1
+    esac
+    #
+    perl='perl';
+    [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
+    [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
+    #
+    wget -q -O - --no-check-certificate $url $url2 | $perl -e '
+        $sep  = "'$sep'";
+        $rexp = q`'$rexp'`;
+        while (<>) {
+            push @{$d{$1}}, "$2" || "0" if /$rexp/;
+        }
+        for (sort keys %d) {
+            @arr = sort {$a<=>$b} @{$d{$_}};
+            $ver = $#arr ? $sep."{".join(",", @arr)."}" : ($arr[0] ? "$sep$arr[0]" : "");
+            print "$_$ver\n";
+        }
+    '
+    return 0
+}
+
+
 ###
 __vs_install() {
     local lang=$1
@@ -282,13 +353,14 @@ __vs_install() {
         return 0
     fi
     ## find version file
-    ret=`__vs_download versions/${lang}.txt` || __vs_error "$ret" || return 1
-    filepath="$ret"
-    [ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
+    #ret=`__vs_download versions/${lang}.txt` || __vs_error "$ret" || return 1
+    #filepath="$ret"
+    #[ -f "$filepath" ] || __vs_error "$lang is not supported to install." || return 1
     ## show all versions when version is not specified
     if [ -z "$version" ]; then
         __vs_echo "## try 'vs -i $lang VERSION' where VERSION is one of:"
-        cat $filepath
+        #cat $filepath
+        __vs_versions $lang
         return 0
     fi
     ## detect latest version when 'latest' is specified
