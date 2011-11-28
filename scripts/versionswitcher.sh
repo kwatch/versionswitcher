@@ -35,12 +35,12 @@ examples:
     $ vs                  # list language names installed
     $ vs python           # list python vesrions installed
     $ vs python 2.6.6     # use \$HOME/lang/python/2.6.6
-    $ vs python 2         # use \$HOME/lang/python/2.x.x (ex. 2.7.1)
+    $ vs python 2         # use \$HOME/lang/python/2.x.x (ex. 2.7.2)
     $ vs python latest    # use latest version under \$HOME/lang/python
     $ vs python -         # use system-installed one (ex. /usr/bin/python)
     $ vs -i               # list language names installable
     $ vs -i python        # list python versions installable
-    $ vs -i python latest # install python latest version (ex. 3.2.0)
+    $ vs -i python latest # install python latest version (ex. 3.2.2)
 
 tips:
     * Short name 'vs' is an alias to 'versionswitcher'.

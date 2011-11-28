@@ -85,10 +85,10 @@ _install_ruby() {
         [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            base="rubygems-1.7.2"
+            base="rubygems-1.8.11"
             url="http://production.cf.rubygems.org/rubygems/$base.tgz"
             _cmd "wget -N $url"                              || return 1
-            _cmd "tar xjf $base.tgz"                         || return 1
+            _cmd "tar xzf $base.tgz"                         || return 1
             _cmd "cd $base/"                                 || return 1
             _cmd "$prefix/bin/ruby setup.rb"                 || return 1
             _cmd "cd .."                                     || return 1
