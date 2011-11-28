@@ -312,17 +312,17 @@ __vs_installable_versions() {
     #
     if [ "$condense" = 'y' ]; then
         wget -q -O - --no-check-certificate $url $url2 | $perl -e '
-        $sep  = "'$sep'";
-        $rexp = q`'$rexp'`;
-        while (<>) {
-            push @{$d{$1}}, "$2" || "0" if /$rexp/;
-        }
-        for (sort keys %d) {
-            @arr = sort {$a<=>$b} @{$d{$_}};
-            $ver = $#arr ? $sep."{".join(",", @arr)."}" : ($arr[0] ? "$sep$arr[0]" : "");
-            print "$_$ver\n";
-        }
-    '
+            $sep  = "'$sep'";
+            $rexp = q`'$rexp'`;
+            while (<>) {
+                push @{$d{$1}}, "$2" || "0" if /$rexp/;
+            }
+            for (sort keys %d) {
+                @arr = sort {$a<=>$b} @{$d{$_}};
+                $ver = $#arr ? $sep."{".join(",", @arr)."}" : ($arr[0] ? "$sep$arr[0]" : "");
+                print "$_$ver\n";
+            }
+        '
     else
         wget -q -O - --no-check-certificate $url $url2 | $perl -e '
             $sep  = "'$sep'";
