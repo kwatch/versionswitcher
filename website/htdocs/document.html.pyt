@@ -4,18 +4,46 @@
    _context['page_title'] = 'Document'
 ?>
 
-<div class="post" id="Usage">
-  <h2 class="title"><a href="#Usage">Usage</a></h2>
-  <p>Go to <a href="#Install-VersionSwitcher">Install VersionSwitcher</a> section at first if you have not installed yet.</p>
+<div class="post" id="install">
+  <h2 class="title"><a href="#install">Install</a></h2>
+  <p>Steps:</p>
+  <ol class="arabic simple">
+    <li>Download '<a href="https://versionswitcher.appspot.com/install.sh">install.sh</a>'.</li>
+    <li>Start it with bash (for bash user) or zsh (for zsh user).</li>
+    <li>Log out or restart bash or zsh to enable settings.</li>
+  </ol>
+  <p>Example:</p>
+  <pre class="terminal">
+[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ bash install.sh    # or zsh install.sh if you are a zsh user
+...(snip)...
+***
+*** You have to write the following lines into your ~/.bashrc:
+***
+***     export VS_PATH=$HOME/langs     # or other directories
+***     . $HOME/.vs/scripts/bootstrap.sh
+***
+*** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
+***
+*** You should log out or restart bash to enable settings.
+***
+*** Installation is finished successfully.
+*** See http://versionswitcher.appspot.com/ for details.
+*** Thank you.
+[bash]$ bash       # start new bash process
+[bash]$ vs -h      # show help
+</pre>
+</div>
+
+
+<div class="post" id="usage">
+  <h2 class="title"><a href="#usage">Usage</a></h2>
   <pre class="terminal">
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
 2.6.6/          3.0.1/          3.2.0/
-[bash]$ wget http://versionswitcher.appspot.com/install.sh
-[bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
-[bash]$ bash                  # restart bash or zsh to enable settings
-[bash]$ VS_PATH=$HOME/lang    # setup
-[bash]$ which python          # using system-installed python
+[bash]$ <strong>export VS_PATH=$HOME/lang</strong>         # setup
+[bash]$ which python                      # using system-installed python
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
 [bash]$ which python
@@ -35,7 +63,7 @@
 <!--
 <pre class="terminal">
 [bash]$ . /some/where/to/versionswitcher.sh
-[bash]$ VS_PATH=$HOME/lang
+[bash]$ export VS_PATH=$HOME/lang
 [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
 [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
 [bash]$ vs python latest  # use latest version under $HOME/lang/python
@@ -66,79 +94,8 @@ fi
 </div>
 
 
-<div class="post" id="Install-VersionSwitcher">
-  <h2 class="title"><a href="#Install-VersionSwitcher">Install VersionSwitcher</a></h2>
-  <p>Steps:</p>
-  <ol class="arabic simple">
-    <li>Download '<a href="https://versionswitcher.appspot.com/install.sh">install.sh</a>'.</li>
-    <li>Start it with bash (for bash user) or zsh (for zsh user).</li>
-    <li>Log out or restart bash or zsh to enable settings.</li>
-  </ol>
-  <p>Example:</p>
-  <pre class="terminal">
-[bash]$ wget http://versionswitcher.appspot.com/install.sh
-[bash]$ bash install.sh    # or zsh install.sh if you are a zsh user
-...(snip)...
-***
-*** You have to write the following lines into your ~/.bashrc:
-***
-***     VS_PATH=$HOME/langs     # or other directories
-***     . $HOME/.vs/scripts/bootstrap.sh
-***
-*** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
-***
-*** You should log out or restart bash to enable settings.
-***
-*** Installation is finished successfully.
-*** See http://versionswitcher.appspot.com/ for details.
-*** Thank you.
-[bash]$ bash       # start new bash process
-[bash]$ vs -h      # show help
-</pre>
-</div>
-
-
-<div class="post" id="Directory-Structure">
-  <h2 class="title"><a href="#Directory-Structure">Directory Structure</a></h2>
-  <p>All languages you want to switch should be installed into $HOME/lang
-    (or other directory where you specified by $VS_PATH) such as:</p>
-<pre class="code">
-+ $HOME/
-  + lang/
-    + ruby/
-      + 1.8.7-p334/
-        + bin/
-          - ruby
-      + 1.9.2-p180/
-        + bin/
-          - ruby
-    + python/
-      + 2.6.6/
-        + bin/
-          - python
-      + 2.7.1/
-        + bin/
-          - python
-      + 3.2.0/
-        + bin/
-          - python
-    + node/
-      + 0.4.7/
-        + bin/
-          - node
-</pre>
-  <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
-  <div class="tips">
-    <p>Tips: You can specify several directories to $VS_PATH such as <code>VS_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
-  </div>
-  <div class="tips">
-    <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>
-  </div>
-</div>
-
-
-<div class="post" id="Language-Installer">
-  <h2 class="title"><a href="#Language-Installer">Language Installer</a></h2>
+<div class="post" id="installer">
+  <h2 class="title"><a href="#installer">Language Installer</a></h2>
   <p>VersionSwitcher has a feature to install the following languages easily:</p>
   <ul>
     <li>Node.js (<a href="http://nodejs.org/">http://nodejs.org/</a>)</li>
@@ -159,7 +116,7 @@ fi
 [bash]$ sudo apt-get install libncurses5-dev libreadline-dev libgdbm-dev
 [bash]$ sudo apt-get install libyaml-dev libffi-dev  # for ruby1.9
 [bash]$ sudo apt-get install pkg-config              # for node.js
-### Mac OS X (install XCode and MacPorts at first!)
+### Mac OS X (install Xcode and MacPorts at first!)
 [bash]$ which gcc
 /usr/bin/gcc
 [bash]$ sudo port sync
@@ -181,30 +138,28 @@ rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
 [bash]$ <strong>vs -i node</strong>
 ## try 'vs -i node VERSION' where VERSION is one of:
-0.4.7
-0.4.6
-0.4.5
-0.4.4
-[bash]$ <strong>vs -i node latest</strong>    # or vs -i node 0.4.7
-** latest version is 0.4.7
-** Install into '/home/yourname/lang/node/0.4.7'. OK? [Y/n]: <strong>y</strong>
-** Configure is './configure --prefix=/home/yourname/lang/node/0.4.7'. OK? [Y/n]: <strong>y</strong>
-$ wget -nc http://nodejs.org/dist/node-v0.4.7.tar.gz
-$ tar xzf node-v0.4.7.tar.gz
-$ cd node-v0.4.7/
-$ time ./configure --prefix=/home/yourname/lang/node/0.4.7
+0.5.{1,2,3,4,5,6,7,8,9,10}
+0.6.{0,1,2,3}
+[bash]$ <strong>vs -i node latest</strong>    # or vs -i node 0.6.3
+** latest version is 0.6.3
+** Install into '/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
+** Configure is './configure --prefix=/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
+$ wget -nc http://nodejs.org/dist/node-v0.6.3.tar.gz
+$ tar xzf node-v0.6.3.tar.gz
+$ cd node-v0.6.3/
+$ time ./configure --prefix=/home/yourname/lang/node/0.6.3
 ...(snip)...
 $ time JOBS=2 make
 ...(snip)...
 $ cd ..
 $ hash -r
 $ which node
-/home/yourname/lang/node/0.4.7/bin/node
+/home/yourname/lang/node/0.6.3/bin/node
 
 ** Install npm (Node Package Manger)? [Y/n]: <strong>y</strong>
 $ wget -qO - http://npmjs.org/install.sh | sh
-fetching: http://registry.npmjs.org/npm/-/npm-0.3.18.tgz
-0.4.7
+fetching: http://registry.npmjs.org/npm/-/npm-1.0.106.tgz
+0.6.3
 ! [ -d .git ] || git submodule update --init
 node cli.js cache clean
 ...(snip)...
@@ -212,15 +167,15 @@ node cli.js cache clean
 
 ** Installation is finished successfully.
 **   language:  node
-**   version:   0.4.7
-**   directory: /home/yourname/lang/node/0.4.7
+**   version:   0.6.3
+**   directory: /home/yourname/lang/node/0.6.3
 
-** vs node 0.4.7
-$ export PATH=/home/yourname/lang/node/0.4.7/bin:/usr/local/bin:/usr/bin:/bin
-$ noderoot='/home/yourname/lang/node/0.4.7'
-$ nodeversion='0.4.7'
+** vs node 0.6.3
+$ export PATH=/home/yourname/lang/node/0.6.3/bin:/usr/local/bin:/usr/bin:/bin
+$ noderoot='/home/yourname/lang/node/0.6.3'
+$ nodeversion='0.6.3'
 $ which node
-/home/yourname/lang/node/0.4.7/bin/node
+/home/yourname/lang/node/0.6.3/bin/node
 </pre>
   <p>The above steps are same for other languages such as ruby, python, lua and luajit.</p>
   <div class="tips">
@@ -277,27 +232,66 @@ distribute 0.6.15
 </pre>
 
   <h3 class="title">Node.js</h3>
-  <p>The following is an example to install Node.js 0.4.7 into $HOME/lang/node:</p>
+  <p>The following is an example to install Node.js 0.6.3 into $HOME/lang/node:</p>
 <pre class="terminal">
-[bash]$ wget http://nodejs.org/dist/node-v0.4.7.tar.gz
-[bash]$ tar xzf node-v0.4.7.tar.gz
-[bash]$ cd node-v0.4.7/
-[bash]$ ./configure --prefix=$HOME/lang/node/0.4.7
+[bash]$ wget http://nodejs.org/dist/node-v0.6.3.tar.gz
+[bash]$ tar xzf node-v0.6.3.tar.gz
+[bash]$ cd node-v0.6.3/
+[bash]$ ./configure --prefix=$HOME/lang/node/0.6.3
 [bash]$ JOBS=2 make
 [bash]$ make test
 [bash]$ make install
-[bash]$ vs node 0.4.7       # or vs node latest
+[bash]$ vs node 0.6.3       # or vs node latest
 [bash]$ which node
-/home/yourname/lang/node/0.4.7/bin/node
+/home/yourname/lang/node/0.6.3/bin/node
 [bash]$ node -v
-v0.4.7
+v0.6.3
 [bash]$ wget http://npmjs.org/install.sh
 [bash]$ sh install.sh
 [bash]$ which npm
-/home/yourname/lang/node/0.4.7/bin/npm
+/home/yourname/lang/node/0.6.3/bin/npm
 [bash]$ npm -v
 0.3.18
 </pre>
 -->
 
+</div>
+
+
+<div class="post" id="structure">
+  <h2 class="title"><a href="#structure">Directory Structure</a></h2>
+  <p>All languages you want to switch should be installed into $HOME/lang
+    (or other directory where you specified by $VS_PATH) such as:</p>
+<pre class="code">
++ $HOME/
+  + lang/
+    + ruby/
+      + 1.8.7-p334/
+        + bin/
+          - ruby
+      + 1.9.2-p180/
+        + bin/
+          - ruby
+    + python/
+      + 2.6.6/
+        + bin/
+          - python
+      + 2.7.1/
+        + bin/
+          - python
+      + 3.2.0/
+        + bin/
+          - python
+    + node/
+      + 0.4.7/
+        + bin/
+          - node
+</pre>
+  <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
+  <div class="tips">
+    <p>Tips: You can specify several directories to $VS_PATH such as <code>export VS_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
+  </div>
+  <div class="tips">
+    <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>
+  </div>
 </div>
