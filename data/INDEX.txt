@@ -1,3 +1,4 @@
+gauche      # http://practical-scheme.net/gauche/
 lua         # http://www.lua.org/
 luajit      # http://luajit.org/
 node        # http://nodejs.org/
