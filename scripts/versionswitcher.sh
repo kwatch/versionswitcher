@@ -404,18 +404,20 @@ __vs_install() {
 
 ###
 __vs_upgrade() {
-    local url="http://versionswitcher.appspot.com/version"
-    [ -n "$VS_DEBUG" ] && url="http://localhost:8080/version"
-    local ver=`wget -q -O - $url`
+    local site="http://versionswitcher.appspot.com"
+    [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
+    local ver=`wget -q -O - $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
         echo "current version is newest. exist."
     else
         echo "upgrade to $ver (current: $__vs_version)"
-        local script_file=`__vs_download install.sh`
+        local dir=$HOME/.vs/scripts
+        mkdir -p $dir
+        (cd $dir; wget -N $site/install.sh)
         if [ -n "$BASH_VERSION" ]; then            # for bash
-            bash $script_file
+            bash $dir/install.sh
         elif [ -n "$ZSH_VERSION" ]; then           # for zsh
-            zsh $script_file
+            zsh $dir/install.sh
         fi
     fi
 }
