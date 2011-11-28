@@ -45,7 +45,7 @@ vs_install() {
     [ ! -d $vs_home            ] && _cmd "mkdir $vs_home"
     [ ! -d $vs_home/scripts    ] && _cmd "mkdir $vs_home/scripts"
     [ ! -d $vs_home/hooks      ] && _cmd "mkdir $vs_home/hooks"
-    [ ! -d $vs_home/versions   ] && _cmd "mkdir $vs_home/versions"
+    [ ! -d $vs_home/data       ] && _cmd "mkdir $vs_home/data"
     [ ! -d $vs_home/installers ] && _cmd "mkdir $vs_home/installers"
     ## copy install.sh into ~/.vs/scripts/
     _cmd "cp -p $install_sh $vs_home/scripts/"              || return 1
@@ -53,12 +53,12 @@ vs_install() {
     _cmd "cd $vs_home/scripts"                              || return 1
     _cmd "$wget $vs_url/scripts/versionswitcher.sh"         || return 1
     _cmd "$wget $vs_url/scripts/bootstrap.sh"               || return 1
-    ## download version files
-    _cmd "cd $vs_home/versions"                             || return 1
-    _cmd "$wget $vs_url/versions/INDEX.txt"                 || return 1
+    ## download data files
+    _cmd "cd $vs_home/data"                                 || return 1
+    _cmd "$wget $vs_url/data/INDEX.txt"                     || return 1
     langs=`cat INDEX.txt | awk '{print $1}'`
     for lang in `echo $langs`; do
-        _cmd "$wget $vs_url/versions/$lang.txt"             || return 1
+        _cmd "$wget $vs_url/data/$lang.txt"                 || return 1
     done
     ## download language installers
     _cmd "cd $vs_home/installers"                           || return 1

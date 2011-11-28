@@ -35,7 +35,7 @@ handlers:
   #  static_dir: static/scripts
   - url: /scripts/.*
     script: static_file.py
-  - url: /versions/.*
+  - url: /data/.*
     script: static_file.py
   - url: /installers/.*
     script: static_file.py
