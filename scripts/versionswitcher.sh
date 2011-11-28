@@ -13,6 +13,8 @@
 ###   $ vs --help
 ###
 
+__vs_version=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
+
 
 ###
 [ -z "$VS_PATH" -a -d $HOME/lang ] && VS_PATH=$HOME/lang
@@ -402,11 +404,19 @@ __vs_install() {
 
 ###
 __vs_upgrade() {
-    local script_file=`__vs_download install.sh`
-    if [ -n "$BASH_VERSION" ]; then            # for bash
-        bash $script_file
-    elif [ -n "$ZSH_VERSION" ]; then           # for zsh
-        zsh $script_file
+    local url="http://versionswitcher.appspot.com/version"
+    [ -n "$VS_DEBUG" ] && url="http://localhost:8080/version"
+    local ver=`wget -q -O - $url`
+    if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
+        echo "current version is newest. exist."
+    else
+        echo "upgrade to $ver (current: $__vs_version)"
+        local script_file=`__vs_download install.sh`
+        if [ -n "$BASH_VERSION" ]; then            # for bash
+            bash $script_file
+        elif [ -n "$ZSH_VERSION" ]; then           # for zsh
+            zsh $script_file
+        fi
     fi
 }
 
