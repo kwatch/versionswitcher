@@ -98,7 +98,7 @@ def current_branch_name():
 @recipe
 def task_edit(c):
     """update release number on files"""
-    fnames = ['README.rst', 'scripts/*.sh', 'website/**/*']
+    fnames = ['README.rst', 'scripts/*.sh', 'website/htdocs/**/*', 'website/tmpl/**/*', 'website/static/**/*', ]
     replacer = [
         (r'(:Release:\s+)\S+', lambda m: m.group(1) + release),
         (r'\$(Release):.*?\$', r'$\1: %s $' % release),
