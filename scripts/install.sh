@@ -26,15 +26,16 @@ _cmd() {
 
 
 vs_install() {
-    install_sh=$1
+    local install_sh=$1
     ## settings
-    vs_home="$HOME/.vs"
-    vs_url="http://versionswitcher.appspot.com"
+    local vs_home="$HOME/.vs"
+    local vs_url="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && vs_url="http://localhost:8080"
-    prompt="***"
+    local prompt="***"
     ## detect 'wget' or 'curl' command
-    wget_path=`which wget`
-    curl_path=`which curl`
+    local wget_path=`which wget`
+    local curl_path=`which curl`
+    local wget
     if   [ -n "$wget_path" ]; then  wget="wget -qN"
     elif [ -n "$curl_path" ]; then  wget="curl -sORL"
     else
@@ -82,7 +83,7 @@ vs_install() {
     elif [ -f "$HOME/.bashrc" ]; then  shell="bash"
     else                               shell="bash"
     fi
-    rcfile=".${shell}rc"
+    local rcfile=".${shell}rc"
     ## add settings into .bashrc or .zshrc
     if [ -z "$VS_PATH" ]; then
         echo "$prompt"
@@ -92,7 +93,7 @@ vs_install() {
         echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
         echo "$prompt"
         echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
-        input=""
+        local input=""
         read input; [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
