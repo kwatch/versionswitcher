@@ -430,7 +430,7 @@ __vs_upgrade() {
     local site="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
     local down=`__vs_downloader "-sL" "-q -O -"`   || return 1
-    local ver=`$down - $site/version`
+    local ver=`$down $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
         __vs_echo "current version is newest. exist."
     else
