@@ -79,8 +79,8 @@ _install_rubinius() {
     if [ "$kind" = "source" ]; then
         base="rubinius-$version-$date"
         if [ ! -e "$base.tar.gz" ]; then
-            local down=`__vs_downloader "-LRO" ""`  || return 1
-            _cmd "$down $siteurl/$base.tar.gz"      || return 1
+            local down=`_downloader "-LRO" ""`    || return 1
+            _cmd "$down $siteurl/$base.tar.gz"    || return 1
         fi
         _cmd "rm -rf rubinius-$version"           || return 1
         _cmd "tar xzf $base.tar.gz"               || return 1
@@ -92,8 +92,8 @@ _install_rubinius() {
     else
         base="rubinius-$version-$kind"
         if [ ! -e "$base.zip" ]; then
-            local down=`__vs_downloader "-LRO" ""`  || return 1
-            _cmd "$down $siteurl/$base.zip"         || return 1
+            local down=`_downloader "-LRO" ""`    || return 1
+            _cmd "$down $siteurl/$base.zip"       || return 1
         fi
         _cmd "rm -rf $base"                       || return 1
         _cmd "unzip -q $base.zip"                 || return 1

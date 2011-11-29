@@ -31,7 +31,7 @@ _install_perl() {
     case "$input" in
     y*|Y*)
         url="http://cpanmin.us/"
-        local down=`__vs_downloader "-Lo" "--no-check-certificate -O"`   || return 1
+        local down=`_downloader "-Lo" "--no-check-certificate -O"` || return 1
         _cmd "$down $prefix/bin/$script $url"        || return 1
         _cmd "chmod a+x $prefix/bin/$script"         || return 1
         _cmd "which $script"                         || return 1

@@ -29,7 +29,7 @@ _install_lua() {
     local base="lua-$version"
     local url="http://www.lua.org/ftp/$base.tar.gz"
     if [ ! -e "$base.tar.gz" ]; then
-        local down=`__vs_downloader "-LRO" ""`    || return 1
+        local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "tar xzf $base.tar.gz"                   || return 1

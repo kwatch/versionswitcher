@@ -16,7 +16,7 @@ _cmd() {
     fi
 }
 
-__vs_downloader() {
+_downloader() {
     local curlopt=$1
     local wgetopt=$2
     local curl=`which curl`
@@ -70,7 +70,7 @@ _generic_installer() {
     esac
     ## donwload
     if [ ! -e "$filename" ]; then
-        local down=`__vs_downloader "-LRO" ""`    || return 1
+        local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "$untar $filename"                       || return 1

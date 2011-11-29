@@ -34,7 +34,7 @@ _install_pypy() {
     local base="pypy-$ver-$target"
     local url="https://bitbucket.org/pypy/pypy/downloads/$base.tar.bz2"
     if [ ! -e "$base.tar.bz2" ]; then
-        local down=`__vs_downloader "-LRO" "--no-check-certificate"` || return 1
+        local down=`_downloader "-LRO" "--no-check-certificate"` || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
@@ -87,7 +87,7 @@ _install_pypy() {
     case "$input" in
     y*|Y*)
         url="http://python-distribute.org/$script"
-        local down=`__vs_downloader "-ORL" "-N"`  || return 1
+        local down=`_downloader "-ORL" "-N"`      || return 1
         _cmd "$down $url"                         || return 1
         _cmd "$prefix/bin/pypy $script"           || return 1
         _cmd "which easy_install"                 || return 1

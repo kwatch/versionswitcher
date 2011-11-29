@@ -19,7 +19,7 @@ _install_luajit() {
     local base="LuaJIT-$version"
     local url="http://luajit.org/download/$base.tar.gz"
     if [ ! -e "$base.tar.gz" ]; then
-        local down=`__vs_downloader "-LRO" ""`    || return 1
+        local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "tar xzf $base.tar.gz"                   || return 1
