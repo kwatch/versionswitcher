@@ -35,7 +35,7 @@ vs_install() {
     ## detect 'wget' or 'curl' command
     local curl=`which curl`
     local wget=`which wget`
-    local downloader
+    local down
     if   [ -n "$curl" ]; then  down="curl -sORL"
     elif [ -n "$wget" ]; then  down="wget -q"
     else
