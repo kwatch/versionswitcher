@@ -33,11 +33,11 @@ vs_install() {
     [ -n "$VS_DEBUG" ] && vs_url="http://localhost:8080"
     local prompt="***"
     ## detect 'wget' or 'curl' command
-    local wget_path=`which wget`
-    local curl_path=`which curl`
-    local wget
-    if   [ -n "$wget_path" ]; then  wget="wget -qN"
-    elif [ -n "$curl_path" ]; then  wget="curl -sORL"
+    local curl=`which curl`
+    local wget=`which wget`
+    local downloader
+    if   [ -n "$curl" ]; then  down="curl -sORL"
+    elif [ -n "$wget" ]; then  down="wget -q"
     else
         echo "$prompt ERROR: 'wget' or 'curl' required." 2>&1
         return 1
@@ -54,26 +54,26 @@ vs_install() {
     fi
     ## download scripts
     _cmd "cd $vs_home/scripts"                              || return 1
-    _cmd "$wget $vs_url/scripts/versionswitcher.sh"         || return 1
-    _cmd "$wget $vs_url/scripts/bootstrap.sh"               || return 1
+    _cmd "$down $vs_url/scripts/versionswitcher.sh"         || return 1
+    _cmd "$down $vs_url/scripts/bootstrap.sh"               || return 1
     ## download data files
     _cmd "cd $vs_home/data"                                 || return 1
-    _cmd "$wget $vs_url/data/INDEX.txt"                     || return 1
+    _cmd "$down $vs_url/data/INDEX.txt"                     || return 1
     langs=`cat INDEX.txt | awk '{print $1}'`
     for lang in `echo $langs`; do
-        _cmd "$wget $vs_url/data/$lang.txt"                 || return 1
+        _cmd "$down $vs_url/data/$lang.txt"                 || return 1
     done
     ## download language installers
     _cmd "cd $vs_home/installers"                           || return 1
-    _cmd "$wget $vs_url/installers/vs_install.sh"           || return 1
+    _cmd "$down $vs_url/installers/vs_install.sh"           || return 1
     for lang in `echo $langs`; do
-        _cmd "$wget $vs_url/installers/vs_install_$lang.sh" || return 1
+        _cmd "$down $vs_url/installers/vs_install_$lang.sh" || return 1
     done
     ## download hook script examples
     _cmd "cd $vs_home/hooks"                                || return 1
     for lang in "python" "ruby"; do
         if [ ! -f "$lang.sh" ]; then
-            _cmd "$wget $vs_url/hooks/$lang.sh"             || return 1
+            _cmd "$down $vs_url/hooks/$lang.sh"             || return 1
         fi
     done
     ## detect bash or zsh
