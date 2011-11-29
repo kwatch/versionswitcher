@@ -309,13 +309,14 @@ __vs_installable_versions() {
         wget -q -O - --no-check-certificate $url $url2 | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
+            $none = "'$none'";
             while (<>) {
-                push @{$d{$1}}, "$2" || "0" if /$rexp/;
+                push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
             }
             sub norm { sprintf("%03d.%03d", split(/\./, $_[0])) }
             for (sort {norm($a)<=>norm($b)} keys %d) {
                 @arr = sort {$a<=>$b} @{$d{$_}};
-                $ver = $#arr ? $sep."{".join(",", @arr)."}" : ($arr[0] ? "$sep$arr[0]" : "");
+                $ver = $#arr ? $sep."{".join(",", @arr)."}" : (length($arr[0]) ? "$sep$arr[0]" : "");
                 print "$_$ver\n";
             }
         '
