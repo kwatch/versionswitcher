@@ -25,8 +25,8 @@ _install_luajit() {
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     ## compile and install
-    _cmd "time make PREFIX=$prefix"               || return 1
-    _cmd "time make install PREFIX=$prefix"       || return 1
+    _cmd "time nice -10 make PREFIX=$prefix"      || return 1
+    _cmd "time nice -10 make install PREFIX=$prefix"  || return 1
     _cmd "cd .."                                  || return 1
     ## create a link of binary
     if [ ! -f "$prefix/bin/luajit" ]; then

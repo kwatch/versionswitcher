@@ -93,14 +93,14 @@ _install_python() {
             _cmd "patch -p0 < $i"                 #|| return 1
         done
     fi
-    _cmd "time $configure"                        || return 1
-    _cmd "time make"                              || return 1
+    _cmd "time nice -10 $configure"               || return 1
+    _cmd "time nice -10 make"                     || return 1
     local make_target
     case $version in
     3.0*)  make_target="fullinstall";;
     *)     make_target="install";;
     esac
-    _cmd "time make $make_target"                 || return 1
+    _cmd "time nice -10 make $make_target"        || return 1
     _cmd "cd .."                                  || return 1
     ## create a link of 'bin/python3' as 'bin/python'
     if [ ! -f "$prefix/bin/python" ]; then

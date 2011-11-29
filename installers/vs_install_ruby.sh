@@ -61,8 +61,8 @@ _install_ruby() {
     _cmd "$tar $base.$ext"                        || return 1
     _cmd "cd $base/"                              || return 1
     _cmd "time $configure"                        || return 1
-    _cmd "time make"                              || return 1
-    _cmd "time make install"                      || return 1
+    _cmd "time nice -10 make"                     || return 1
+    _cmd "time nice -10 make install"             || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1

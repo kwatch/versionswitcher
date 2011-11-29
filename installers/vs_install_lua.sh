@@ -52,8 +52,8 @@ _install_lua() {
         ;;
     esac
     ## compile and install
-    _cmd "time make $platform"                    || return 1
-    _cmd "time make install INSTALL_TOP=$prefix"  || return 1
+    _cmd "time nice -10 make $platform"           || return 1
+    _cmd "time nice -10 make install INSTALL_TOP=$prefix"  || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1

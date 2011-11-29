@@ -46,8 +46,8 @@ _install_node() {
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     _cmd "time $configure"                        || return 1
-    _cmd "time JOBS=2 make"                       || return 1
-    _cmd "time make install"                      || return 1
+    _cmd "time JOBS=2 nice -10 make"              || return 1
+    _cmd "time nice -10 make install"             || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
