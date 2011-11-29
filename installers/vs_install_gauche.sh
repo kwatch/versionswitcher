@@ -16,7 +16,14 @@ _install_gauche() {
     local url="http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/$filename"
     local configure="./configure --prefix=$prefix"
     . $HOME/.vs/installers/vs_install.sh
-    _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure"
+    _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure"  || return 1
+    ## finish
+    local prompt='**'
+    echo
+    echo "$prompt Installation is finished successfully."
+    echo "$prompt   language:  $lang"
+    echo "$prompt   version:   $version"
+    echo "$prompt   directory: $prefix"
 }
 
 if [ -n "$1" -a -n "$2" ]; then

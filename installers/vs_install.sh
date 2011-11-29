@@ -71,9 +71,10 @@ _generic_installer() {
         return 1
     fi
     ## finish
-    echo
-    echo "$prompt Installation is finished successfully."
-    echo "$prompt   language:  $lang"
-    echo "$prompt   version:   $version"
-    echo "$prompt   directory: $prefix"
+    #echo
+    #echo "$prompt Installation is finished successfully."
+    #echo "$prompt   language:  $lang"
+    #echo "$prompt   version:   $version"
+    #echo "$prompt   directory: $prefix"
+    return 0
 }
