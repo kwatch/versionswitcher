@@ -16,6 +16,22 @@ _cmd() {
     fi
 }
 
+__vs_downloader() {
+    local curlopt=$1
+    local wgetopt=$2
+    local curl=`which curl`
+    local wget=`which wget`
+    local down
+    if   [ -n "$curl" ]; then
+        echo "curl $curlopt"
+    elif [ -n "$wget" ]; then
+        echo "wget $wgetopt"
+    else
+        echo "$prompt ERROR: 'wget' or 'curl' required." 1>&2
+        return 1
+    fi
+}
+
 _generic_installer() {
     ## arguments and variables
     local lang=$1
@@ -54,14 +70,8 @@ _generic_installer() {
     esac
     ## donwload
     if [ ! -e "$filename" ]; then
-        local curl=`which curl`
-        local wget=`which wget`
-        if   [ -n "$curl" ]; then _cmd "curl -LRO $url" || return 1
-        elif [ -n "$wget" ]; then _cmd "wget -N $url"   || return 1
-        else
-            echo "$prompt ERROR: 'curl' or 'wget' command required, but not installed." 2>&1
-            return 1
-        fi
+        local down=`__vs_downloader "-LRO" ""`    || return 1
+        _cmd "$down $url"                         || return 1
     fi
     _cmd "$untar $filename"                       || return 1
     _cmd "cd $base/"                              || return 1
