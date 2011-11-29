@@ -14,8 +14,9 @@ _install_gauche() {
     local base="Gauche-$version"
     local filename="$base.tgz"
     local url="http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/$filename"
+    local configure="./configure --prefix=$prefix"
     . $HOME/.vs/installers/vs_install.sh
-    _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix"
+    _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure"
 }
 
 if [ -n "$1" -a -n "$2" ]; then

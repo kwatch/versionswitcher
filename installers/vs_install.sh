@@ -25,9 +25,9 @@ _generic_installer() {
     local filename=$5
     local url=$6
     local prefix=$7
+    local configure=$8
     local prompt="**"
     ## confirm configure option
-    local configure="./configure --prefix=$prefix"
     echo -n "$prompt Configure is '$configure'. OK? [Y/n]: "
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
