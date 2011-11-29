@@ -9,6 +9,12 @@
     <ul>
       <li>Enhance '-i' option to access to download page of each language in order to get installable versions.</li>
       <li>Enhance to add '-U' option for self-upgrade.</li>
+      <li>Enhance to suppoert Perl installer.</li>
+      <li>Enhance to suppoert Gauche installer.</li>
+      <li>Change output format of '-i' option when showing versions.</li>
+      <li>Change installer scripts to prefer 'curl' rather than 'wget'.</li>
+      <li>Change installer scripts to invoke 'make' command with 'nice -10'.</li>
+      <li>Document updated.</li>
     </ul>
     <!--p class="links"><a href="#">Comments</a></p-->
   </div>

@@ -21,7 +21,8 @@
 ###
 ### install versionswitcher
 ###
-[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ curl -O http://versionswitcher.appspot.com/install.sh
+[bash]$ # or wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
 [bash]$ export VS_PATH=$HOME/lang

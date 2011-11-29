@@ -14,7 +14,8 @@
   </ol>
   <p>Example:</p>
   <pre class="terminal">
-[bash]$ wget http://versionswitcher.appspot.com/install.sh
+[bash]$ curl -O http://versionswitcher.appspot.com/install.sh
+[bash]$ # or wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh    # or zsh install.sh if you are a zsh user
 ...(snip)...
 ***
@@ -105,9 +106,11 @@ fi
     <li>Rubinius (<a href="http://rubini.us/">http://rubini.us/</a>)</li>
     <li>Lua (<a href="http://www.lua.org/">http://www.lua.org/</a>)</li>
     <li>LuaJIT (<a href="http://luajit.org/">http://luajit.org/</a>)</li>
+    <li>Perl (<a href="http://www.perl.org/">http://www.perl.org/</a>)</li>
+    <li>Gauche (<a href="http://practical-scheme.net/gauche/">http://practical-scheme.net/gauche/</a>)</li>
   </ul>
   <div class="tips">
-    <p>Tips: You must install development tools (such as compiler, header files) and wget command <em>BEFORE</em> installing languages. For example:
+    <p>Tips: You must install development tools (such as compiler, header files) and 'curl' or 'wget' command <em>BEFORE</em> installing languages. For example:
       <pre class="terminal">
 ### Debian or Ubuntu
 [bash]$ sudo apt-get update
@@ -116,14 +119,10 @@ fi
 [bash]$ sudo apt-get install libncurses5-dev libreadline-dev libgdbm-dev
 [bash]$ sudo apt-get install libyaml-dev libffi-dev  # for ruby1.9
 [bash]$ sudo apt-get install pkg-config              # for node.js
-### Mac OS X (install Xcode and MacPorts at first!)
-[bash]$ which gcc
-/usr/bin/gcc
-[bash]$ sudo port sync
-[bash]$ sudo port install wget
-[bash]$ sudo port install readline subversion        # for Python2.5
+[bash]$ sudo apt-get install readline subversion     # for Python2.5
 </pre>
     </p>
+    <p>If you are Mac OS X user, install Xcode at first.</p>
   </div>
   <p>The following is an exaple to install Node.js (and npm command):</p>
   <pre class="terminal">
@@ -144,7 +143,7 @@ ruby        # http://www.ruby-lang.org/
 ** latest version is 0.6.3
 ** Install into '/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
 ** Configure is './configure --prefix=/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
-$ wget -nc http://nodejs.org/dist/node-v0.6.3.tar.gz
+$ curl -ORL http://nodejs.org/dist/node-v0.6.3.tar.gz
 $ tar xzf node-v0.6.3.tar.gz
 $ cd node-v0.6.3/
 $ time ./configure --prefix=/home/yourname/lang/node/0.6.3
@@ -157,7 +156,7 @@ $ which node
 /home/yourname/lang/node/0.6.3/bin/node
 
 ** Install npm (Node Package Manger)? [Y/n]: <strong>y</strong>
-$ wget -qO - http://npmjs.org/install.sh | sh
+$ curl -L - http://npmjs.org/install.sh | sh
 fetching: http://registry.npmjs.org/npm/-/npm-1.0.106.tgz
 0.6.3
 ! [ -d .git ] || git submodule update --init
