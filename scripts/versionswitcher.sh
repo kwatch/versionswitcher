@@ -122,6 +122,24 @@ __vs_echo() {
 
 
 ###
+__vs_downloader() {
+    local curlopt=$1
+    local wgetopt=$2
+    local curl=`which curl`
+    local wget=`which wget`
+    local down
+    if   [ -n "$curl" ]; then
+        echo "curl $curlopt"
+    elif [ -n "$wget" ]; then
+        echo "wget $wgetopt"
+    else
+        echo "$prompt ERROR: 'wget' or 'curl' required." 1>&2
+        return 1
+    fi
+}
+
+
+###
 __vs_versions() {
     local basedir=$1
     local version=$2
@@ -266,7 +284,8 @@ __vs_download() {
     if [ -n "$dir" -a ! -d "$vs_home/$dir" ]; then
         mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
     fi
-    (cd $vs_home/$dir; wget -Nq $url) || __vs_error "Failed: wget -Nq $url" || return 1
+    local down=`__vs_downloader -sORL -qN`   || return 1
+    (cd $vs_home/$dir; $down $url) || __vs_error "Failed: $down $url" || return 1
     echo $vs_home/$filename
 }
 
@@ -305,8 +324,9 @@ __vs_installable_versions() {
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
     [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
     #
+    local down=`__vs_downloader "-sL" "-q -O - --no-check-certificate"`   || return 1
     if [ "$condense" = 'y' ]; then
-        wget -q -O - --no-check-certificate $url $url2 | $perl -e '
+        $down $url $url2 | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
@@ -321,7 +341,7 @@ __vs_installable_versions() {
             }
         '
     else
-        wget -q -O - --no-check-certificate $url $url2 | $perl -e '
+        $down $url $url2 | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
@@ -409,14 +429,16 @@ __vs_install() {
 __vs_upgrade() {
     local site="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
-    local ver=`wget -q -O - $site/version`
+    local down=`__vs_downloader "-sL" "-q -O -"`   || return 1
+    local ver=`$down - $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
         __vs_echo "current version is newest. exist."
     else
         __vs_echo "upgrade to $ver (current: $__vs_version)"
         local dir=$HOME/.vs/scripts
         mkdir -p $dir
-        (cd $dir; rm -f install.sh; wget $site/install.sh)
+        down=`__vs_downloader "-ORL" ""`           || return 1
+        (cd $dir; rm -f install.sh; $down $site/install.sh)
         if [ -n "$BASH_VERSION" ]; then            # for bash
             bash $dir/install.sh
         elif [ -n "$ZSH_VERSION" ]; then           # for zsh
