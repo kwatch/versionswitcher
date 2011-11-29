@@ -96,8 +96,8 @@ _install_pypy() {
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`
         if [ "$easy_install_path" != "$prefix/bin/easy_install" ]; then
-            echo "$prefix ERROR: easy_install command seems not installed correctly." 2>&1
-            echo "$prefix exit 1" 2>&1
+            echo "$prompt ERROR: easy_install command seems not installed correctly." 2>&1
+            echo "$prompt exit 1" 2>&1
             return 1
         fi
         echo "$prompt easy_install command installed successfully."
