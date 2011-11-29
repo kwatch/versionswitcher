@@ -31,16 +31,8 @@ _install_perl() {
     case "$input" in
     y*|Y*)
         url="http://cpanmin.us/"
-        local curl=`which curl`
-        local wget=`which wget`
-        if [ -n "$curl" ]; then
-            _cmd "curl -Lo $prefix/bin/$script $url" || return 1
-        elif [ -n "$wget" ]; then
-            _cmd "wget --no-check-certificate -O $prefix/bin/$script $url" || return 1
-        else
-            echo "$prompt ERROR: 'curl' or 'wget' command required, but not installed." 2>&1
-            return 1
-        fi
+        local down=`__vs_downloader "-Lo" "--no-check-certificate -O"`   || return 1
+        _cmd "$down $prefix/bin/$script $url"        || return 1
         _cmd "chmod a+x $prefix/bin/$script"         || return 1
         _cmd "which $script"                         || return 1
         script_path=`which $script`
