@@ -38,7 +38,7 @@ _install_perl() {
         elif [ -n "$wget" ]; then
             _cmd "wget --no-check-certificate -O $prefix/bin/$script $url" || return 1
         else
-            echo "$prompt ERROR: neigher 'curl' nor 'wget' not available." 2>&1
+            echo "$prompt ERROR: 'curl' or 'wget' command required, but not installed." 2>&1
             return 1
         fi
         _cmd "chmod a+x $prefix/bin/$script"         || return 1
