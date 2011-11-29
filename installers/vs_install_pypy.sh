@@ -45,8 +45,8 @@ _install_pypy() {
     _cmd "tar xjf $base.tar.bz2"                  || return 1
     local dirname=`tar tjf $base.tar.bz2 | awk -F/ 'NR==1 { print $1 }'`
     if [ -z "$dirname" ]; then
-        echo "$prefix ERROR: failed to detect archive directory name." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prompt ERROR: failed to detect archive directory name." 2>&1
+        echo "$prompt exit 1" 2>&1
         return 1
     fi
     local opt=""

@@ -74,8 +74,8 @@ _install_node() {
         _cmd "sh install.sh"                    || return 1
         local npm_path=`which npm`
         if [ "$npm_path" != "$prefix/bin/npm" ]; then
-            echo "$prefix ERROR: npm command seems not installed correctly." 2>&1
-            echo "$prefix exit 1" 2>&1
+            echo "$prompt ERROR: npm command seems not installed correctly." 2>&1
+            echo "$prompt exit 1" 2>&1
             return 1
         fi
         echo "$prompt npm installed successfully."
