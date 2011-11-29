@@ -57,9 +57,9 @@ _generic_installer() {
     _cmd "$untar $filename"                       || return 1
     _cmd "cd $base/"                              || return 1
     ## compile and install
-    _cmd "time $configure"                        || return 1
-    _cmd "time make"                              || return 1
-    _cmd "time make install"                      || return 1
+    _cmd "time nice -5 $configure"                || return 1
+    _cmd "time nice -5 make"                      || return 1
+    _cmd "time nice -5 make install"              || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
