@@ -6,15 +6,8 @@
 ### $License: Public Domain $
 ###
 
-_cmd() {
-    echo '$' $1
-    if eval $1; then
-        return 0
-    else
-        echo "** FAILED: $1" 2>&1
-        return 1
-    fi
-}
+. $HOME/.vs/installers/vs_install.sh
+
 
 _install_rubinius() {
     ## arguments and variables
@@ -83,7 +76,10 @@ _install_rubinius() {
     local siteurl="http://asset.rubini.us"
     if [ "$kind" = "source" ]; then
         base="rubinius-$version-$date"
-        _cmd "wget -N $siteurl/$base.tar.gz"      || return 1
+        if [ ! -e "$base.tar.gz" ]; then
+            local down=`__vs_downloader "-LRO" ""`  || return 1
+            _cmd "$down $url"                       || return 1
+        fi
         _cmd "rm -rf rubinius-$version"           || return 1
         _cmd "tar xzf $base.tar.gz"               || return 1
         _cmd "cd rubinius-$version/"              || return 1
@@ -93,7 +89,10 @@ _install_rubinius() {
         _cmd "cd .."                              || return 1
     else
         base="rubinius-$version-$kind"
-        _cmd "wget -N $siteurl/$base.zip"         || return 1
+        if [ ! -e "$base.zip" ]; then
+            local down=`__vs_downloader "-LRO" ""`  || return 1
+            _cmd "$down $url"                       || return 1
+        fi
         _cmd "rm -rf $base"                       || return 1
         _cmd "unzip -q $base.zip"                 || return 1
         _cmd "open $base"                         || return 1

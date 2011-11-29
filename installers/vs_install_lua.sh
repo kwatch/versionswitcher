@@ -6,15 +6,8 @@
 ### $License: Public Domain $
 ###
 
-_cmd() {
-    echo '$' $1
-    if eval $1; then
-        return 0
-    else
-        echo "** FAILED: $1" 2>&1
-        return 1
-    fi
-}
+. $HOME/.vs/installers/vs_install.sh
+
 
 _install_lua() {
     ## arguments and variables
@@ -34,8 +27,11 @@ _install_lua() {
     esac
     ## donwload
     local base="lua-$version"
-    local url="http://www.lua.org/ftp/lua-$version.tar.gz"
-    _cmd "wget -N $url"                           || return 1
+    local url="http://www.lua.org/ftp/$base.tar.gz"
+    if [ ! -e "$base.tar.gz" ]; then
+        local down=`__vs_downloader "-LRO" ""`    || return 1
+        _cmd "$down $url"                         || return 1
+    fi
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     ## confirm platform

@@ -6,15 +6,8 @@
 ### $License: Public Domain $
 ###
 
-_cmd() {
-    echo '$' $1
-    if eval $1; then
-        return 0
-    else
-        echo "** FAILED: $1" 2>&1
-        return 1
-    fi
-}
+. $HOME/.vs/installers/vs_install.sh
+
 
 _install_pypy() {
     ## arguments and variables
@@ -40,7 +33,10 @@ _install_pypy() {
     local ver=`echo $version | sed 's/\.0$//'`
     local base="pypy-$ver-$target"
     local url="https://bitbucket.org/pypy/pypy/downloads/$base.tar.bz2"
-    _cmd "wget -N --no-check-certificate $url"    || return 1
+    if [ ! -e "$base.tar.bz2" ]; then
+        local down=`__vs_downloader "-LRO" "--no-check-certificate"` || return 1
+        _cmd "$down $url"                         || return 1
+    fi
     _cmd "rm -rf $base"                           || return 1
     _cmd "tar xjf $base.tar.bz2"                  || return 1
     local dirname=`tar tjf $base.tar.bz2 | awk -F/ 'NR==1 { print $1 }'`
@@ -91,7 +87,8 @@ _install_pypy() {
     case "$input" in
     y*|Y*)
         url="http://python-distribute.org/$script"
-        _cmd "wget -N $url"                       || return 1
+        local down=`__vs_downloader "-ORL" "-N"`  || return 1
+        _cmd "$down $url"                         || return 1
         _cmd "$prefix/bin/pypy $script"           || return 1
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`

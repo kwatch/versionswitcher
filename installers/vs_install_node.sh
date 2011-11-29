@@ -6,15 +6,8 @@
 ### $License: Public Domain $
 ###
 
-_cmd() {
-    echo '$' $1
-    if eval $1; then
-        return 0
-    else
-        echo "** FAILED: $1" 2>&1
-        return 1
-    fi
-}
+. $HOME/.vs/installers/vs_install.sh
+
 
 _install_node() {
     ## arguments and variables
@@ -46,7 +39,10 @@ _install_node() {
         url="http://nodejs.org/dist/$base.tar.gz"
         ;;
     esac
-    _cmd "wget -N $url"                           || return 1
+    if [ ! -e "$base.tar.gz" ]; then
+        local down=`__vs_downloader "-LRO" ""`    || return 1
+        _cmd "$down $url"                         || return 1
+    fi
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     _cmd "time $configure"                        || return 1
@@ -70,8 +66,9 @@ _install_node() {
     y*|Y*)
         #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
         #_cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
-        _cmd "wget -N http://npmjs.org/install.sh" || return 1
-        _cmd "sh install.sh"                    || return 1
+        local down=`__vs_downloader "-LRO" "-N"`  || return 1
+        _cmd "$down http://npmjs.org/install.sh"  || return 1
+        _cmd "sh install.sh"                      || return 1
         local npm_path=`which npm`
         if [ "$npm_path" != "$prefix/bin/npm" ]; then
             echo "$prompt ERROR: npm command seems not installed correctly." 2>&1

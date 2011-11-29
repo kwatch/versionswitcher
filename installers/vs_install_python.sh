@@ -6,15 +6,8 @@
 ### $License: Public Domain $
 ###
 
-_cmd() {
-    echo '$' $1
-    if eval $1; then
-        return 0
-    else
-        echo "** FAILED: $1" 2>&1
-        return 1
-    fi
-}
+. $HOME/.vs/installers/vs_install.sh
+
 
 _install_python() {
     ## arguments and variables
@@ -85,10 +78,14 @@ _install_python() {
     ## donwload, compile and install
     local ver=`echo $version | sed 's/\.0$//'`
     local base="Python-$ver"
-    local url="http://www.python.org/ftp/python/$ver/$base.tar.bz2"
-    _cmd "wget -N $url"                           || return 1
+    local filename="$base.tar.bz2"
+    local url="http://www.python.org/ftp/python/$ver/$filename"
+    if [ ! -e "$filename" ]; then
+        local down=`__vs_downloader "-LRO" ""`    || return 1
+        _cmd "$down $url"                         || return 1
+    fi
     _cmd "rm -rf $base"                           || return 1
-    _cmd "tar xjf $base.tar.bz2"                  || return 1
+    _cmd "tar xjf $filename"                      || return 1
     _cmd "cd $base/"                              || return 1
     if [ -n "$macports_patch_url" ]; then
         _cmd "svn checkout $macports_patch_url"   || return 1
@@ -128,7 +125,8 @@ _install_python() {
     case "$input" in
     y*|Y*)
         url="http://python-distribute.org/$script"
-        _cmd "wget -N $url"                       || return 1
+        local down=`__vs_downloader "-ORL" "-N"`  || return 1
+        _cmd "$down $url"                         || return 1
         _cmd "$prefix/bin/python $script"         || return 1
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`
