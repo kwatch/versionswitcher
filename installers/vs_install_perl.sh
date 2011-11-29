@@ -20,8 +20,42 @@ _install_perl() {
     local url="http://www.cpan.org/src/5.0/$filename"
     . $HOME/.vs/installers/vs_install.sh
     _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure" || return 1
-    ## finish
+    ## install 'cpanm'
     local prompt='**'
+    local script="cpanm"
+    local script_path
+    local input
+    echo
+    echo -n "$prompt Install '$script' command? [Y/n]: "
+    read input;  [ -z "$input" ] && input="y"
+    case "$input" in
+    y*|Y*)
+        url="http://cpanmin.us/"
+        local curl=`which curl`
+        local wget=`which wget`
+        if [ -n "$curl" ]; then
+            _cmd "curl -Lo $prefix/bin/$script $url" || return 1
+        elif [ -n "$wget" ]; then
+            _cmd "wget --no-check-certificate -O $prefix/bin/$script $url" || return 1
+        else
+            echo "$prompt ERROR: neigher 'curl' nor 'wget' not available." 2>&1
+            return 1
+        fi
+        _cmd "chmod a+x $prefix/bin/$script"         || return 1
+        _cmd "which $script"                         || return 1
+        script_path=`which $script`
+        if [ "$script_path" != "$prefix/bin/$script" ]; then
+            echo "$prompt ERROR: $script seems not installed correctly." 2>&1
+            echo "$prompt exit 1" 2>&1
+            return 1
+        fi
+        echo "$prompt $script installed successfully."
+        ;;
+    *)
+        echo "$prompt skip to install $script command."
+        ;;
+    esac
+    ## finish
     echo
     echo "$prompt Installation is finished successfully."
     echo "$prompt   language:  $lang"
