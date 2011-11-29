@@ -1,0 +1,3 @@
+url='http://www.cpan.org/src/5.0/'
+rexp='href="perl-(\d+\.\d+)\.(\d+)?\.tar.gz"'
+sep='.'

@@ -2,6 +2,7 @@ gauche      # http://practical-scheme.net/gauche/
 lua         # http://www.lua.org/
 luajit      # http://luajit.org/
 node        # http://nodejs.org/
+perl        # http://www.perl.org/
 pypy        # http://pypy.org/
 python      # http://www.python.org/
 rubinius    # http://rubini.us/
