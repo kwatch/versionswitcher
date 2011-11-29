@@ -87,7 +87,7 @@ versionswitcher() {
         case $lang in
         ruby|rb)       __vs_switch ruby      ruby     "$version";;
         python|py)     __vs_switch python    python   "$version";;
-        perl)          __vs_switch perl      perl     "$version";;
+        perl|pl)       __vs_switch perl      perl     "$version";;
         rubinius|rbx)  __vs_switch rubinius  rbx      "$version";;
         gauche|gosh)   __vs_switch gauche    gosh     "$version";;
         *)             __vs_switch $lang     $lang    "$version";;
@@ -352,6 +352,7 @@ __vs_install() {
     py)   lang='python';;
     rb)   lang='ruby';;
     rbx)  lang='rubinius';;
+    pl)   lang='perl';;
     gosh) lang='gauche';;
     esac
     ## show installable versions when version is not specified
