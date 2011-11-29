@@ -64,6 +64,7 @@ vs_install() {
     done
     ## download language installers
     _cmd "cd $vs_home/installers"                           || return 1
+    _cmd "$wget $vs_url/installers/vs_install.sh"           || return 1
     for lang in `echo $langs`; do
         _cmd "$wget $vs_url/installers/vs_install_$lang.sh" || return 1
     done
