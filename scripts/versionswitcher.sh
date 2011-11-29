@@ -333,8 +333,8 @@ __vs_installable_versions() {
             while (<>) {
                 push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
             }
-            sub norm { sprintf("%03d.%03d", split(/\./, $_[0])) }
-            for (sort {norm($a)<=>norm($b)} keys %d) {
+            sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
+            for (sort keys %d) {
                 @arr = sort {$a<=>$b} @{$d{$_}};
                 $ver = $#arr ? $sep."{".join(",", @arr)."}" : (length($arr[0]) ? "$sep$arr[0]" : "");
                 print "$_$ver\n";
