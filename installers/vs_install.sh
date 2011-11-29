@@ -53,7 +53,14 @@ _generic_installer() {
         return 1 ;;
     esac
     ## donwload
-    _cmd "wget -N $url"                           || return 1
+    local curl=`which curl`
+    local wget=`which wget`
+    if   [ -n "$curl" ]; then _cmd "curl -LO $url"  || return 1
+    elif [ -n "$wget" ]; then _cmd "wget -N $url"   || return 1
+    else
+        echo "$prompt ERROR: 'curl' or 'wget' command required, but not installed." 2>&1
+        return 1
+    fi
     _cmd "$untar $filename"                       || return 1
     _cmd "cd $base/"                              || return 1
     ## compile and install
