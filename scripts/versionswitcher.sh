@@ -79,7 +79,7 @@ versionswitcher() {
         __vs_upgrade
         ;;
     -*)
-        echo "versionswitcher: $1: unknown option." 2>&1
+        echo "versionswitcher: $1: unknown option." 1>&2
         ;;
     *)
         lang=$1
@@ -166,7 +166,7 @@ __vs_versions() {
 ##
 __vs_error() {
     local msg=$1
-    echo "versionswitcher: $msg" 2>&1
+    echo "versionswitcher: $msg" 1>&2
     return 1
 }
 

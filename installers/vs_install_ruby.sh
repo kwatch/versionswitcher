@@ -26,7 +26,7 @@ _install_ruby() {
         echo -n "$prompt Enter configure command: "
         read configure
         if [ -z "$configure"]; then
-            echo "$prompt ERROR: configure command is not entered." >&1
+            echo "$prompt ERROR: configure command is not entered." 1>&2
             return 1
         fi
         ;;
@@ -46,7 +46,7 @@ _install_ruby() {
     1.8*)  ver="1.8";;
     1.9*)  ver="1.9";;
     *)
-        echo "$prompt ERROR: version $version is not supported to install." 2>&1
+        echo "$prompt ERROR: version $version is not supported to install." 1>&2
         return 1
         ;;
     esac
@@ -69,8 +69,8 @@ _install_ruby() {
     _cmd "hash -r"                                || return 1
     _cmd "which ruby"                             || return 1
     if [ "$prefix/bin/ruby" != `which ruby` ]; then
-        echo "$prompt failed: ruby command seems not installed correctly." 2>&1
-        echo "$prompt exit 1" 2>&1
+        echo "$prompt failed: ruby command seems not installed correctly." 1>&2
+        echo "$prompt exit 1" 1>&2
         return 1
     fi
     ## install or update RubyGems
@@ -127,8 +127,8 @@ _install_ruby() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "$prompt not allowed to execute by root user!" 2>&1
-        echo "$prompt exit 1" 2>&1
+        echo "$prompt not allowed to execute by root user!" 1>&2
+        echo "$prompt exit 1" 1>&2
         exit 1
     fi
     _install_ruby "$1" "$2"

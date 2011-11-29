@@ -37,8 +37,8 @@ _install_perl() {
         _cmd "which $script"                         || return 1
         script_path=`which $script`
         if [ "$script_path" != "$prefix/bin/$script" ]; then
-            echo "$prompt ERROR: $script seems not installed correctly." 2>&1
-            echo "$prompt exit 1" 2>&1
+            echo "$prompt ERROR: $script seems not installed correctly." 1>&2
+            echo "$prompt exit 1" 1>&2
             return 1
         fi
         echo "$prompt $script installed successfully."
@@ -57,8 +57,8 @@ _install_perl() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_perl "$1" "$2"

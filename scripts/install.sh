@@ -19,7 +19,7 @@ _cmd() {
     if eval $1; then
         return 0
     else
-        echo "** FAILED: $1" 2>&1
+        echo "** FAILED: $1" 1>&2
         return 1
     fi
 }
@@ -39,7 +39,7 @@ vs_install() {
     if   [ -n "$curl" ]; then  down="curl -sORL"
     elif [ -n "$wget" ]; then  down="wget -q"
     else
-        echo "$prompt ERROR: 'wget' or 'curl' required." 2>&1
+        echo "$prompt ERROR: 'wget' or 'curl' required." 1>&2
         return 1
     fi
     ## create versionswitcher directory
@@ -118,8 +118,8 @@ vs_install() {
 
 
 if [ "root" = `whoami` ]; then
-    echo "*** not allowed to execute by root user!" 2>&1
-    echo "*** exit 1" 2>&1
+    echo "*** not allowed to execute by root user!" 1>&2
+    echo "*** exit 1" 1>&2
     exit 1
 fi
 vs_install "$0"

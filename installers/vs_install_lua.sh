@@ -46,7 +46,7 @@ _install_lua() {
         echo -n "$prompt Enter platform: "
         read platform
         if [ -z "$platform"]; then
-            echo "$prompt ERROR: platform is not entered." >&1
+            echo "$prompt ERROR: platform is not entered." 1>&2
             return 1
         fi
         ;;
@@ -60,8 +60,8 @@ _install_lua() {
     _cmd "hash -r"                                || return 1
     _cmd "which lua"                              || return 1
     if [ "$prefix/bin/lua" != `which lua` ]; then
-        echo "$prefix ERROR: lua seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: lua seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## finish
@@ -75,8 +75,8 @@ _install_lua() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_lua "$1" "$2"

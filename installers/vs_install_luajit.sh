@@ -37,8 +37,8 @@ _install_luajit() {
     _cmd "hash -r"                                || return 1
     _cmd "which luajit"                           || return 1
     if [ "$prefix/bin/luajit" != `which luajit` ]; then
-        echo "$prefix ERROR: luajit seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: luajit seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## finish
@@ -52,8 +52,8 @@ _install_luajit() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_luajit "$1" "$2"

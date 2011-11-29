@@ -33,8 +33,8 @@ _install_rubinius() {
         1)  kind="source";;
         2)  kind="10.6.pkg";;
         3)  kind="10.5.pkg";;
-        *)  echo "$prompt ERROR: unexpected value." 2>&1
-            echo "$prompt exit 1." 2>&1
+        *)  echo "$prompt ERROR: unexpected value." 1>&2
+            echo "$prompt exit 1." 1>&2
             return 1
             ;;
         esac
@@ -52,7 +52,7 @@ _install_rubinius() {
             echo -n "$prompt Enter configure command: "
             read configure
             if [ -z "$configure"]; then
-                echo "$prompt ERROR: configure command is not entered." >&1
+                echo "$prompt ERROR: configure command is not entered." 1>&2
                 return 1
             fi
             ;;
@@ -67,7 +67,7 @@ _install_rubinius() {
         case $version in
         1.2.3)  date='20110315' ;;
         1.2.4)  date='20110705' ;;
-        *)  echo "$prompt ERROR: version $version is not supported to install." 2>&1
+        *)  echo "$prompt ERROR: version $version is not supported to install." 1>&2
             return 1
             ;;
         esac
@@ -110,8 +110,8 @@ _install_rubinius() {
     _cmd "hash -r"                                || return 1
     _cmd "which $command"                         || return 1
     if [ "$prefix/bin/$command" != `which $command` ]; then
-        echo "$prompt failed: $command command seems not installed correctly." 2>&1
-        echo "$prompt exit 1" 2>&1
+        echo "$prompt failed: $command command seems not installed correctly." 1>&2
+        echo "$prompt exit 1" 1>&2
         return 1
     fi
     ## finish
@@ -125,8 +125,8 @@ _install_rubinius() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "$prompt not allowed to execute by root user!" 2>&1
-        echo "$prompt exit 1" 2>&1
+        echo "$prompt not allowed to execute by root user!" 1>&2
+        echo "$prompt exit 1" 1>&2
         exit 1
     fi
     _install_rubinius "$1" "$2"

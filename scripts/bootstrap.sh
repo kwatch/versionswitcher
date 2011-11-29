@@ -3,7 +3,7 @@ vs() {
         . $HOME/.vs/scripts/versionswitcher.sh
         versionswitcher $@
     else
-        echo "*** ERROR: versionswitcher.sh not found." 2>&1
+        echo "*** ERROR: versionswitcher.sh not found." 1>&2
         return 1
     fi
 }

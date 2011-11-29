@@ -28,8 +28,8 @@ _install_gauche() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_gauche "$1" "$2"

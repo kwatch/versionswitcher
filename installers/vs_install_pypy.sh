@@ -41,8 +41,8 @@ _install_pypy() {
     _cmd "tar xjf $base.tar.bz2"                  || return 1
     local dirname=`tar tjf $base.tar.bz2 | awk -F/ 'NR==1 { print $1 }'`
     if [ -z "$dirname" ]; then
-        echo "$prompt ERROR: failed to detect archive directory name." 2>&1
-        echo "$prompt exit 1" 2>&1
+        echo "$prompt ERROR: failed to detect archive directory name." 1>&2
+        echo "$prompt exit 1" 1>&2
         return 1
     fi
     local opt=""
@@ -74,8 +74,8 @@ _install_pypy() {
     _cmd "hash -r"                                || return 1
     _cmd "which pypy"                             || return 1
     if [ "$prefix/bin/pypy" != `which pypy` ]; then
-        echo "$prefix ERROR: pypy command seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: pypy command seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## install 'easy_install'
@@ -93,8 +93,8 @@ _install_pypy() {
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`
         if [ "$easy_install_path" != "$prefix/bin/easy_install" ]; then
-            echo "$prompt ERROR: easy_install command seems not installed correctly." 2>&1
-            echo "$prompt exit 1" 2>&1
+            echo "$prompt ERROR: easy_install command seems not installed correctly." 1>&2
+            echo "$prompt exit 1" 1>&2
             return 1
         fi
         echo "$prompt easy_install command installed successfully."
@@ -114,8 +114,8 @@ _install_pypy() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_pypy "$1" "$2"

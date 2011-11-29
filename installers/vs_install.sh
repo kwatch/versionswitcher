@@ -11,7 +11,7 @@ _cmd() {
     if eval $1; then
         return 0
     else
-        echo "** FAILED: $1" 2>&1
+        echo "** FAILED: $1" 1>&2
         return 1
     fi
 }
@@ -52,7 +52,7 @@ _generic_installer() {
         echo -n "$prompt Enter configure command: "
         read configure
         if [ -z "$configure"]; then
-            echo "$prompt ERROR: configure command is not entered." >&1
+            echo "$prompt ERROR: configure command is not entered." 1>&2
             return 1
         fi
         ;;
@@ -65,7 +65,7 @@ _generic_installer() {
     *.tar.bz2)  untar="tar xjf";;
     *.tbz)      untar="tar xjf";;
     *.zip)      untar="unzip";;
-    *)  echo "$prefix ERROR: $filename: unsupported extension." 2>&1
+    *)  echo "$prefix ERROR: $filename: unsupported extension." 1>&2
         return 1 ;;
     esac
     ## donwload
@@ -85,8 +85,8 @@ _generic_installer() {
     _cmd "hash -r"                                || return 1
     _cmd "which $bin"                             || return 1
     if [ "$prefix/bin/$bin" != `which $bin` ]; then
-        echo "$prefix ERROR: $lang seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: $lang seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## finish

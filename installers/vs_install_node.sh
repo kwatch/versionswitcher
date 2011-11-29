@@ -26,7 +26,7 @@ _install_node() {
         echo -n "$prompt Enter configure command: "
         read configure
         if [ -z "$configure"]; then
-            echo "$prompt ERROR: configure command is not entered." >&1
+            echo "$prompt ERROR: configure command is not entered." 1>&2
             return 1
         fi
         ;;
@@ -54,8 +54,8 @@ _install_node() {
     _cmd "hash -r"                                || return 1
     _cmd "which node"                             || return 1
     if [ "$prefix/bin/node" != `which node` ]; then
-        echo "$prefix ERROR: node command seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: node command seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## install 'npm' (Node Package Manager)
@@ -71,8 +71,8 @@ _install_node() {
         _cmd "sh install.sh"                      || return 1
         local npm_path=`which npm`
         if [ "$npm_path" != "$prefix/bin/npm" ]; then
-            echo "$prompt ERROR: npm command seems not installed correctly." 2>&1
-            echo "$prompt exit 1" 2>&1
+            echo "$prompt ERROR: npm command seems not installed correctly." 1>&2
+            echo "$prompt exit 1" 1>&2
             return 1
         fi
         echo "$prompt npm installed successfully."
@@ -92,8 +92,8 @@ _install_node() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_node "$1" "$2"

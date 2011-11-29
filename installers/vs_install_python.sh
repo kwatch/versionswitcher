@@ -33,7 +33,7 @@ _install_python() {
             macports_patch_url="http://svn.macosforge.org/repository/macports/trunk/dports/lang/$pythonver"
             local svnpath=`which svn`
             if [ -z "$svnpath" ]; then
-                echo "$prompt ERROR: you must install Subversion to apply MacPorts patch for Python $pythonver. Try 'sudo port install subversion' at first." 2>&1
+                echo "$prompt ERROR: you must install Subversion to apply MacPorts patch for Python $pythonver. Try 'sudo port install subversion' at first." 1>&2
                 return 1
             fi
         fi
@@ -70,7 +70,7 @@ _install_python() {
         echo -n "$prompt Enter configure command: "
         read configure
         if [ -z "$configure"]; then
-            echo "$prompt ERROR: configure command is not entered." >&1
+            echo "$prompt ERROR: configure command is not entered." 1>&2
             return 1
         fi
         ;;
@@ -112,8 +112,8 @@ _install_python() {
     _cmd "hash -r"                                || return 1
     _cmd "which python"                           || return 1
     if [ "$prefix/bin/python" != `which python` ]; then
-        echo "$prefix ERROR: python command seems not installed correctly." 2>&1
-        echo "$prefix exit 1" 2>&1
+        echo "$prefix ERROR: python command seems not installed correctly." 1>&2
+        echo "$prefix exit 1" 1>&2
         return 1
     fi
     ## install 'easy_install'
@@ -131,8 +131,8 @@ _install_python() {
         _cmd "which easy_install"                 || return 1
         easy_install_path=`which easy_install`
         if [ "$easy_install_path" != "$prefix/bin/easy_install" ]; then
-            echo "$prompt ERROR: easy_install command seems not installed correctly." 2>&1
-            echo "$prompt exit 1" 2>&1
+            echo "$prompt ERROR: easy_install command seems not installed correctly." 1>&2
+            echo "$prompt exit 1" 1>&2
             return 1
         fi
         echo "$prompt easy_install command installed successfully."
@@ -166,8 +166,8 @@ _install_python() {
 
 if [ -n "$1" -a -n "$2" ]; then
     if [ "root" = `whoami` ]; then
-        echo "*** not allowed to execute by root user!" 2>&1
-        echo "*** exit 1" 2>&1
+        echo "*** not allowed to execute by root user!" 1>&2
+        echo "*** exit 1" 1>&2
         exit 1
     fi
     _install_python "$1" "$2"
