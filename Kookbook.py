@@ -14,21 +14,25 @@ def _debug(msg):
         sys.stderr.write("\033[0;31m*** debug: %s\033[0m\n" % (msg, ))
 
 
+#@recipe
+#def task_update(c):
+#    """update 'website/static' according current branch name"""
+#    branch_name = current_branch_name()
+#    if branch_name.startswith('rel-'):
+#        task_update_sh(c)
+#    elif branch_name == 'master':
+#        task_update_files(c)
+#    #elif branch_name.startswith('dev-'):
+#    #    for x in ['versionswitcher.sh', 'install.sh', 'bootstrap.sh']:
+#    #        rm_f(c%"website/static/scripts/$(x)")
+#    #        system(c%"ln scripts/$(x) website/static/scripts/$(x)")
+#    else:
+#        assert False, "branch_name=%r" % branch_name
 @recipe
+@ingreds('update_files', 'update_sh')
 def task_update(c):
-    """update 'website/static' according current branch name"""
-    branch_name = current_branch_name()
-    if branch_name.startswith('rel-'):
-        task_update_sh(c)
-    elif branch_name == 'master':
-        task_update_files(c)
-    #elif branch_name.startswith('dev-'):
-    #    for x in ['versionswitcher.sh', 'install.sh', 'bootstrap.sh']:
-    #        rm_f(c%"website/static/scripts/$(x)")
-    #        system(c%"ln scripts/$(x) website/static/scripts/$(x)")
-    else:
-        assert False, "branch_name=%r" % branch_name
-
+    """do update_files and update_sh"""
+    pass
 
 @recipe
 @ingreds('create_dirs')
