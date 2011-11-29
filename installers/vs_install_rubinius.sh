@@ -66,6 +66,7 @@ _install_rubinius() {
     if [ "$kind" = "source" ]; then
         case $version in
         1.2.3)  date='20110315' ;;
+        1.2.4)  date='20110705' ;;
         *)  echo "$prompt ERROR: version $version is not supported to install." 2>&1
             return 1
             ;;
@@ -74,11 +75,12 @@ _install_rubinius() {
     ## donwload, compile and install
     local base
     local siteurl="http://asset.rubini.us"
+    local url
     if [ "$kind" = "source" ]; then
         base="rubinius-$version-$date"
         if [ ! -e "$base.tar.gz" ]; then
             local down=`__vs_downloader "-LRO" ""`  || return 1
-            _cmd "$down $url"                       || return 1
+            _cmd "$down $siteurl/$base.tar.gz"      || return 1
         fi
         _cmd "rm -rf rubinius-$version"           || return 1
         _cmd "tar xzf $base.tar.gz"               || return 1
@@ -91,7 +93,7 @@ _install_rubinius() {
         base="rubinius-$version-$kind"
         if [ ! -e "$base.zip" ]; then
             local down=`__vs_downloader "-LRO" ""`  || return 1
-            _cmd "$down $url"                       || return 1
+            _cmd "$down $siteurl/$base.zip"         || return 1
         fi
         _cmd "rm -rf $base"                       || return 1
         _cmd "unzip -q $base.zip"                 || return 1
