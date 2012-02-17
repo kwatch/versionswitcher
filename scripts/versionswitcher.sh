@@ -396,8 +396,13 @@ __vs_install() {
         *)      return 1;;
         esac
     fi
-    ## find installer script file
-    local script_file=`__vs_download installers/vs_install_${lang}.sh`
+    ## download installer script (except $VS_DOWNLOAD_INSTALLER is 0)
+    local script_file
+    if [ "$VS_DOWNLOAD_INSTALLER" -ne "0" ]; then
+        script_file=`__vs_download installers/vs_install_$lang.sh`
+    else
+        script_file="$HOME/.vs/installers/vs_install_$lang.sh"
+    fi
     [ -f "$script_file" ] || __vs_error "$lang is not supported to install." || return 1
     ## confirm PREFIX directory
     [ -n "$VS_PATH" ] || __vs_error "Set \$VS_PATH before installation." || return 1
