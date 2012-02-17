@@ -143,14 +143,14 @@ __vs_downloader() {
 __vs_versions() {
     local basedir=$1
     local version=$2
+    local len
     __vs_glob "$basedir/$version*/bin" | awk '{
       for (i=1; i<=NF; i++) {
         binpath = $i;
-        split(binpath, arr, "/");
-        version = arr[length(arr)-1];
-        split(version, nums, /[^0-9]+/);
+        len = split(binpath, arr, "/");
+        version = arr[len-1];
+        len = split(version, nums, /[^0-9]+/);
         key = "";
-        len = length(nums);
         for (j=1; j<=len; j++) {
           if (length(nums[j]) > 0) {
             key = key sprintf("%010d", nums[j]) "_";
