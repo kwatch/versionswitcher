@@ -40,6 +40,21 @@ _install_rubinius() {
         esac
         ;;
     esac
+    ## check compiler (g++) and rake command
+    if [ "$kind" == "source" ]; then
+        local gpp_path=`which g++`
+        if [ -z "$gpp_path" ]; then
+            echo "$prompt ERROR: g++ not installed. you must install 'g++' to compile Rubinius." 1>&2
+            echo "$prompt exit 1." 1>&2
+            return 1
+        fi
+        local rake_path=`which rake`
+        if [ -z "$rake_path" ]; then
+            echo "$prompt ERROR: rake not installed. you must install 'rake' to compile Rubinius." 1>&2
+            echo "$prompt exit 1." 1>&2
+            return 1
+        fi
+    fi
     ## confirm configure option
     local input
     local configure="./configure --prefix=$prefix"
