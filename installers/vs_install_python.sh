@@ -80,12 +80,13 @@ _install_python() {
     local base="Python-$ver"
     local filename="$base.tar.bz2"
     local url="http://www.python.org/ftp/python/$ver/$filename"
+    local nice="nice -10"
     if [ ! -e "$filename" ]; then
         local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
-    _cmd "tar xjf $filename"                      || return 1
+    _cmd "$nice tar xjf $filename"                || return 1
     _cmd "cd $base/"                              || return 1
     if [ -n "$macports_patch_url" ]; then
         _cmd "svn checkout $macports_patch_url"   || return 1
@@ -93,14 +94,14 @@ _install_python() {
             _cmd "patch -p0 < $i"                 #|| return 1
         done
     fi
-    _cmd "time nice -10 $configure"               || return 1
-    _cmd "time nice -10 make"                     || return 1
+    _cmd "time $nice $configure"                  || return 1
+    _cmd "time $nice make"                        || return 1
     local make_target
     case $version in
     3.0*)  make_target="fullinstall";;
     *)     make_target="install";;
     esac
-    _cmd "time nice -10 make $make_target"        || return 1
+    _cmd "time $nice make $make_target"           || return 1
     _cmd "cd .."                                  || return 1
     ## create a link of 'bin/python3' as 'bin/python'
     if [ ! -f "$prefix/bin/python" ]; then

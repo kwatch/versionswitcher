@@ -34,6 +34,7 @@ _install_node() {
     ## donwload, compile and install
     local base="node-v$version"
     local url="http://nodejs.org/dist/v$version/$base.tar.gz"
+    local nice="nice -10"
     case "$version" in
     0.5.0|0.4*|0.3*|0.2*|0.1*|0.0*)
         url="http://nodejs.org/dist/$base.tar.gz"
@@ -43,11 +44,11 @@ _install_node() {
         local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
     fi
-    _cmd "tar xzf $base.tar.gz"                   || return 1
+    _cmd "$nice tar xzf $base.tar.gz"             || return 1
     _cmd "cd $base/"                              || return 1
-    _cmd "time $configure"                        || return 1
-    _cmd "time JOBS=2 nice -10 make"              || return 1
-    _cmd "time nice -10 make install"             || return 1
+    _cmd "time $nice $configure"                  || return 1
+    _cmd "time JOBS=2 $nice make"                 || return 1
+    _cmd "time $nice make install"                || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1

@@ -18,6 +18,7 @@ _install_luajit() {
     ## donwload
     local base="LuaJIT-$version"
     local url="http://luajit.org/download/$base.tar.gz"
+    local nice="nice -10"
     if [ ! -e "$base.tar.gz" ]; then
         local down=`_downloader "-LRO" ""`        || return 1
         _cmd "$down $url"                         || return 1
@@ -25,8 +26,8 @@ _install_luajit() {
     _cmd "tar xzf $base.tar.gz"                   || return 1
     _cmd "cd $base/"                              || return 1
     ## compile and install
-    _cmd "time nice -10 make PREFIX=$prefix"      || return 1
-    _cmd "time nice -10 make install PREFIX=$prefix"  || return 1
+    _cmd "time $nice make PREFIX=$prefix"         || return 1
+    _cmd "time $nice make install PREFIX=$prefix" || return 1
     _cmd "cd .."                                  || return 1
     ## create a link of binary
     if [ ! -f "$prefix/bin/luajit" ]; then

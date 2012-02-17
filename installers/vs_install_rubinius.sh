@@ -91,6 +91,7 @@ _install_rubinius() {
     local base
     local siteurl="http://asset.rubini.us"
     local url
+    local nice="nice -10"
     if [ "$kind" = "source" ]; then
         base="rubinius-$version-$date"
         if [ ! -e "$base.tar.gz" ]; then
@@ -98,11 +99,11 @@ _install_rubinius() {
             _cmd "$down $siteurl/$base.tar.gz"    || return 1
         fi
         _cmd "rm -rf rubinius-$version"           || return 1
-        _cmd "tar xzf $base.tar.gz"               || return 1
+        _cmd "$nice tar xzf $base.tar.gz"         || return 1
         _cmd "cd rubinius-$version/"              || return 1
         _cmd "unset RUBYLIB"                      || return 1
-        _cmd "time $configure"                    || return 1
-        _cmd "time rake install"                  || return 1
+        _cmd "time $nice $configure"              || return 1
+        _cmd "time $nice rake install"            || return 1
         _cmd "cd .."                              || return 1
     else
         base="rubinius-$version-$kind"
@@ -111,7 +112,7 @@ _install_rubinius() {
             _cmd "$down $siteurl/$base.zip"       || return 1
         fi
         _cmd "rm -rf $base"                       || return 1
-        _cmd "unzip -q $base.zip"                 || return 1
+        _cmd "$nice unzip -q $base.zip"           || return 1
         _cmd "open $base"                         || return 1
         ## finish
         echo

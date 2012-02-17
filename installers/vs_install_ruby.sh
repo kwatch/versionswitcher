@@ -53,16 +53,17 @@ _install_ruby() {
     local base="ruby-$version"
     local filename="$base.$ext"
     local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$filename"
+    local nice="nice -10"
     if [ ! -f "$filename" ]; then
         local down=`_downloader "-ORL" "-N"`      || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
-    _cmd "$tar $base.$ext"                        || return 1
+    _cmd "$nice $tar $base.$ext"                  || return 1
     _cmd "cd $base/"                              || return 1
-    _cmd "time $configure"                        || return 1
-    _cmd "time nice -10 make"                     || return 1
-    _cmd "time nice -10 make install"             || return 1
+    _cmd "time $nice $configure"                  || return 1
+    _cmd "time $nice make"                        || return 1
+    _cmd "time $nice make install"                || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
