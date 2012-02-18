@@ -286,7 +286,7 @@ __vs_download() {
         mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
     fi
     local down=`__vs_downloader -sORL -qN`   || return 1
-    (cd $vs_home/$dir; $down $url) || __vs_error "Failed: $down $url" || return 1
+    (cd $vs_home/$dir; eval $down $url) || __vs_error "Failed: $down $url" || return 1
     echo $vs_home/$filename
 }
 
@@ -438,7 +438,7 @@ __vs_upgrade() {
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
     [ -n "$VS_URL"   ] && site="$VS_URL"
     local down=`__vs_downloader "-sL" "-q -O -"`   || return 1
-    local ver=`$down $site/version`
+    local ver=`eval $down $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
         __vs_echo "current version is newest. exist."
     else
@@ -446,7 +446,7 @@ __vs_upgrade() {
         local dir=$HOME/.vs/scripts
         mkdir -p $dir
         down=`__vs_downloader "-ORL" ""`           || return 1
-        (cd $dir; rm -f install.sh; $down $site/install.sh)
+        (cd $dir; rm -f install.sh; eval $down $site/install.sh)
         if [ -n "$BASH_VERSION" ]; then            # for bash
             bash $dir/install.sh
         elif [ -n "$ZSH_VERSION" ]; then           # for zsh
