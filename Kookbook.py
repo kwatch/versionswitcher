@@ -6,12 +6,25 @@ urllib2 = None   # on-demand import
 
 
 
-release = prop('release', '0.0.0')
-DEBUG   = prop('debug', False)
+release   = prop('release',   '0.0.0')
+copyright = prop('copyright', 'copyright(c) 2011-2012 kuwata-lab.com all rights reserved')
+license   = prop('license',   'Public Domain')
 
 def _debug(msg):
     if DEBUG:
         sys.stderr.write("\033[0;31m*** debug: %s\033[0m\n" % (msg, ))
+
+
+@recipe
+def task_edit(c):
+    """edit files"""
+    replacer = [
+        (r'\$(Copyright):.*?\$', r'$\1: %s $' % copyright),
+        (r'\$(License):.*?\$',   r'$\1: %s $' % license),
+        #(r'\$(Copyright)\$',     copyright),
+        #(r'\$(License)\$',       license),
+    ]
+    edit('installers/**/*', 'scripts/**/*', 'hooks/**/*', 'misc/**/*', 'README.rst', by=replacer)
 
 
 #@recipe
