@@ -196,46 +196,76 @@ Tips
 Changes
 =======
 
+
 Release 0.5.0 (2011-11-29)
-    * Enhance '-i' option to access to download page of each language in order to get installable versions.
-    * Enhance to add '-U' option for self-upgrade.
-    * Enhance to suppoert Perl installer.
-    * Enhance to suppoert Gauche installer.
-    * Change output format of '-i' option when showing versions.
-    * Change installer scripts to prefer 'curl' rather than 'wget'.
-    * Change installer scripts to invoke 'make' command with 'nice -10'.
-    * Document updated.
+--------------------------
+
+* Enhance '-i' option to access to download page of each language in order to get installable versions.
+* Enhance to add '-U' option for self-upgrade.
+* Enhance to suppoert Perl installer.
+* Enhance to suppoert Gauche installer.
+* Change output format of '-i' option when showing versions.
+* Change installer scripts to prefer 'curl' rather than 'wget'.
+* Change installer scripts to invoke 'make' command with 'nice -10'.
+* Document updated.
+
 
 Release 0.4.1 (2011-11-28)
-    * Fix Ruby installer to install Rubygems correctly.
-    * Update Rubygems version installed to 1.8.11.
+--------------------------
+
+* Fix Ruby installer to install Rubygems correctly.
+* Update Rubygems version installed to 1.8.11.
+
 
 Release 0.4.0 (2011-11-25)
-    * Follow new download url of PyPy.
+--------------------------
+
+* Follow new download url of PyPy.
+
 
 Release 0.3.3 (2011-11-24)
-    * Fix 'ruby' installer to install on Ruby 1.8.5 or older.</li>
+--------------------------
+
+* Fix 'ruby' installer to install on Ruby 1.8.5 or older.
+
 
 Release 0.3.2 (2011-11-21)
-    * Fix 'node' installer to follow change of Node download page.
+--------------------------
+
+* Fix 'node' installer to follow change of Node download page.
+
 
 Release 0.3.1 (2011-05-18)
-    * Fix 'ruby' installer to remove duplicated '.tar' extension.
-    * Fix 'versionswitcher.sh' to report error when download by wget is failed.
+--------------------------
+
+* Fix 'ruby' installer to remove duplicated '.tar' extension.
+* Fix 'versionswitcher.sh' to report error when download by wget is failed.
+
 
 Release 0.3.0 (2011-05-08)
-    * Rename '$VERSIONSWITCHER_PATH' to '$VS_HOME'.
-    * Enhance to provide 'install.sh' to make installation easy.
-    * Enhance to provide 'bootstrap.sh' to import versionswitcher.sh lazily.
-    * Enhance to add PyPy and Rubinius as installable languages.
+--------------------------
+
+* Rename '$VERSIONSWITCHER_PATH' to '$VS_HOME'.
+* Enhance to provide 'install.sh' to make installation easy.
+* Enhance to provide 'bootstrap.sh' to import versionswitcher.sh lazily.
+* Enhance to add PyPy and Rubinius as installable languages.
+
 
 Release 0.2.0 (2011-05-01)
-    * Enhance to support '-i' option to install languages.
-    * Changed to sort version number correctly when detecting latest version.
-    * Document updated.
+--------------------------
+
+* Enhance to support '-i' option to install languages.
+* Changed to sort version number correctly when detecting latest version.
+* Document updated.
+
 
 Release 0.1.1 (2011-04-28)
-    * Fix a typo.
+--------------------------
+
+* Fix a typo.
+
 
 Release 0.1.0 (2011-04-27)
-    * Public release
+--------------------------
+
+* Public release
