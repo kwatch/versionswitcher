@@ -25,7 +25,7 @@
 [bash]$ # or wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
-[bash]$ export VS_PATH=$HOME/lang
+[bash]$ export VS_HOME=$HOME/lang
 ###
 ### install python, ruby, node, and so on
 ###
@@ -34,7 +34,7 @@
 [bash]$ <strong>vs -i python 2.6.6</strong>    # install Python 2.6.6
 [bash]$ <strong>vs -i python 2.7.1</strong>    # install Python 2.7.1
 [bash]$ <strong>vs -i python 3.2.0</strong>    # install Python 3.2.0
-[bash]$ ls -F $VS_PATH/python
+[bash]$ ls -F $VS_HOME/python
 2.6.6/          2.7.1/          3.2.0/
 [bash]$ <strong>vs python</strong>             # list python verions installed
 ## basedir: /home/yourname/lang/python

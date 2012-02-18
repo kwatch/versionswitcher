@@ -85,11 +85,11 @@ vs_install() {
     fi
     local rcfile=".${shell}rc"
     ## add settings into .bashrc or .zshrc
-    if [ -z "$VS_PATH" ]; then
+    if [ -z "$VS_HOME" ]; then
         echo "$prompt"
         echo "$prompt You have to write following lines into your ~/$rcfile:"
         echo "$prompt"
-        echo "$prompt     export VS_PATH=\$HOME/langs     # or other directories"
+        echo "$prompt     export VS_HOME=\$HOME/langs     # or other directories"
         echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
         echo "$prompt"
         echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
@@ -97,7 +97,7 @@ vs_install() {
         read input; [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            echo "export VS_PATH=\$HOME/langs   # or other directories" >> $HOME/$rcfile
+            echo "export VS_HOME=\$HOME/langs   # or other directories" >> $HOME/$rcfile
             echo ". \$HOME/.vs/scripts/bootstrap.sh" >> $HOME/$rcfile
             echo "$prompt"
             echo "$prompt You should log out or restart $shell to enable settings."

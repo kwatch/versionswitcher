@@ -21,7 +21,7 @@
 ***
 *** You have to write the following lines into your ~/.bashrc:
 ***
-***     export VS_PATH=$HOME/langs     # or other directories
+***     export VS_HOME=$HOME/langs     # or other directories
 ***     . $HOME/.vs/scripts/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
@@ -43,7 +43,7 @@
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
 2.5.5/          2.7.1/          3.1.3/
 2.6.6/          3.0.1/          3.2.0/
-[bash]$ <strong>export VS_PATH=$HOME/lang</strong>         # setup
+[bash]$ <strong>export VS_HOME=$HOME/lang</strong>         # setup
 [bash]$ which python                      # using system-installed python
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
@@ -64,7 +64,7 @@
 <!--
 <pre class="terminal">
 [bash]$ . /some/where/to/versionswitcher.sh
-[bash]$ export VS_PATH=$HOME/lang
+[bash]$ export VS_HOME=$HOME/lang
 [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
 [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
 [bash]$ vs python latest  # use latest version under $HOME/lang/python
@@ -260,7 +260,7 @@ v0.6.3
 <div class="post" id="structure">
   <h2 class="title"><a href="#structure">Directory Structure</a></h2>
   <p>All languages you want to switch should be installed into $HOME/lang
-    (or other directory where you specified by $VS_PATH) such as:</p>
+    (or other directory where you specified by $VS_HOME) such as:</p>
 <pre class="code">
 + $HOME/
   + lang/
@@ -288,7 +288,7 @@ v0.6.3
 </pre>
   <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
   <div class="tips">
-    <p>Tips: You can specify several directories to $VS_PATH such as <code>export VS_PATH=$HOME/lang:/opt/lang:/usr/local</code>.</p>
+    <p>Tips: You can specify several directories to $VS_HOME such as <code>export VS_HOME=$HOME/lang:/opt/lang:/usr/local</code>.</p>
   </div>
   <div class="tips">
     <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>

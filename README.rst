@@ -29,7 +29,7 @@ Usage
 
 ::
 
-    [bash]$ VS_PATH=$HOME/lang
+    [bash]$ VS_HOME=$HOME/lang
     [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
     [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
     [bash]$ vs python latest  # use latest version under $HOME/lang/python
@@ -55,7 +55,7 @@ Example::
     ***
     *** You have to write the following lines into your ~/.bashrc:
     ***
-    ***     VS_PATH=$HOME/langs     # or other directories
+    ***     VS_HOME=$HOME/langs     # or other directories
     ***     . $HOME/.vs/bootstrap.sh
     ***
     *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
@@ -73,7 +73,7 @@ Install Languages
 =================
 
 All languages which you want to switch should be installed into $HOME/lang
-(or other directory where you specified by $VS_PATH) such as::
+(or other directory where you specified by $VS_HOME) such as::
 
     + $HOME/
       + lang/
@@ -174,7 +174,7 @@ and luajit.
 Tips
 ====
 
-* It is allowed to set VS_PATH=path1:path2:path3:...
+* It is allowed to set VS_HOME=path1:path2:path3:...
 
 * VersionSwitcher sets $xxxroot and $xxxversion shell variables.
   For example, if you execute 'vs ruby 1.9', $rubyroot and
@@ -201,7 +201,7 @@ Release 0.3.1 (2011-05-18)
     * Fix 'versionswitcher.sh' to report error when download by wget is failed.
 
 Release 0.3.0 (2011-05-08)
-    * Rename '$VERSIONSWITCHER_PATH' to '$VS_PATH'.
+    * Rename '$VERSIONSWITCHER_PATH' to '$VS_HOME'.
     * Enhance to provide 'install.sh' to make installation easy.
     * Enhance to provide 'bootstrap.sh' to import versionswitcher.sh lazily.
     * Enhance to add PyPy and Rubinius as installable languages.

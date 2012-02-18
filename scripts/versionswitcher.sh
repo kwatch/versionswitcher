@@ -8,7 +8,7 @@
 ### versionswitcher.sh -- switch version of language or application
 ###
 ### setup:
-###   $ VS_PATH=$HOME/lang
+###   $ VS_HOME=$HOME/lang
 ###   $ . /some/where/to/versionswitcher.sh'
 ###   $ vs --help
 ###
@@ -17,7 +17,7 @@ __vs_version=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
 
 
 ###
-[ -z "$VS_PATH" -a -d $HOME/lang ] && VS_PATH=$HOME/lang
+[ -z "$VS_HOME" -a -d $HOME/lang ] && VS_HOME=$HOME/lang
 
 
 ###
@@ -33,7 +33,7 @@ usage: vs [options] [lang] [version]
    -q        : quiet
 
 examples:
-    $ VS_PATH=\$HOME/lang
+    $ VS_HOME=\$HOME/lang
     $ vs -h               # show help
     $ vs                  # list language names installed
     $ vs python           # list python vesrions installed
@@ -47,7 +47,7 @@ examples:
 
 tips:
     * Short name 'vs' is an alias to 'versionswitcher'.
-    * It is allowed to set VS_PATH=path1:path2:path3:...
+    * It is allowed to set VS_HOME=path1:path2:path3:...
     * \$HOME/.vs/hooks/<language>.sh is imported if exists.
 END
 }
@@ -176,8 +176,8 @@ __vs_switch() {
     local lang=$1
     local command=$2
     local version=$3
-    ## exit if $VS_PATH is not set
-    [ -n "$VS_PATH" ] || __vs_error '$VS_PATH is not set.' || return 1
+    ## exit if $VS_HOME is not set
+    [ -n "$VS_HOME" ] || __vs_error '$VS_HOME is not set.' || return 1
     ## show all language names if lang is not specified
     local dir
     local basedir
@@ -185,7 +185,7 @@ __vs_switch() {
     if [ -z "$lang" ]; then
         #echo "## language          # basedir"
         __vs_echo "## installed"
-        for dir in `echo $VS_PATH | tr ':' ' '`; do
+        for dir in `echo $VS_HOME | tr ':' ' '`; do
             for basedir in `__vs_glob "$dir/*"`; do
                 list=`__vs_glob "$basedir/*/bin"`
                 if [ -n "$list" ]; then
@@ -198,7 +198,7 @@ __vs_switch() {
     fi
     ## check whether installed or not
     local basedir=''
-    for dir in `echo $VS_PATH | tr ':' ' '`; do
+    for dir in `echo $VS_HOME | tr ':' ' '`; do
         if [ -n "$dir" -a -d "$dir/$lang" ]; then
             basedir="$dir/$lang"
             break
@@ -405,8 +405,8 @@ __vs_install() {
     fi
     [ -f "$script_file" ] || __vs_error "$lang is not supported to install." || return 1
     ## confirm PREFIX directory
-    [ -n "$VS_PATH" ] || __vs_error "Set \$VS_PATH before installation." || return 1
-    local inst_dir=`echo $VS_PATH | awk -F: '{print $1}'`
+    [ -n "$VS_HOME" ] || __vs_error "Set \$VS_HOME before installation." || return 1
+    local inst_dir=`echo $VS_HOME | awk -F: '{print $1}'`
     local prefix="$inst_dir/$lang/$version"
     echo -n "$prompt Install into '$prefix'. OK? [Y/n]: "
     read input
