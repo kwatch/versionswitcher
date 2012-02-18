@@ -98,7 +98,7 @@ unset sitedir
 ## enforce 'easy_install' and 'pip' to install packages into 'local'
 if [ -z "$VS_HOME" ]; then
     echo 'alias easy_install="\\easy_install --prefix=$PWD/local"'
-    alias easy_install="\\easy_install --prefix=$PWD/local --script-dir=$PWD/local/bin/python$pyver"
+    alias easy_install="\\easy_install --prefix=$PWD/local"
     echo 'export PIP_INSTALL_OPTION="--prefix=$PWD/local"'
     export PIP_INSTALL_OPTION="--prefix=$PWD/local"
 else
