@@ -48,6 +48,7 @@ vs_install() {
     [ ! -d $vs_home/hooks      ] && _cmd "mkdir $vs_home/hooks"
     [ ! -d $vs_home/data       ] && _cmd "mkdir $vs_home/data"
     [ ! -d $vs_home/installers ] && _cmd "mkdir $vs_home/installers"
+    [ ! -d $vs_home/misc       ] && _cmd "mkdir $vs_home/misc"
     ## copy install.sh into ~/.vs/scripts/
     if [ "$install_sh" != "$HOME/.vs/scripts/install.sh" ]; then
         _cmd "cp -p $install_sh $vs_home/scripts/"          || return 1
@@ -75,6 +76,11 @@ vs_install() {
         if [ ! -f "$lang.sh" ]; then
             _cmd "$down $vs_url/hooks/$lang.sh"             || return 1
         fi
+    done
+    ## download mics files
+    _cmd "cd $vs_home/misc"                                 || return 1
+    for lang in "python"; do
+        _cmd "$down $vs_url/misc/$lang.profile"             || return 1
     done
     ## detect bash or zsh
     if   [ -n "$BASH_VERSION" ]; then  shell="bash"
