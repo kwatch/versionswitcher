@@ -21,7 +21,7 @@
 ***
 *** You have to write the following lines into your ~/.bashrc:
 ***
-***     export VS_HOME=$HOME/langs     # or other directories
+***     export VS_HOME=$HOME/langs     # or other directory
 ***     . $HOME/.vs/scripts/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
@@ -41,17 +41,17 @@
   <h2 class="title"><a href="#usage">Usage</a></h2>
   <pre class="terminal">
 [bash]$ ls -F $HOME/lang/python           # several versions are installed
-2.5.5/          2.7.1/          3.1.3/
-2.6.6/          3.0.1/          3.2.0/
+2.5.6/          2.7.2/          3.1.4/
+2.6.7/          3.0.1/          3.2.0/
 [bash]$ <strong>export VS_HOME=$HOME/lang</strong>         # setup
 [bash]$ which python                      # using system-installed python
 /usr/bin/python
-[bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
+[bash]$ <strong>vs python 2.6.7</strong>       # switch to 2.6.7
 [bash]$ which python
-/home/yourname/lang/python/<strong>2.6.6</strong>/bin/python
+/home/yourname/lang/python/<strong>2.6.7</strong>/bin/python
 [bash]$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
 [bash]$ which python
-/home/yourname/lang/python/<strong>2.7.1</strong>/bin/python
+/home/yourname/lang/python/<strong>2.7.2</strong>/bin/python
 [bash]$ <strong>vs python latest</strong>      # switch to latest version
 [bash]$ which python
 /home/yourname/lang/python/<strong>3.2.0</strong>/bin/python
@@ -65,8 +65,8 @@
 <pre class="terminal">
 [bash]$ . /some/where/to/versionswitcher.sh
 [bash]$ export VS_HOME=$HOME/lang
-[bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
-[bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
+[bash]$ vs python 2.6.7   # use $HOME/lang/python/2.6.7
+[bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.2)
 [bash]$ vs python latest  # use latest version under $HOME/lang/python
 [bash]$ vs python -       # use system-installed one (ex. /usr/bin/python)
 [bash]$ vs python         # show installed versions of python
@@ -115,12 +115,19 @@ fi
 ### Debian or Ubuntu
 [bash]$ sudo apt-get update
 [bash]$ sudo apt-get install wget gcc g++ make patch
-[bash]$ sudo apt-get install libc6-dev zlib1g-dev libssl-dev
+[bash]$ sudo apt-get install libc6-dev zlib1g-dev libbz2-dev libssl-dev
 [bash]$ sudo apt-get install libncurses5-dev libreadline-dev libgdbm-dev
 [bash]$ sudo apt-get install libyaml-dev libffi-dev  # for ruby1.9
 [bash]$ sudo apt-get install pkg-config              # for node.js
+[bash]$ sudo apt-get install libsqlite3-dev          # for Python
 [bash]$ sudo apt-get install readline subversion     # for Python2.5
-</pre>
+<!--
+### CentOS
+[bash]$ sudo yum install -y wget gcc gcc-c++ make patch
+[bash]$ sudo yum install -y zlib-devel bzip2-devel openssl-devel
+[bash]$ sudo yum install -y ncurses-devel readline-devel gdbm-devel
+[bash]$ sudo yum install -y sqlite-devel
+--></pre>
     </p>
     <p>If you are Mac OS X user, install Xcode at first.</p>
   </div>
@@ -136,29 +143,31 @@ python      # http://www.python.org/
 rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
 [bash]$ <strong>vs -i node</strong>
+## checking http://nodejs.org/dist/
 ## try 'vs -i node VERSION' where VERSION is one of:
 0.5.{1,2,3,4,5,6,7,8,9,10}
-0.6.{0,1,2,3}
-[bash]$ <strong>vs -i node latest</strong>    # or vs -i node 0.6.3
-** latest version is 0.6.3
-** Install into '/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
-** Configure is './configure --prefix=/home/yourname/lang/node/0.6.3'. OK? [Y/n]: <strong>y</strong>
-$ curl -ORL http://nodejs.org/dist/node-v0.6.3.tar.gz
-$ tar xzf node-v0.6.3.tar.gz
-$ cd node-v0.6.3/
-$ time ./configure --prefix=/home/yourname/lang/node/0.6.3
+0.6.{0,1,2,3,4,5,6,7,8,9,10,11}
+0.7.{0,1,2,3,4}
+[bash]$ <strong>vs -i node 0.7.4</strong>
+** latest version is 0.7.4
+** Install into '/home/yourname/lang/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
+** Configure is './configure --prefix=/home/yourname/lang/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
+$ curl -ORL http://nodejs.org/dist/node-v0.7.4.tar.gz
+$ tar xzf node-v0.7.4.tar.gz
+$ cd node-v0.7.4/
+$ time ./configure --prefix=/home/yourname/lang/node/0.7.4
 ...(snip)...
 $ time JOBS=2 make
 ...(snip)...
 $ cd ..
 $ hash -r
 $ which node
-/home/yourname/lang/node/0.6.3/bin/node
+/home/yourname/lang/node/0.7.4/bin/node
 
 ** Install npm (Node Package Manger)? [Y/n]: <strong>y</strong>
 $ curl -L - http://npmjs.org/install.sh | sh
 fetching: http://registry.npmjs.org/npm/-/npm-1.0.106.tgz
-0.6.3
+0.7.4
 ! [ -d .git ] || git submodule update --init
 node cli.js cache clean
 ...(snip)...
@@ -166,15 +175,15 @@ node cli.js cache clean
 
 ** Installation is finished successfully.
 **   language:  node
-**   version:   0.6.3
-**   directory: /home/yourname/lang/node/0.6.3
+**   version:   0.7.4
+**   directory: /home/yourname/lang/node/0.7.4
 
-** vs node 0.6.3
-$ export PATH=/home/yourname/lang/node/0.6.3/bin:/usr/local/bin:/usr/bin:/bin
-$ noderoot='/home/yourname/lang/node/0.6.3'
-$ nodeversion='0.6.3'
+** vs node 0.7.4
+$ export PATH=/home/yourname/lang/node/0.7.4/bin:/usr/local/bin:/usr/bin:/bin
+$ noderoot='/home/yourname/lang/node/0.7.4'
+$ nodeversion='0.7.4'
 $ which node
-/home/yourname/lang/node/0.6.3/bin/node
+/home/yourname/lang/node/0.7.4/bin/node
 </pre>
   <p>The above steps are same for other languages such as ruby, python, lua and luajit.</p>
   <div class="tips">
@@ -185,27 +194,27 @@ $ which node
       <li><a href="http://packages.python.org/distribute/">Distribute</a> (for Python)</li>
     </ul>
   </div>
-  
+
 <!--
   <h3 class="title">Ruby</h3>
-  <p>The following is an example to install Ruby 1.9.2 into $HOME/lang/ruby:</p>
+  <p>The following is an example to install Ruby 1.9.3 into $HOME/lang/ruby:</p>
 <pre class="terminal">
-[bash]$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p180.tar.bz2
-[bash]$ tar xjf ruby-1.9.2-p180.tar.bz2
-[bash]$ cd ruby-1.9.2-p180/
-[bash]$ ./configure --prefix=$HOME/lang/ruby/1.9.2-p180
+[bash]$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p0.tar.bz2
+[bash]$ tar xjf ruby-1.9.3-p0.tar.bz2
+[bash]$ cd ruby-1.9.3-p0/
+[bash]$ ./configure --prefix=$HOME/lang/ruby/1.9.3-p0
 [bash]$ JOBS=2 make
 [bash]$ make install
-[bash]$ vs ruby 1.9.2       # or vs ruby latest
+[bash]$ vs ruby 1.9.3       # or vs ruby latest
 [bash]$ which ruby
-/home/yourname/lang/ruby/1.9.2-p378/bin/ruby
+/home/yourname/lang/ruby/1.9.3-p0/bin/ruby
 [bash]$ which gem
-/home/yourname/lang/ruby/1.9.2-p378/bin/gem
+/home/yourname/lang/ruby/1.9.3-p0/bin/gem
 [bash]$ gem -v
 1.3.7
 [bash]$ gem update --system
 [bash]$ gem -v
-1.7.2
+1.8.11
 </pre>
 
   <h3 class="title">Python</h3>
@@ -231,26 +240,26 @@ distribute 0.6.15
 </pre>
 
   <h3 class="title">Node.js</h3>
-  <p>The following is an example to install Node.js 0.6.3 into $HOME/lang/node:</p>
+  <p>The following is an example to install Node.js 0.7.4 into $HOME/lang/node:</p>
 <pre class="terminal">
-[bash]$ wget http://nodejs.org/dist/node-v0.6.3.tar.gz
-[bash]$ tar xzf node-v0.6.3.tar.gz
-[bash]$ cd node-v0.6.3/
-[bash]$ ./configure --prefix=$HOME/lang/node/0.6.3
+[bash]$ wget http://nodejs.org/dist/node-v0.7.4.tar.gz
+[bash]$ tar xzf node-v0.7.4.tar.gz
+[bash]$ cd node-v0.7.4/
+[bash]$ ./configure --prefix=$HOME/lang/node/0.7.4
 [bash]$ JOBS=2 make
 [bash]$ make test
 [bash]$ make install
-[bash]$ vs node 0.6.3       # or vs node latest
+[bash]$ vs node 0.7.4       # or vs node latest
 [bash]$ which node
-/home/yourname/lang/node/0.6.3/bin/node
+/home/yourname/lang/node/0.7.4/bin/node
 [bash]$ node -v
-v0.6.3
+v0.7.4
 [bash]$ wget http://npmjs.org/install.sh
 [bash]$ sh install.sh
 [bash]$ which npm
-/home/yourname/lang/node/0.6.3/bin/npm
+/home/yourname/lang/node/0.7.4/bin/npm
 [bash]$ npm -v
-0.3.18
+1.1.1
 </pre>
 -->
 
@@ -272,17 +281,17 @@ v0.6.3
         + bin/
           - ruby
     + python/
-      + 2.6.6/
+      + 2.6.7/
         + bin/
           - python
-      + 2.7.1/
+      + 2.7.2/
         + bin/
           - python
       + 3.2.0/
         + bin/
           - python
     + node/
-      + 0.4.7/
+      + 0.6.11/
         + bin/
           - node
 </pre>
@@ -291,6 +300,6 @@ v0.6.3
     <p>Tips: You can specify several directories to $VS_HOME such as <code>export VS_HOME=$HOME/lang:/opt/lang:/usr/local</code>.</p>
   </div>
   <div class="tips">
-    <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche versionswitcher.sh</code> for example.</p>
+    <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche $HOME/.vs/scripts/versionswitcher.sh</code> for example.</p>
   </div>
 </div>
