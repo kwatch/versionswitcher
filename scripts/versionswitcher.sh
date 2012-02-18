@@ -323,9 +323,10 @@ __vs_installable_versions() {
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
     [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
     #
-    local down=`__vs_downloader "-sL" "-q -O - --no-check-certificate"`   || return 1
+    local down
+    down=`__vs_downloader "-sL" "-q -O - --no-check-certificate"`          || return 1
     if [ "$condense" = 'y' ]; then
-        $down $url $url2 | $perl -e '
+        eval $down $url $url2 | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
@@ -340,7 +341,7 @@ __vs_installable_versions() {
             }
         '
     else
-        $down $url $url2 | $perl -e '
+        eval $down $url $url2 | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
