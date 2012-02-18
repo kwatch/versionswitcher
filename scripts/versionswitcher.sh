@@ -93,7 +93,7 @@ versionswitcher() {
         gauche|gosh)   lang="gauche"  ; binname="gosh"   ;;
         *)                              binname=$lang  ;;
         esac
-        __vs_switch $lang $biname "$version"
+        __vs_switch "$lang" "$biname" "$version"
         ;;
     esac
     unset __vs_option_quiet
@@ -285,7 +285,8 @@ __vs_download() {
     if [ -n "$dir" -a ! -d "$vs_home/$dir" ]; then
         mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
     fi
-    local down=`__vs_downloader -sORL -qN`   || return 1
+    local down
+    downn=`__vs_downloader '-sORL' '-qN'`     || return 1
     (cd $vs_home/$dir; eval $down $url) || __vs_error "Failed: $down $url" || return 1
     echo $vs_home/$filename
 }
@@ -437,7 +438,8 @@ __vs_upgrade() {
     local site="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
     [ -n "$VS_URL"   ] && site="$VS_URL"
-    local down=`__vs_downloader "-sL" "-q -O -"`   || return 1
+    local down
+    down=`__vs_downloader '-sL' '-q -O -'`         || return 1
     local ver=`eval $down $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then
         __vs_echo "current version is newest. exist."
