@@ -83,7 +83,7 @@ _install_ruby() {
         [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            base="rubygems-1.8.11"
+            base="rubygems-1.8.17"
             url="http://production.cf.rubygems.org/rubygems/$base.tgz"
             local down=`_downloader "-ORL" "-N"`             || return 1
             _cmd "$down $url"                                || return 1
