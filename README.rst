@@ -196,6 +196,29 @@ Tips
 Changes
 =======
 
+Release 0.5.0 (2011-11-29)
+    * Enhance '-i' option to access to download page of each language in order to get installable versions.
+    * Enhance to add '-U' option for self-upgrade.
+    * Enhance to suppoert Perl installer.
+    * Enhance to suppoert Gauche installer.
+    * Change output format of '-i' option when showing versions.
+    * Change installer scripts to prefer 'curl' rather than 'wget'.
+    * Change installer scripts to invoke 'make' command with 'nice -10'.
+    * Document updated.
+
+Release 0.4.1 (2011-11-28)
+    * Fix Ruby installer to install Rubygems correctly.
+    * Update Rubygems version installed to 1.8.11.
+
+Release 0.4.0 (2011-11-25)
+    * Follow new download url of PyPy.
+
+Release 0.3.3 (2011-11-24)
+    * Fix 'ruby' installer to install on Ruby 1.8.5 or older.</li>
+
+Release 0.3.2 (2011-11-21)
+    * Fix 'node' installer to follow change of Node download page.
+
 Release 0.3.1 (2011-05-18)
     * Fix 'ruby' installer to remove duplicated '.tar' extension.
     * Fix 'versionswitcher.sh' to report error when download by wget is failed.
