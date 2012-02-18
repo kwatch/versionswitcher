@@ -64,7 +64,7 @@ pyver=`python -c 'import sys;print("%s.%s"%sys.version_info[:2])'`
 ## create 'local/bin' and add it to $PATH
 [ -d "local/bin" ] || mkdir -p "local/bin"
 _append_to_path '$PWD/local/bin'
-if [ -n "$VS_PATH" ]; then
+if [ -n "$VS_HOME" ]; then
     [ -d "local/bin/python$pyver" ] || mkdir -p "local/bin/python$pyver"
     _append_to_path '$PWD/local/bin/python'$pyver
 fi
@@ -96,7 +96,7 @@ fi
 unset sitedir
 
 ## enforce 'easy_install' and 'pip' to install packages into 'local'
-if [ -z "$VS_PATH" ]; then
+if [ -z "$VS_HOME" ]; then
     echo 'alias easy_install="\\easy_install --prefix=$PWD/local"'
     alias easy_install="\\easy_install --prefix=$PWD/local --script-dir=$PWD/local/bin/python$pyver"
     echo 'export PIP_INSTALL_OPTION="--prefix=$PWD/local"'
