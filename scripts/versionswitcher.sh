@@ -93,7 +93,7 @@ versionswitcher() {
         gauche|gosh)   lang="gauche"  ; binname="gosh"   ;;
         *)                              binname=$lang  ;;
         esac
-        __vs_switch "$lang" "$biname" "$version"
+        __vs_switch "$lang" "$binname" "$version"
         ;;
     esac
     unset __vs_option_quiet
