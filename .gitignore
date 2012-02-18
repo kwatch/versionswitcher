@@ -4,7 +4,7 @@
 *.cache
 *.DS_Store
 __pycache__/*
-misc/*
+#misc/*
 tmp/*
 .hg/*
 .hgigore
