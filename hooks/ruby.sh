@@ -6,3 +6,6 @@
 #else
 #    PS1="> "
 #fi
+
+rubylibd=$rubyroot/lib/ruby
+rubygemsd=$rubyroot/lib/ruby/gems/1.*/gems
