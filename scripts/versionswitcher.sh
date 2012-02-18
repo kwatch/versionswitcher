@@ -275,9 +275,8 @@ __vs_switch() {
 __vs_download() {
     local filename=$1
     local url="http://versionswitcher.appspot.com/$filename"
-    if [ -n "$VS_DEBUG" ]; then
-        url="http://localhost:8080/$filename"
-    fi
+    [ -n "$VS_DEBUG" ] && url="http://localhost:8080/$filename"
+    [ -n "$VS_URL"   ] && url="$VS_URL/$filename"
     local vs_home="$HOME/.vs"
     local dir=`dirname $filename`
     [ "$dir" = "." ] && dir=""
@@ -434,6 +433,7 @@ __vs_install() {
 __vs_upgrade() {
     local site="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && site="http://localhost:8080"
+    [ -n "$VS_URL"   ] && site="$VS_URL"
     local down=`__vs_downloader "-sL" "-q -O -"`   || return 1
     local ver=`$down $site/version`
     if [ "$ver" = "$__vs_version" -a -z "$VS_DEBUG" ]; then

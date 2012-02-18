@@ -31,6 +31,7 @@ vs_install() {
     local vs_home="$HOME/.vs"
     local vs_url="http://versionswitcher.appspot.com"
     [ -n "$VS_DEBUG" ] && vs_url="http://localhost:8080"
+    [ -n "$VS_URL"   ] && vs_url=$VS_URL
     local prompt="***"
     ## detect 'wget' or 'curl' command
     local curl=`which curl`
