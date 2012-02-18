@@ -43,7 +43,7 @@ examples:
     $ vs python -         # use system-installed one (ex. /usr/bin/python)
     $ vs -i               # list language names installable
     $ vs -i python        # list python versions installable
-    $ vs -i python latest # install python latest version (ex. 3.2.2)
+    $ vs -i python 3.2.2  # install python 3.2.2
 
 tips:
     * Short name 'vs' is an alias to 'versionswitcher'.
