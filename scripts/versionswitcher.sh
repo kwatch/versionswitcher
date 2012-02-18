@@ -56,6 +56,7 @@ END
 ###
 versionswitcher() {
     local lang
+    local binname
     local version
     local release=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
     __vs_option_quiet=''
@@ -85,13 +86,14 @@ versionswitcher() {
         lang=$1
         version=$2
         case $lang in
-        ruby|rb)       __vs_switch ruby      ruby     "$version";;
-        python|py)     __vs_switch python    python   "$version";;
-        perl|pl)       __vs_switch perl      perl     "$version";;
-        rubinius|rbx)  __vs_switch rubinius  rbx      "$version";;
-        gauche|gosh)   __vs_switch gauche    gosh     "$version";;
-        *)             __vs_switch $lang     $lang    "$version";;
+        ruby|rb)       lang="ruby"    ; binname="ruby"   ;;
+        python|py)     lang="python"  ; binname="python" ;;
+        perl|pl)       lang="perl"    ; binname="perl"   ;;
+        rubinius|rbx)  lang="rubinius"; binname="rbx"    ;;
+        gauche|gosh)   lang="gauche"  ; binname="gosh"   ;;
+        *)                              binname=$lang  ;;
         esac
+        __vs_switch $lang $biname "$version"
         ;;
     esac
     unset __vs_option_quiet
