@@ -24,32 +24,36 @@ __vs_version=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
 __vs_help_message() {
         cat <<END
 versionswitcher - change version of language or application
-release: $release
-usage: vs [options] [lang] [version]
+Release: $release
+Usage: vs [options] [lang] [version]
    -h        : help
    -v        : version
    -i        : install
    -U        : self upgrade
    -q        : quiet
 
-examples:
-    $ VS_HOME=\$HOME/lang
-    $ vs -h               # show help
-    $ vs                  # list language names installed
-    $ vs python           # list python vesrions installed
-    $ vs python 2.6.6     # use \$HOME/lang/python/2.6.6
-    $ vs python 2         # use \$HOME/lang/python/2.x.x (ex. 2.7.2)
-    $ vs python latest    # use latest version under \$HOME/lang/python
-    $ vs python -         # use system-installed one (ex. /usr/bin/python)
-    $ vs -i               # list language names installable
-    $ vs -i python        # list python versions installable
-    $ vs -i python 3.2.2  # install python 3.2.2
+Examples:
+   $ VS_HOME=\$HOME/lang
+   $ vs -h               # show help
+   $ vs                  # list language names installed
+   $ vs python           # list python vesrions installed
+   $ vs python 2.6.6     # use \$HOME/lang/python/2.6.6
+   $ vs python 2         # use \$HOME/lang/python/2.x.x (ex. 2.7.2)
+   $ vs python latest    # use latest version under \$HOME/lang/python
+   $ vs python -         # use system-installed one (ex. /usr/bin/python)
+   $ vs -i               # list language names installable
+   $ vs -i python        # list python versions installable
+   $ vs -i python 3.2.2  # install python 3.2.2 ('latest' is not available!)
 
-tips:
-    * Short name 'vs' is an alias to 'versionswitcher'.
-    * It is allowed to set VS_HOME=path1:path2:path3:...
-    * \$HOME/.vs/hooks/<language>.sh is imported if exists.
+Tips:
+   * Short name 'vs' is an alias to 'versionswitcher'.
+   * \$HOME/.vs/hooks/<language>.sh is imported if exists.
+   * 'vs (py|rb|pl|gosh)' are available instead of
+     'vs (python|ruby|perl|gauche)'.
+     For example:
+        $ vs py latest   # same as vs python latest
 END
+#    * It is allowed to set VS_HOME=path1:path2:path3:...
 }
 
 
