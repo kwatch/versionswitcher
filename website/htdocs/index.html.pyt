@@ -81,7 +81,7 @@ python               # /home/yourname/lang/python
   <h2 class="title"><a href="#License">License</a></h2>
   <ul>
     <li>Public Domain</li>
-    <li>Copyright(c) 2011 kuwata-lab.com all rights reserved.</li>
+    <li>Copyright(c) 2011-2012 kuwata-lab.com all rights reserved.</li>
   </ul>
   <!--
   <table class="docinfo" frame="void" rules="none">
