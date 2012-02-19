@@ -13,7 +13,7 @@ _install_perl() {
     local bin="perl"
     local base="perl-$version"
     local filename="$base.tar.bz2"
-    local configure="./configure -d -Dprefix=$prefix"
+    local configure="./Configure -des -Dprefix=$prefix"
     case "$version" in
     5.6.*|5.7.*|5.8.*|5.9.*|5.10.*)   filename="$base.tar.gz";;
     esac
