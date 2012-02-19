@@ -55,7 +55,8 @@ _install_ruby() {
     local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$filename"
     local nice="nice -10"
     if [ ! -f "$filename" ]; then
-        local down=`_downloader "-ORL" "-N"`      || return 1
+        local down
+        down=`_downloader "-ORL" "-N"`            || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
@@ -85,7 +86,8 @@ _install_ruby() {
         y*|Y*)
             base="rubygems-1.8.17"
             url="http://production.cf.rubygems.org/rubygems/$base.tgz"
-            local down=`_downloader "-ORL" "-N"`             || return 1
+            local down
+            down=`_downloader "-ORL" "-N"`                   || return 1
             _cmd "$down $url"                                || return 1
             _cmd "tar xzf $base.tgz"                         || return 1
             _cmd "cd $base/"                                 || return 1

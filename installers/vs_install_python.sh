@@ -82,7 +82,8 @@ _install_python() {
     local url="http://www.python.org/ftp/python/$ver/$filename"
     local nice="nice -10"
     if [ ! -e "$filename" ]; then
-        local down=`_downloader "-LRO" ""`        || return 1
+        local down
+        down=`_downloader "-LRO" ""`              || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
@@ -126,7 +127,8 @@ _install_python() {
     case "$input" in
     y*|Y*)
         url="http://python-distribute.org/$script"
-        local down=`_downloader "-ORL" "-N"`      || return 1
+        local down
+        down=`_downloader "-ORL" "-N"`            || return 1
         _cmd "$down $url"                         || return 1
         _cmd "$prefix/bin/python $script"         || return 1
         _cmd "which easy_install"                 || return 1

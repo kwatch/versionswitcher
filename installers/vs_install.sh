@@ -70,7 +70,8 @@ _generic_installer() {
     esac
     ## donwload
     if [ ! -e "$filename" ]; then
-        local down=`_downloader "-LRO" ""`        || return 1
+        local down
+        down=`_downloader "-LRO" ""`              || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "$untar $filename"                       || return 1

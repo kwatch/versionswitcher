@@ -41,7 +41,8 @@ _install_node() {
         ;;
     esac
     if [ ! -e "$base.tar.gz" ]; then
-        local down=`_downloader "-LRO" ""`        || return 1
+        local down
+        down=`_downloader "-LRO" ""`              || return 1
         _cmd "$down $url"                         || return 1
     fi
     _cmd "$nice tar xzf $base.tar.gz"             || return 1
@@ -67,7 +68,8 @@ _install_node() {
     y*|Y*)
         #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
         #_cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
-        local down=`_downloader "-LRO" "-N"`      || return 1
+        local down
+        down=`_downloader "-LRO" "-N"`            || return 1
         _cmd "$down http://npmjs.org/install.sh"  || return 1
         _cmd "sh install.sh"                      || return 1
         local npm_path=`which npm`
