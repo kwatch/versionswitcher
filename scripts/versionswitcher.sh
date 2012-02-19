@@ -476,6 +476,8 @@ __vs_upgrade() {
         elif [ -n "$ZSH_VERSION" ]; then           # for zsh
             zsh $dir/install.sh
         fi
+        __vs_echo ". $dir/versionswitcher.sh"
+        . $dir/versionswitcher.sh
     fi
 }
 
