@@ -15,6 +15,18 @@
 </div>
 
 
+<div class="post" id="Features">
+  <h2 class="title"><a href="#Features">Features</a></h2>
+  <ul class="simple">
+    <li>Switches language versions by modifying $PATH environment variable.</li>
+    <li>Supports any programming languages such as Ruby, Python, Node.js, and
+      so on. You don't have to change switcher tool for each language.</li>
+  </ul>
+  <p>VersionSwitch requires Bash or Zsh on Unix-like system or Mac OS X.</p>
+  <p>See <a href="/document.html#Installation">document</a> for installation.</p>
+</div>
+
+
 <div class="post" id="Example">
   <h2 class="title"><a href="#Example">Example</a></h2>
   <pre class="terminal">
@@ -26,6 +38,7 @@
 [bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
 [bash]$ bash                  # restart bash or zsh to enable settings
 [bash]$ export VS_HOME=$HOME/lang
+
 ###
 ### install python, ruby, node, and so on
 ###
@@ -44,6 +57,7 @@
 3.2.0
 [bash]$ <strong>vs</strong>                    # list language names installed
 python               # /home/yourname/lang/python
+
 ###
 ### switch version
 ###
@@ -62,18 +76,6 @@ python               # /home/yourname/lang/python
 [bash]$ which python
 /usr/bin/python
 </pre>
-</div>
-
-
-<div class="post" id="Features">
-  <h2 class="title"><a href="#Features">Features</a></h2>
-  <ul class="simple">
-    <li>Switch language version by modifying $PATH environment variable.</li>
-    <li>Supports any programming languages such as Ruby, Python, Node.js, and
-      so on (you don't have to change switcher tool for each language).</li>
-  </ul>
-  <p>VersionSwitch requires Bash or Zsh on Unix-like system or Mac OS X.</p>
-  <p>See <a href="/document.html#Installation">document</a> for installation.</p>
 </div>
 
 
