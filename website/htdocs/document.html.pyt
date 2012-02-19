@@ -192,6 +192,7 @@ $ which node
       <li><a href="http://npmjs.org/">npm</a> (for Node.js)</li>
       <li><a href="https://rubygems.org/pages/download">RubyGems</a> (for Ruby)</li>
       <li><a href="http://packages.python.org/distribute/">Distribute</a> (for Python)</li>
+      <li><a href="http://cpanmin.us/">cpanm</a> (for Perl)</li>
     </ul>
   </div>
 
