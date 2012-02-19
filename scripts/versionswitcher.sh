@@ -351,9 +351,9 @@ __vs_installable_versions() {
                     push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
                 }
             }
-            sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
+            #sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
             for (sort keys %d) {
-                @arr    = sort {$a<=>$b} @{$d{$_}};
+                @arr = sort {$a<=>$b} @{$d{$_}};
                 if    ($#arr)           { print $_, $sep, "{", join(",", @arr), "}\n"; }
                 elsif ($arr[0] eq "*")  { print $_, "*\n"; }
                 elsif (length($arr[0])) { print $_, $sep, $arr[0], "\n"; }
