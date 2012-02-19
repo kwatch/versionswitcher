@@ -333,19 +333,31 @@ __vs_installable_versions() {
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
+            $lang = "'$lang'";
+            my %verdict;
+            for my $dir (split(/:/, $ENV{"VS_HOME"})) {
+                $verdict{(split /[;\/]/, $_)[-2]} = 1 for (glob("$dir/$lang/*/bin"));
+                #for my $path (glob("$dir/$lang/*/bin")) {
+                #    my $version = (split(/[;\/]/, $path))[-2];
+                #    $verdict{$version} = 1;
+                #}
+            }
             while (<>) {
                 #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
                 if (/$rexp/) {
                     my $ver = $1;
                     my $patch = length($2) ? $2 : $none;
-                    push @{$d{$ver}}, $patch;
+                    my $v = length($patch) ? "$ver$sep$patch" : $ver;
+                    push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
                 }
             }
             sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
             for (sort keys %d) {
                 @arr    = sort {$a<=>$b} @{$d{$_}};
-                $verstr = $#arr ? $sep."{".join(",", @arr)."}" : (length($arr[0]) ? "$sep$arr[0]" : "");
-                print "$_$verstr\n";
+                if    ($#arr)           { print $_, $sep, "{", join(",", @arr), "}\n"; }
+                elsif ($arr[0] eq "*")  { print $_, "*\n"; }
+                elsif (length($arr[0])) { print $_, $sep, $arr[0], "\n"; }
+                else                    { print $_, "\n"; }
             }
         '
     else
