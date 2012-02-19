@@ -1,6 +1,30 @@
 <?py # -*- coding: utf-8 -*- ?>
 <?py self.context['page_title'] = 'History' ?>
 
+
+<div class="post">
+  <h2 class="title"><a href="#">Release 0.6.0</a></h2>
+  <p class="meta"><span class="posted">Feb 20, 2012</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Change to rename environment variable '$VS_PATH' to '$VS_HOME'.</li>
+      <li>Enhance '-i' option to add '*' after version number installed.</li>
+      <li>Enhance to add 'misc/python.profile' which can be alternative of Python's virtualenv.</li>
+      <li>Enhance 'hooks/python.sh' to consider 'misc/python.profile'.</li>
+      <li>Change not to execute 'which' command when switching language version.</li>
+      <li>Change '-U' (self upgrade) option to '-u'.</li>
+      <li>Change '-u' (self upgrade) to confirm when overwriting existing hook scripts.</li>
+      <li>Fix bugs which happened on zsh.</li>
+      <li>Fix configure command of Perl installer script.</li>
+      <li>Update RubyGems version installed to 1.8.17.</li>
+      <li>Change Rubinius installer to check whether g++ and rake are installed.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
 <div class="post">
   <h2 class="title"><a href="#">Release 0.5.0</a></h2>
   <p class="meta"><span class="posted">Nov 29, 2011</span></p>
