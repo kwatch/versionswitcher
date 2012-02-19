@@ -90,14 +90,13 @@ versionswitcher() {
         lang=$1
         version=$2
         case $lang in
-        ruby|rb)       lang="ruby"    ; command="ruby"   ;;
-        python|py)     lang="python"  ; command="python" ;;
-        perl|pl)       lang="perl"    ; command="perl"   ;;
-        rubinius|rbx)  lang="rubinius"; command="rbx"    ;;
-        gauche|gosh)   lang="gauche"  ; command="gosh"   ;;
-        *)                              command=$lang  ;;
+        rb)    lang="ruby"    ;;
+        py)    lang="python"  ;;
+        pl)    lang="perl"    ;;
+        rbx)   lang="rubinius";;
+        gosh)  lang="gauche"  ;;
         esac
-        __vs_switch "$lang" "$command" "$version"
+        __vs_switch "$lang" "$version"
         ;;
     esac
     unset __vs_option_quiet
@@ -180,8 +179,7 @@ __vs_error() {
 ###
 __vs_switch() {
     local lang=$1
-    local command=$2
-    local version=$3
+    local version=$2
     ## exit if $VS_HOME is not set
     [ -n "$VS_HOME" ] || __vs_error '$VS_HOME is not set.' || return 1
     ## show all language names if lang is not specified
@@ -269,8 +267,6 @@ __vs_switch() {
         __vs_echo "$prompt unset $rootvar"      ; unset $rootvar
         __vs_echo "$prompt unset $vervar"       ; unset $vervar
     fi
-    ## show command path
-    echo "$prompt which $command"          ; which $command
     ## import hook script if exists
     local script="$HOME/.vs/hooks/$lang.sh"
     [ -f "$script" ] && . $script
