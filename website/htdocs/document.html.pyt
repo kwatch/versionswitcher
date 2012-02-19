@@ -296,10 +296,14 @@ v0.7.4
           - node
 </pre>
   <p>VersionSwitcher supports <em>ANY</em> programming languages to switch as long as they are installed according to the above structure.</p>
+  <!--
   <div class="tips">
     <p>Tips: You can specify several directories to $VS_HOME such as <code>export VS_HOME=$HOME/lang:/opt/lang:/usr/local</code>.</p>
   </div>
+  -->
+  <!--
   <div class="tips">
     <p>Tips: If command name is different from language name, register it into versionswitcher.sh. Try <code>grep gauche $HOME/.vs/scripts/versionswitcher.sh</code> for example.</p>
   </div>
+  -->
 </div>
