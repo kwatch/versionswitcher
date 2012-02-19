@@ -48,7 +48,7 @@ if [ -n "$has_alias" ]; then
 fi
 unset has_alias
 
-## edit python version in alias definition of 'pip'
+## edit python version in environment variables for 'pip' command
 ## (see $HOME/.vs/misc/python.profile for detail)
 if [ -n "$PIP_INSTALL_OPTION" ]; then
     newopt=`echo $PIP_INSTALL_OPTION | sed -e "s/python[0-9]\\.[0-9]/python$pyver/g"`
