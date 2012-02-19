@@ -334,13 +334,18 @@ __vs_installable_versions() {
             $rexp = q`'$rexp'`;
             $none = "'$none'";
             while (<>) {
-                push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
+                #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
+                if (/$rexp/) {
+                    my $ver = $1;
+                    my $patch = length($2) ? $2 : $none;
+                    push @{$d{$ver}}, $patch;
+                }
             }
             sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
             for (sort keys %d) {
-                @arr = sort {$a<=>$b} @{$d{$_}};
-                $ver = $#arr ? $sep."{".join(",", @arr)."}" : (length($arr[0]) ? "$sep$arr[0]" : "");
-                print "$_$ver\n";
+                @arr    = sort {$a<=>$b} @{$d{$_}};
+                $verstr = $#arr ? $sep."{".join(",", @arr)."}" : (length($arr[0]) ? "$sep$arr[0]" : "");
+                print "$_$verstr\n";
             }
         '
     else
@@ -349,7 +354,12 @@ __vs_installable_versions() {
             $rexp = q`'$rexp'`;
             $none = "'$none'";
             while (<>) {
-                push @arr, (($v = $2 ne "" ? $2 : $none) ne "" ? "$1$sep$v" : $1) if /$rexp/;
+                #push @arr, (($v = $2 ne "" ? $2 : $none) ne "" ? "$1$sep$v" : $1) if /$rexp/;
+                if (/$rexp/) {
+                    my $ver   = $1;
+                    my $patch = $2 ne "" ? $2 : $none;
+                    push @arr, ($patch ne "" ? "$ver$sep$patch" : $ver);
+                }
             }
             print $_, "\n" for sort @arr;
         '
