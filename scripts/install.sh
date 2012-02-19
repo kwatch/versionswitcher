@@ -73,10 +73,19 @@ vs_install() {
     done
     ## download hook script examples
     _cmd "cd $vs_home/hooks"                                || return 1
+    local input
     for lang in "python" "ruby"; do
-        if [ ! -f "$lang.sh" ]; then
-            _cmd "$down $vs_url/hooks/$lang.sh"             || return 1
+        if [ -f "$lang.sh" ]; then
+            echo -n "$prompt Overwrite '~/.vs/hooks/$lang.sh'? [Y/n]: ";
+            read input;  [ -z "$input" ] && input="y"
+        else
+            input="y"
         fi
+        case "$input" in
+        y*|Y*)
+            _cmd "$down $vs_url/hooks/$lang.sh"             || return 1
+            ;;
+        esac
     done
     ## download mics files
     _cmd "cd $vs_home/misc"                                 || return 1
