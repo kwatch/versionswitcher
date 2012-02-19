@@ -197,6 +197,22 @@ Changes
 =======
 
 
+Release 0.6.0 (2012-02-20)
+--------------------------
+
+* Change to rename environment variable '$VS_PATH' to '$VS_HOME'.
+* Enhance '-i' option to add '*' after version number installed.
+* Enhance to add 'misc/python.profile' which can be alternative of Python's virtualenv.
+* Enhance 'hooks/python.sh' to consider 'misc/python.profile'.
+* Change not to execute 'which' command when switching language version.
+* Change '-U' (self upgrade) option to '-u'.
+* Change '-u' (self upgrade) to confirm when overwriting existing hook scripts.
+* Fix bugs which happened on zsh.
+* Fix configure command of Perl installer script.
+* Update RubyGems version installed to 1.8.17.
+* Change Rubinius installer to check whether g++ and rake are installed.
+
+
 Release 0.5.0 (2011-11-29)
 --------------------------
 
