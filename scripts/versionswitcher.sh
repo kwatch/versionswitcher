@@ -29,7 +29,7 @@ Usage: vs [options] [lang] [version]
    -h        : help
    -v        : version
    -i        : install
-   -U        : self upgrade
+   -u        : self upgrade
    -q        : quiet
 
 Examples:
@@ -80,7 +80,7 @@ versionswitcher() {
         lang=$2; version=$3
         __vs_install "$lang" "$version"
         ;;
-    -U|--upgrade)
+    -u|--upgrade)
         __vs_upgrade
         ;;
     -*)
