@@ -29,7 +29,7 @@ Usage
 
 ::
 
-    [bash]$ VS_HOME=$HOME/lang
+    [bash]$ export VS_HOME=$HOME/lang   # or other directory
     [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
     [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
     [bash]$ vs python latest  # use latest version under $HOME/lang/python
