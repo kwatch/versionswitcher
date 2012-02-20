@@ -35,6 +35,14 @@
   </ul>
 </li>
 
+<li>
+  <h2>Contact</h2>
+  <ul>
+    <li><a href="https://github.com/kwatch/versionswitcher">Repository</a></li>
+    <li><a href="https://github.com/kwatch/versionswitcher/issues">Bug Report</a></li>
+  </ul>
+</li>
+
 <!--
 <li>
   <h2>Available Languages</h2>
