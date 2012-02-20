@@ -16,7 +16,7 @@ def _debug(msg):
 
 
 @recipe
-def task_update_files(c):
+def task_update_headers(c):
     """edit files"""
     replacer = [
         (r'\$(Copyright):.*?\$', r'$\1: %s $' % copyright),
