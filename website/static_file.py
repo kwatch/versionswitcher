@@ -40,6 +40,7 @@ _MIME_TYPE = {
     'js':   'applicatin/x-javascript',
     'sh':   'text/plain',
     'csh':  'text/plain',
+    'profile': 'text/plain',
 }
 
 def guess_content_type(filepath):
