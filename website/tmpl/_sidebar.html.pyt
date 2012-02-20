@@ -36,7 +36,7 @@
 </li>
 
 <li>
-  <h2>Contact</h2>
+  <h2>Resource</h2>
   <ul>
     <li><a href="https://github.com/kwatch/versionswitcher">Repository</a></li>
     <li><a href="https://github.com/kwatch/versionswitcher/issues">Bug Report</a></li>
