@@ -87,6 +87,7 @@ def task_update_sh(c):
     fnames = []
     fnames.extend(glob("scripts/*.sh"))
     fnames.extend(glob("hooks/*.sh"))
+    fnames.extend(glob("misc/*"))
     for x in fnames:
         base = os.path.basename(x)
         cp_p(x, "website/static/"+x)
