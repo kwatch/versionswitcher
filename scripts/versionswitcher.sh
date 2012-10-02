@@ -421,9 +421,9 @@ __vs_install() {
         *)      return 1;;
         esac
     fi
-    ## download installer script (except $VS_DOWNLOAD_INSTALLER is 0)
+    ## download installer script (if $VS_DOWNLOAD_INSTALLER is set)
     local script_file
-    if [ "$VS_DOWNLOAD_INSTALLER" != 0 ]; then
+    if [ -n "$VS_DOWNLOAD_INSTALLER" ]; then
         script_file=`__vs_download installers/vs_install_$lang.sh`
     else
         script_file="$HOME/.vs/installers/vs_install_$lang.sh"
