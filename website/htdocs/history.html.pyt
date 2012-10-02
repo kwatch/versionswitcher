@@ -3,6 +3,21 @@
 
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.6.1</a></h2>
+  <p class="meta"><span class="posted">Oct 02, 2012</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Fix python installer script to support Python 3.3.0.</li>
+      <li>Fix installer script error '-bash: [: : integer expression expected'.</li>
+      <li>Change installer not to download language installer script.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.6.0</a></h2>
   <p class="meta"><span class="posted">Feb 20, 2012</span></p>
   <div style="clear: both;">&nbsp;</div>
