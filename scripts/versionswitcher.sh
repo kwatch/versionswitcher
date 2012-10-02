@@ -286,7 +286,7 @@ __vs_download() {
         mkdir -p $vs_home/$dir || __vs_error "Failed: mkdir -p $vs_home/$dir" || return 1
     fi
     local down
-    downn=`__vs_downloader '-sORL' '-qN'`     || return 1
+    down=`__vs_downloader '-sORL' '-qN'`     || return 1
     (cd $vs_home/$dir; eval $down $url) || __vs_error "Failed: $down $url" || return 1
     echo $vs_home/$filename
 }
