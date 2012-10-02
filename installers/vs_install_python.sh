@@ -76,7 +76,11 @@ _install_python() {
         ;;
     esac
     ## donwload, compile and install
-    local ver=`echo $version | sed 's/\.0$//'`
+    local ver=$version
+    case $version in
+    2.*|3.0*|3.1*|3.2*)
+        ver=`echo $version | sed 's/\.0$//'` ;;
+    esac
     local base="Python-$ver"
     local filename="$base.tar.bz2"
     local url="http://www.python.org/ftp/python/$ver/$filename"
