@@ -39,11 +39,13 @@ fi
 ## (see $HOME/.vs/misc/python.profile for detail)
 has_alias=`alias | grep easy_install || true`
 if [ -n "$has_alias" ]; then
+    olddef=`alias easy_install`
     newdef=`alias easy_install | sed -e "s/python[0-9]\\.[0-9]/python$pyver/g"`
-    if [ "$newdef" != `alias easy_install` ]; then
+    if [ "$olddef" != "$newdef" ]; then
         echo "$ $newdef"
         eval "$newdef"
     fi
+    unset olddef
     unset newdef
 fi
 unset has_alias
