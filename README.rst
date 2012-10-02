@@ -197,6 +197,14 @@ Changes
 =======
 
 
+Release 0.6.1 (2012-10-02)
+--------------------------
+
+* Fix python installer script to support Python 3.3.0.
+* Fix installer script error '-bash: [: : integer expression expected'.
+* Change installer not to download language installer script.
+
+
 Release 0.6.0 (2012-02-20)
 --------------------------
 
