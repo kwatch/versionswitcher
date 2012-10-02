@@ -423,7 +423,7 @@ __vs_install() {
     fi
     ## download installer script (except $VS_DOWNLOAD_INSTALLER is 0)
     local script_file
-    if [ "$VS_DOWNLOAD_INSTALLER" -ne "0" ]; then
+    if [ "$VS_DOWNLOAD_INSTALLER" != 0 ]; then
         script_file=`__vs_download installers/vs_install_$lang.sh`
     else
         script_file="$HOME/.vs/installers/vs_install_$lang.sh"
