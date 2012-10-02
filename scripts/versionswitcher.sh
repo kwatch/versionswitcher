@@ -1,5 +1,5 @@
 ###
-### $Release: 0.6.0 $
+### $Release: 0.6.1 $
 ### $Copyright: copyright(c) 2011-2012 kuwata-lab.com all rights reserved $
 ### $License: Public Domain $
 ###
@@ -13,7 +13,7 @@
 ###   $ vs --help
 ###
 
-__vs_version=`echo '$Release: 0.6.0 $' | awk '{print $2}'`
+__vs_version=`echo '$Release: 0.6.1 $' | awk '{print $2}'`
 
 
 ###
@@ -62,7 +62,7 @@ versionswitcher() {
     local lang
     local command
     local version
-    local release=`echo '$Release: 0.6.0 $' | awk '{print $2}'`
+    local release=`echo '$Release: 0.6.1 $' | awk '{print $2}'`
     __vs_option_quiet=''
     case "$1" in
     -q)
