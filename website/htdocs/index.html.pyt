@@ -4,77 +4,55 @@
    _context['page_title'] = 'a small utility to switch versions of programming languages and applications'
 ?>
 
-<div class="post" id="About-VersionSwitcher">
-  <h2 class="title"><a href="#About-VersionSwitcher">About VersionSwitcher</a></h2>
-  <p>VersionSwitcher is a small utility to switch version of programming language
-    or application.
-    <!-- Switching mechanism is just modiying $PATH environment
-    variable, therefore it doesn't depend on a certain programming language
-    or application.-->
-    </p>
-</div>
-
-
-<div class="post" id="Features">
-  <h2 class="title"><a href="#Features">Features</a></h2>
+<div class="post" id="About">
+  <h2 class="title"><a href="#About">About VersionSwitcher</a></h2>
+  <p>Versionswitcher is a tool focused on the following features:</p>
   <ul class="simple">
-    <li>Switches language versions by modifying $PATH environment variable.</li>
-    <li>Supports any programming languages such as Ruby, Python, Node.js, and
-      so on. You don't have to change switcher tool for each language.</li>
+    <li>Easy to intall Python, Ruby, Node.js, Perl, and so on.</li>
+    <li>Easy to switch version of Python, Ruby, Node.js, Perl, and so on.</li>
   </ul>
-  <p>VersionSwitch requires Bash or Zsh on Unix-like system or Mac OS X.</p>
-  <p>See <a href="/document.html#Installation">document</a> for installation.</p>
+  <p>In other words, Versionswitcher is a tool similar to RVM for any programming language.</p>
+  <p>VersionSwitch requires Bash or Zsh on Unix-like system or MacOSX.</p>
+  <!--p>See <a href="/document.html#Installation">document</a> for installation.</p-->
 </div>
 
 
-<div class="post" id="Example">
-  <h2 class="title"><a href="#Example">Example</a></h2>
+<div class="post" id="Setup">
+  <h2 class="title"><a href="#Setup">Setup</a></h2>
   <pre class="terminal">
-###
-### install versionswitcher
-###
 [bash]$ curl -O http://versionswitcher.appspot.com/install.sh
 [bash]$ # or wget http://versionswitcher.appspot.com/install.sh
-[bash]$ bash install.sh       # or zsh install.sh if you are a zsh user
-[bash]$ bash                  # restart bash or zsh to enable settings
+[bash]$ bash install.sh      # or zsh install.sh if you are a zsh user
+[bash]$ bash                 # restart bash or zsh to enable settings
 [bash]$ export VS_HOME=$HOME/lang
+</pre>
+</div>
 
-###
-### install python, ruby, node, and so on
-###
-[bash]$ <strong>vs -i</strong>                 # list installable languages
-[bash]$ <strong>vs -i python</strong>          # list installable versions
-[bash]$ <strong>vs -i python 2.6.6</strong>    # install Python 2.6.6
-[bash]$ <strong>vs -i python 2.7.1</strong>    # install Python 2.7.1
-[bash]$ <strong>vs -i python 3.2.0</strong>    # install Python 3.2.0
+
+<div class="post" id="Install">
+  <h2 class="title"><a href="#Install">How to install Python, Ruby, Node.js, and so on</a></h2>
+  <pre class="terminal">
+[bash]$ <strong>vs -i</strong>                # list installable languages
+[bash]$ <strong>vs -i python</strong>         # list installable versions of Python
+[bash]$ <strong>vs -i python 2.7.3</strong>   # start to install Python 2.7.3
+[bash]$ ls -F $VS_HOME
+python/
 [bash]$ ls -F $VS_HOME/python
-2.6.6/          2.7.1/          3.2.0/
-[bash]$ <strong>vs python</strong>             # list python verions installed
-## basedir: /home/yourname/lang/python
-## versions:
-2.6.6
-2.7.1
-3.2.0
-[bash]$ <strong>vs</strong>                    # list language names installed
-python               # /home/yourname/lang/python
+2.7.3/
+</pre>
+</div>
 
-###
-### switch version
-###
-[bash]$ which python          # using system-installed python
-/usr/bin/python
-[bash]$ <strong>vs python 2.6.6</strong>       # switch to 2.6.6
-[bash]$ which python
-/home/yourname/lang/python/<strong>2.6.6</strong>/bin/python
-[bash]$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
-[bash]$ which python
-/home/yourname/lang/python/<strong>2.7.1</strong>/bin/python
-[bash]$ <strong>vs python latest</strong>      # switch to latest version
-[bash]$ which python
-/home/yourname/lang/python/<strong>3.2.0</strong>/bin/python
-[bash]$ <strong>vs python -</strong>           # switch to system-installed python
-[bash]$ which python
-/usr/bin/python
+
+<div class="post" id="Switch">
+  <h2 class="title"><a href="#Switch">How to switch version of Python, Ruby, Node.js, and so on</a></h2>
+  <pre class="terminal">
+[bash]$ <strong>vs</strong>                   # list installed languages
+[bash]$ <strong>vs python</strong>            # list installed versions of Python
+[bash]$ <strong>vs python 2.7.3</strong>      # switch to 2.7.3
+[bash]$ <strong>vs python 2.7</strong>        # switch to latest of 2.7.x installed
+[bash]$ <strong>vs python 2</strong>          # switch to latest of 2.x.x installed
+[bash]$ <strong>vs python latest</strong>     # switch to latest (ex. 3.2.2 or 2.7.3)
+[bash]$ <strong>vs python -</strong>          # switch to system-installed (ex. /usr/bin/python)
 </pre>
 </div>
 
