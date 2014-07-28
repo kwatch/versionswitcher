@@ -41,18 +41,9 @@ _install_ruby() {
         ;;
     esac
     ## donwload, compile and install
-    local ver
-    case $version in
-    1.8*)  ver="1.8";;
-    1.9*)  ver="1.9";;
-    *)
-        echo "$prompt ERROR: version $version is not supported to install." 1>&2
-        return 1
-        ;;
-    esac
     local base="ruby-$version"
     local filename="$base.$ext"
-    local url="ftp://ftp.ruby-lang.org/pub/ruby/$ver/$filename"
+    local url="ftp://ftp.ruby-lang.org/pub/ruby/$filename"
     local nice="nice -10"
     if [ ! -f "$filename" ]; then
         local down
