@@ -1,7 +1,8 @@
 application: versionswitcher
 version: 0001_0001
-runtime: python
+runtime: python27
 api_version: 1
+threadsafe: no
 
 handlers:
   - url: /css
@@ -49,9 +50,13 @@ handlers:
   - url: /versionwatcher
     script: koko.versionwatcher_handler.py
     login: admin
-  - url: /.*
-    script: index.py
+  - url: .*
+    #script: index.py
+    script: index.app
 
+libraries:
+  - name: webapp2
+    version: "2.5.2"
 
 skip_files: |
   ^(.*/)?(

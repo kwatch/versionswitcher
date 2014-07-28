@@ -8,8 +8,9 @@
 
 from __future__ import with_statement
 
-from google.appengine.ext.webapp import WSGIApplication
-from google.appengine.ext.webapp.util import run_wsgi_app
+#from google.appengine.ext.webapp import WSGIApplication
+#from google.appengine.ext.webapp.util import run_wsgi_app
+import webapp2
 
 import sys, os
 
@@ -28,11 +29,11 @@ apptenjin.AppTenjin.config = config
 routing = [
     ('/.*', myapp.MyRequestHandler),
 ]
-application = WSGIApplication(routing, debug=True)
+app = webapp2.WSGIApplication(routing, debug=True)
 
-## main routine
-def main():
-    run_wsgi_app(application)
-
-if __name__ == "__main__":
-    main()
+### main routine
+#def main():
+#    run_wsgi_app(app)
+#
+#if __name__ == "__main__":
+#    main()

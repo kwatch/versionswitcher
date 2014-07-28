@@ -8,7 +8,8 @@
 
 from __future__ import with_statement
 
-from google.appengine.ext import webapp
+#from google.appengine.ext import webapp
+import webapp2
 
 import sys, os, re, logging
 from UserDict import UserDict
@@ -80,11 +81,11 @@ class ExitException(Exception):
 
 
 ##
-class DefaultRequestHandler(webapp.RequestHandler):
+class DefaultRequestHandler(webapp2.RequestHandler):
     """request handler class for AppTenjin"""
 
-    def __init__(self):
-        webapp.RequestHandler.__init__(self)
+    def __init__(self, *args, **kwargs):
+        webapp2.RequestHandler.__init__(self, *args, **kwargs)
         self.engine  = engine
         self.context = UserDict()
         self.context['self'] = self
