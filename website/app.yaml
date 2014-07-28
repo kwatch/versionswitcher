@@ -1,4 +1,4 @@
-application: versionswitcher
+application: versionswitcher-hrd
 version: 0001_0001
 runtime: python27
 api_version: 1
