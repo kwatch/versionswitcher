@@ -329,7 +329,7 @@ __vs_installable_versions() {
     local down
     down=`__vs_downloader "-sL" "-q -O - --no-check-certificate"`          || return 1
     if [ "$condense" = 'y' ]; then
-        eval $down $url $url2 | $perl -e '
+        eval $down $url $url2 | $perl -pe 's!</Key>!</Key>\n!g' | $perl -e '
             $sep  = "'$sep'";
             $rexp = q`'$rexp'`;
             $none = "'$none'";
