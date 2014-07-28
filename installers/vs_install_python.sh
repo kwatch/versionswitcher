@@ -82,7 +82,7 @@ _install_python() {
         ver=`echo $version | sed 's/\.0$//'` ;;
     esac
     local base="Python-$ver"
-    local filename="$base.tar.bz2"
+    local filename="$base.tgz"
     local url="http://www.python.org/ftp/python/$ver/$filename"
     local nice="nice -10"
     if [ ! -e "$filename" ]; then
@@ -91,7 +91,7 @@ _install_python() {
         _cmd "$down $url"                         || return 1
     fi
     _cmd "rm -rf $base"                           || return 1
-    _cmd "$nice tar xjf $filename"                || return 1
+    _cmd "$nice tar xzf $filename"                || return 1
     _cmd "cd $base/"                              || return 1
     if [ -n "$macports_patch_url" ]; then
         _cmd "svn checkout $macports_patch_url"   || return 1
