@@ -36,7 +36,7 @@ _install_node() {
     local url="http://nodejs.org/dist/v$version/$base.tar.gz"
     local nice="nice -10"
     case "$version" in
-    0.5.0|0.4*|0.3*|0.2*|0.1*|0.0*)
+    0.5.0|0.4.*|0.3.*|0.2.*|0.1.*|0.0.*)
         url="http://nodejs.org/dist/$base.tar.gz"
         ;;
     esac
