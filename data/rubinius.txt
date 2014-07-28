@@ -1,2 +1,2 @@
-url='http://rubini.us/releases/'
-rexp='href="/releases/(\d+\.\d+)(?:\.(\d+))?/"'
+url='http://releases.rubini.us/'
+rexp='<Key>rubinius-(\d+\.\d+)(?:\.(\d+))?\.tar\.bz2<'
