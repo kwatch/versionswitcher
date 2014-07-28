@@ -17,29 +17,6 @@ _install_rubinius() {
     local prompt="**"
     ## platform-specific settings
     local kind="source"
-    local input
-    case `uname` in
-    Darwin|darwin)
-        echo    "$prompt Which one do you want?"
-        echo    "$prompt   1. Source code (and compile it)"
-        echo    "$prompt   2. Binary package for Mac OS X 10.6"
-        echo    "$prompt   3. Binary package for Mac OS X 10.5"
-        echo    "$prompt   (NOTICE: versionswitcher can install binary packages,"
-        echo    "$prompt            but can't support switching to them."
-        echo    "$prompt            If you want siwtch by 'vs rubinius VERSION', select 1.)"
-        echo -n "$prompt Select [1]: "
-        read input; [ -z "$input" ] && input="1"
-        case "$input" in
-        1)  kind="source";;
-        2)  kind="10.6.pkg";;
-        3)  kind="10.5.pkg";;
-        *)  echo "$prompt ERROR: unexpected value." 1>&2
-            echo "$prompt exit 1." 1>&2
-            return 1
-            ;;
-        esac
-        ;;
-    esac
     ## check compiler (g++) and rake command
     if [ "$kind" == "source" ]; then
         local gpp_path=`which g++`
@@ -73,54 +50,28 @@ _install_rubinius() {
             ;;
         esac
     fi
-    ##
-    #http://asset.rubini.us/rubinius-1.2.3-20110315.tar.gz
-    #http://asset.rubini.us/rubinius-1.2.3-10.6.pkg.zip
-    #http://asset.rubini.us/rubinius-1.2.3-10.5.pkg.zip
-    local date
-    if [ "$kind" = "source" ]; then
-        case $version in
-        1.2.3)  date='20110315' ;;
-        1.2.4)  date='20110705' ;;
-        *)  echo "$prompt ERROR: version $version is not supported to install." 1>&2
-            return 1
-            ;;
-        esac
-    fi
     ## donwload, compile and install
     local base
-    local siteurl="http://asset.rubini.us"
+    local siteurl="http://releases.rubini.us"
     local url
     local nice="nice -10"
     if [ "$kind" = "source" ]; then
-        base="rubinius-$version-$date"
-        if [ ! -e "$base.tar.gz" ]; then
+        base="rubinius-$version"
+        if [ ! -e "$base.tar.bz2" ]; then
             local down
             down=`_downloader "-LRO" ""`          || return 1
-            _cmd "$down $siteurl/$base.tar.gz"    || return 1
+            _cmd "$down $siteurl/$base.tar.bz2"   || return 1
         fi
         _cmd "rm -rf rubinius-$version"           || return 1
-        _cmd "$nice tar xzf $base.tar.gz"         || return 1
+        _cmd "$nice tar xjf $base.tar.bz2"        || return 1
         _cmd "cd rubinius-$version/"              || return 1
         _cmd "unset RUBYLIB"                      || return 1
+        _cmd "export GEM_HOME=\$PWD/_gem"         || return 1
+        _cmd "gem install bundler"                || return 1
+        _cmd "_gem/bin/bundler"                   || return 1
         _cmd "time $nice $configure"              || return 1
-        _cmd "time $nice rake install"            || return 1
+        _cmd "time $nice rake"                    || return 1
         _cmd "cd .."                              || return 1
-    else
-        base="rubinius-$version-$kind"
-        if [ ! -e "$base.zip" ]; then
-            local down
-            down=`_downloader "-LRO" ""`          || return 1
-            _cmd "$down $siteurl/$base.zip"       || return 1
-        fi
-        _cmd "rm -rf $base"                       || return 1
-        _cmd "$nice unzip -q $base.zip"           || return 1
-        _cmd "open $base"                         || return 1
-        ## finish
-        echo
-        echo "$prompt Install binary package according to installer."
-        echo "$prompt Finish."
-        return 0
     fi
     ## verify
     local command="rbx"
