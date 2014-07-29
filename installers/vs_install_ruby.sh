@@ -31,6 +31,19 @@ _install_ruby() {
         fi
         ;;
     esac
+    ##
+    case `uname -a` in
+    *Ubuntu*|*Debian*)
+        echo "$prompt On ubuntu/debian, it is recommended to install the followings:"
+        echo
+        echo "    bash% sudo apt-get install -y build-essential libssl-dev zlib1g-dev"
+        echo "    bash% sudo apt-get install -y libyaml-dev libffi-dev libgdbm-dev"
+        echo "    bash% sudo apt-get install -y libreadline-dev libncurses-dev"
+        echo
+        echo -n "$prompt (Press enter key): "
+        read input
+        ;;
+    esac
     ## *.tar.bz2 is provided since 1.8.5-p52
     local ext='tar.bz2'
     local tar='tar xjf'
@@ -43,7 +56,7 @@ _install_ruby() {
     ## donwload, compile and install
     local base="ruby-$version"
     local filename="$base.$ext"
-    local url="ftp://ftp.ruby-lang.org/pub/ruby/$filename"
+    local url="http://cache.ruby-lang.org/pub/ruby/$filename"
     local nice="nice -10"
     if [ ! -f "$filename" ]; then
         local down
@@ -55,7 +68,7 @@ _install_ruby() {
     _cmd "cd $base/"                              || return 1
     _cmd "time $nice $configure"                  || return 1
     _cmd "time $nice make"                        || return 1
-    _cmd "time $nice make install"                || return 1
+    _cmd "time $nice make install-nodoc"          || return 1
     _cmd "cd .."                                  || return 1
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
