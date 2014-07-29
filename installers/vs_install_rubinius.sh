@@ -68,9 +68,10 @@ _install_rubinius() {
         _cmd "unset RUBYLIB"                      || return 1
         _cmd "export GEM_HOME=\$PWD/_gem"         || return 1
         _cmd "gem install bundler"                || return 1
+        #_cmd "export PATH=\$PWD/_gem/bin:$PATH"   || return 1
         _cmd "_gem/bin/bundler"                   || return 1
         _cmd "time $nice $configure"              || return 1
-        _cmd "time $nice rake"                    || return 1
+        _cmd "time $nice _gem/bin/rake"           || return 1
         _cmd "cd .."                              || return 1
     fi
     ## verify
