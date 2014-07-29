@@ -130,6 +130,7 @@ vs_install() {
     echo "$prompt Installation finished successfully."
     echo "$prompt See $vs_url/ for details."
     echo "$prompt Thank you."
+    echo "$prompt"
 }
 
 
