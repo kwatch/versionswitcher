@@ -3,6 +3,27 @@
 
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.7.0</a></h2>
+  <p class="meta"><span class="posted">Jul 30, 2014</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>Go language installer supported.</li>
+      <li>Rust language installer supported.</li>
+      <li>Node.js installer fixed to work with 0.10 or later.</li>
+      <li>Ruby installer fixed to work with new url structure.</li>
+      <li>Python installer fixed to download *.tgz instead of *.tar.bz2
+        because *.tar.bz2 is not provided by python.org since Python 3.3.4.</li>
+      <li>Rubinius isntaller fixed to download from new url.</li>
+      <li>PyPy installer fixed to support PyPy3.</li>
+      <li>Gauche installer fixed to recognize 4-digits version format.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.6.1</a></h2>
   <p class="meta"><span class="posted">Oct 02, 2012</span></p>
   <div style="clear: both;">&nbsp;</div>
