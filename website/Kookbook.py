@@ -8,7 +8,8 @@ python   = prop('python', 'python')
 def server(c, *args, **kwargs):
     """start dev_appserver.py"""
     port = kwargs.get('p', 8080)
-    system(c%"$(python) $(gae_home)/dev_appserver.py --port=$(port) .")
+    sudo = int(port) < 1024 and 'sudo ' or ''
+    system(c%"$(sudo)$(python) $(gae_home)/dev_appserver.py --port=$(port) .")
 
 @recipe
 @spices("--cron: upload only 'cron.yaml'")
