@@ -164,7 +164,7 @@ _install_python() {
     fi
     ## finish
     echo
-    echo "$prompt Installation is finished successfully."
+    echo "$prompt Installation finished successfully."
     echo "$prompt   language:  $lang"
     echo "$prompt   version:   $version"
     echo "$prompt   directory: $prefix"

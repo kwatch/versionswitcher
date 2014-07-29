@@ -127,7 +127,7 @@ vs_install() {
     fi
     ## finish
     echo "$prompt"
-    echo "$prompt Installation is finished successfully."
+    echo "$prompt Installation finished successfully."
     echo "$prompt See $vs_url/ for details."
     echo "$prompt Thank you."
 }
