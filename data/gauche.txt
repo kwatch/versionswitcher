@@ -1,2 +1,2 @@
 url='http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/'
-rexp='href="Gauche-(\d+\.\d+(?:\.\d+)?)\.tgz"'
+rexp='href="Gauche-(\d+(?:\.\d+)+)\.tgz"'
