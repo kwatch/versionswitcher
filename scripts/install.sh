@@ -105,7 +105,7 @@ vs_install() {
         echo "$prompt"
         echo "$prompt You have to write following lines into your ~/$rcfile:"
         echo "$prompt"
-        echo "$prompt     export VS_HOME=\$HOME/lang     # or other directory"
+        echo "$prompt     export VS_HOME=\$HOME/vs     # or other directory"
         echo "$prompt     . \$HOME/.vs/scripts/bootstrap.sh"
         echo "$prompt"
         echo -n "$prompt Do you want to add above lines into your ~/$rcfile? [Y/n]: "
@@ -113,7 +113,7 @@ vs_install() {
         read input; [ -z "$input" ] && input="y"
         case "$input" in
         y*|Y*)
-            echo "export VS_HOME=\$HOME/lang    # or other directory" >> $HOME/$rcfile
+            echo "export VS_HOME=\$HOME/vs    # or other directory" >> $HOME/$rcfile
             echo ". \$HOME/.vs/scripts/bootstrap.sh" >> $HOME/$rcfile
             echo "$prompt"
             echo "$prompt You should log out or restart $shell to enable settings."
