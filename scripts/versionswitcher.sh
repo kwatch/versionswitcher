@@ -346,7 +346,8 @@ __vs_installable_versions() {
                 #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
                 if (/$rexp/) {
                     my $ver = $1;
-                    my $patch = length($2) ? $2 : $none;
+                    my $none_ = $ver =~ m/rc\d$/ ? "" : $none;  # for Go
+                    my $patch = length($2) ? $2 : $none_;
                     my $v = length($patch) ? "$ver$sep$patch" : $ver;
                     push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
                 }
