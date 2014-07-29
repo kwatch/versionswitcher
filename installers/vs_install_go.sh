@@ -27,14 +27,16 @@ _install_go() {
     down=`_downloader "-sL" "-q -O - --no-check-certificate"` || return 1
     #$down $archives_url | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$ver'\..*\.tar\.gz)"/'
     $down $archives_url | $perl -e '
+    my $i = 0;
     while (<>) {
       if (/href="\/dl\/(go'$ver'\..*?\.tar\.gz)"/) {
+        print "\n** Which one to install?\n" if $i == 0;
         print ++$i, ": ", $1, "\n";
       }
     }
     if ($i) {
       print "\n";
-      print "** Which one to install? [1-$i]: ";
+      print "** Select [1-$i]: ";
     } else {
       print "** Download file not found. Exit.\n";
       exit 1
@@ -46,6 +48,7 @@ _install_go() {
     local num
     read num
     base=`$down $archives_url | $perl -e '
+    my $i = 0;
     while (<>) {
       if (/href="\/dl\/(go'$ver'\..*?)\.tar\.gz"/) {
         if (++$i eq '$num') {
