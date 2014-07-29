@@ -21,14 +21,14 @@
 ***
 *** You have to write the following lines into your ~/.bashrc:
 ***
-***     export VS_HOME=$HOME/langs     # or other directory
+***     export VS_HOME=$HOME/vs     # or other directory
 ***     . $HOME/.vs/scripts/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
 ***
 *** You should log out or restart bash to enable settings.
 ***
-*** Installation is finished successfully.
+*** Installation finished successfully.
 *** See http://versionswitcher.appspot.com/ for details.
 *** Thank you.
 [bash]$ bash       # start new bash process
@@ -100,6 +100,8 @@ fi
   <p>VersionSwitcher has a feature to install the following languages easily:</p>
   <ul>
     <li>Node.js (<a href="http://nodejs.org/">http://nodejs.org/</a>)</li>
+    <li>Go (<a href="http://golang.org/">http://golang.org/</a>)</li>
+    <li>Rust (<a href="http://www.rust-lang.org/">http://www.rust-lang.org/</a>)</li>
     <li>Python (<a href="http://www.python.org/">http://www.python.org/</a>)</li>
     <li>PyPy (<a href="http://pypy.org/">http://pypy.org/</a>)</li>
     <li>Ruby (<a href="http://www.ruby-lang.org/">http://www.ruby-lang.org/</a>)</li>
@@ -114,7 +116,7 @@ fi
       <pre class="terminal">
 ### Debian or Ubuntu
 [bash]$ sudo apt-get update
-[bash]$ sudo apt-get install wget gcc g++ make patch
+[bash]$ sudo apt-get install curl wget build-essential
 [bash]$ sudo apt-get install libc6-dev zlib1g-dev libbz2-dev libssl-dev
 [bash]$ sudo apt-get install libncurses5-dev libreadline-dev libgdbm-dev
 [bash]$ sudo apt-get install libyaml-dev libffi-dev  # for ruby1.9
@@ -135,13 +137,18 @@ fi
   <pre class="terminal">
 [bash]$ <strong>vs -i</strong>                # or vs --install
 ## try 'vs -i LANG' where LANG is one of:
+gauche      # http://practical-scheme.net/gauche/
+go          # http://golang.org/
 lua         # http://www.lua.org/
 luajit      # http://luajit.org/
 node        # http://nodejs.org/
+perl        # http://www.perl.org/
 pypy        # http://pypy.org/
+pypy3       # http://pypy.org/
 python      # http://www.python.org/
 rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
+rust        # http://www.rust-lang.org/
 [bash]$ <strong>vs -i node</strong>
 ## checking http://nodejs.org/dist/
 ## try 'vs -i node VERSION' where VERSION is one of:

@@ -89,7 +89,7 @@ Modified by kuwata-lab.com
 
 
     <div id="footer">
-      <p>Copyright $copy 2011 kuwata-lab.om. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+      <p>Copyright &copy; 2011-2014 kuwata-lab.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
     </div><!-- /footer -->
 
 
