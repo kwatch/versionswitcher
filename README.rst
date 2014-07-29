@@ -3,7 +3,7 @@ README
 ======
 
 :Release:    0.0.0
-:Copyright:  copyright(c) 2011-2012 kuwata-lab.com all rights reserved
+:Copyright:  copyright(c) 2011-2014 kuwata-lab.com all rights reserved
 :License:    Public Domain
 
 
@@ -105,22 +105,29 @@ as long as they are installed according to the above structure.
 In addition, VersionSwitcher has a feature to install the following
 languages easily::
 
-* Node.js (http://nodejs.org/)
-* Python (http://www.python.org/)
-* PyPy (http://pypy.org/)
-* Ruby (http://www.ruby-lang.org/)
-* Rubinius (http://rubini.us/)
-* Lua (http://www.lua.org/)
-* LuaJIT (http://luajit.org/)
+* Python    (http://www.python.org/)
+* PyPy      (http://pypy.org/)
+* Ruby      (http://www.ruby-lang.org/)
+* Rubinius  (http://rubini.us/)
+* Node.js   (http://nodejs.org/)
+* Lua       (http://www.lua.org/)
+* LuaJIT    (http://luajit.org/)
+* Perl      (http://www.perl.org/)
+* Go        (http://golang.org/)
+* Gauche    (http://practical-scheme.net/gauche/)
 
 The following is an exaple to install Node.js (and npm command)::
 
     [bash]$ vs -i                # or vs --install
     ## try 'vs -i LANG' where LANG is one of:
+    gauche      # http://practical-scheme.net/gauche/
+    go          # http://golang.org/
     lua         # http://www.lua.org/
     luajit      # http://luajit.org/
     node        # http://nodejs.org/
+    perl        # http://www.perl.org/
     pypy        # http://pypy.org/
+    pypy3       # http://pypy.org/
     python      # http://www.python.org/
     rubinius    # http://rubini.us/
     ruby        # http://www.ruby-lang.org/
@@ -174,8 +181,6 @@ and luajit.
 Tips
 ====
 
-* It is allowed to set VS_HOME=path1:path2:path3:...
-
 * VersionSwitcher sets $xxxroot and $xxxversion shell variables.
   For example, if you execute 'vs ruby 1.9', $rubyroot and
   $rubyversion shell variables will be set.
@@ -195,6 +200,20 @@ Tips
 
 Changes
 =======
+
+
+Release 0.7.0 (2014-07-30)
+--------------------------
+
+* Go language installer supported.
+* Rust language installer supported.
+* Node.js installer fixed to work with 0.10 or later.
+* Ruby installer fixed to work with new url structure.
+* Python installer fixed to download *.tgz instead of *.tar.bz2
+  because *.tar.bz2 is not provided by python.org since Python 3.3.4.
+* Rubinius isntaller fixed to download from new url.
+* PyPy installer fixed to support PyPy3.
+* Gauche installer fixed to recognize 4-digits version format.
 
 
 Release 0.6.1 (2012-10-02)
