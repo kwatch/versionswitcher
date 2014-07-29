@@ -9,3 +9,4 @@ pypy3       # http://pypy.org/
 python      # http://www.python.org/
 rubinius    # http://rubini.us/
 ruby        # http://www.ruby-lang.org/
+rust        # http://www.rust-lang.org/

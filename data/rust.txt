@@ -1,0 +1,3 @@
+url='http://www.rust-lang.org/install.html'
+rexp='/dist/rust-([^-]+)\.tar\.gz"'
+sep='.'
