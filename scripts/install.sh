@@ -1,5 +1,5 @@
 ###
-### $Release: 0.0.0 $
+### $Release: 0.7.0 $
 ### $Copyright: copyright(c) 2011-2012 kuwata-lab.com all rights reserved $
 ### $License: Public Domain $
 ###
@@ -74,7 +74,7 @@ vs_install() {
     ## download hook script examples
     _cmd "cd $vs_home/hooks"                                || return 1
     local input
-    for lang in "python" "ruby"; do
+    for lang in "python" "ruby" "go"; do
         if [ -f "$lang.sh" ]; then
             echo -n "$prompt Overwrite '~/.vs/hooks/$lang.sh'? [Y/n]: ";
             read input;  [ -z "$input" ] && input="y"
