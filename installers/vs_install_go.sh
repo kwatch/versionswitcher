@@ -15,6 +15,8 @@ _install_go() {
     local prefix=$2
     local lang="go"
     local prompt="**"
+    local archives_url='http://golang.org/dl/'
+    local download_url='http://golang.org/dl'
     ##
     perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
@@ -23,8 +25,8 @@ _install_go() {
     local ver=`echo $version | sed 's/\.0$//'`
     local down
     down=`_downloader "-sL" "-q -O - --no-check-certificate"` || return 1
-    #$down 'http://golang.org/dl/' | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$ver'\..*\.tar\.gz)"/'
-    $down 'http://golang.org/dl/' | $perl -e '
+    #$down $archives_url | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$ver'\..*\.tar\.gz)"/'
+    $down $archives_url | $perl -e '
     while (<>) {
       if (/href="\/dl\/(go'$ver'\..*?\.tar\.gz)"/) {
         print ++$i, ": ", $1, "\n";
@@ -43,7 +45,7 @@ _install_go() {
     fi
     local num
     read num
-    base=`$down 'http://golang.org/dl/' | $perl -e '
+    base=`$down $archives_url | $perl -e '
     while (<>) {
       if (/href="\/dl\/(go'$ver'\..*?)\.tar\.gz"/) {
         if (++$i eq '$num') {
@@ -60,7 +62,7 @@ _install_go() {
     local fname="$base.tar.gz"
     if [ ! -e "$fname" ]; then
         down=`_downloader "-LRO" "--no-check-certificate"` || return 1
-        _cmd "$down http://golang.org/dl/$fname"  || return 1
+        _cmd "$down $download_url/$fname"         || return 1
     fi
     local prefix_basedir=`dirname $prefix`
     _cmd "mkdir -p $prefix"                       || return 1
