@@ -3,7 +3,6 @@ README
 ======
 
 :Release:    0.0.0
-:Copyright:  copyright(c) 2011-2014 kuwata-lab.com all rights reserved
 :License:    Public Domain
 
 
