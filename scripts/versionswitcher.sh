@@ -44,6 +44,7 @@ Examples:
    $ vs -i               # list language names installable
    $ vs -i python        # list python versions installable
    $ vs -i python 3.4.5  # install python 3.4.5 ('latest' is not available!)
+   $ vs -x python 3.4.5  # execute \$VS_HOME/python/3.4.5/python
 
 Tips:
    * Short name 'vs' is an alias to 'versionswitcher'.
@@ -82,6 +83,14 @@ versionswitcher() {
         ;;
     -u|--upgrade)
         __vs_upgrade
+        ;;
+    -x|--execute)
+        shift                 # ignore option
+        __vs_execute -x "$@"
+        ;;
+    -X|--execute-command)
+        shift                 # ignore option
+        __vs_execute -X "$@"
         ;;
     -*)
         echo "versionswitcher: $1: unknown option." 1>&2
@@ -123,6 +132,37 @@ __vs_echo() {
     if [ -z "$__vs_option_quiet" ]; then
         echo "$1"
     fi
+}
+
+
+###
+__vs_lang_name() {             # you can override this in your .bashrc
+    __vs_lang_name__ "$1"
+}
+__vs_lang_name__() {
+    case "$1" in
+    py)      echo 'python'   ;;
+    rb)      echo 'ruby'     ;;
+    rbx)     echo 'rubinius' ;;
+    pl)      echo 'perl'     ;;
+    gosh)    echo 'gauche'   ;;
+    *)       echo "$lang"    ;;
+    esac
+}
+
+
+###
+__vs_command_name() {          # you can override this in your .bashrc
+    __vs_command_name__ "$1"
+}
+__vs_command_name__() {
+    case "$1" in
+    rubinius)  echo 'rbx'    ;;
+    gauche)    echo 'gosh'   ;;
+    pypy3)     echo 'pypy'   ;;
+    rust)      echo 'rustc'  ;;
+    *)         echo "$lang"  ;;
+    esac
 }
 
 
@@ -484,7 +524,84 @@ __vs_upgrade() {
 
 
 ###
+__vs_execute() {
+    local opt="$1"
+    local lang="$2"
+    local version="$3"
+    local command=''
+    if [ $opt = '-X' ]; then
+        command="$4"
+        shift
+    fi
+    shift
+    shift
+    shift
+    ## exit if $VS_HOME is not set
+    [ -n "$VS_HOME" ] || __vs_error '$VS_HOME is not set.' || return 1
+    ## list all languages when lang is not specified
+    if [ "$opt" = '-x' ]; then
+        if [ -z "$lang" -o -z "$version" ]; then
+            echo "Usage: vs -x lang version [arg1 arg2 ...]"
+            echo "Example:"
+            echo "   $ vs -x python 3.4.0"
+            echo "         # execute \$VS_HOME/python/3.4.0/bin/python"
+            echo "   $ vs -x python 3.4.0 file.py arg1 arg2"
+            echo "         # execute \$VS_HOME/python/3.4.0/bin/python file.py arg1 arg2"
+            return 0
+        fi
+    fi
+    if [ "$opt" = '-X' ]; then
+        if [ -z "$lang" -o -z "$version" -z "$command" ]; then
+            echo "Usage: vs -X lang version command [arg1 arg2 ...]"
+            echo "Example:"
+            echo "   $ vs -x ruby 2.1.0 irb"
+            echo "         # execute \$VS_HOME/ruby/2.1.2/bin/irb"
+            echo "   $ vs -x ruby 2.1.0 gem install foobar"
+            echo "         # execute \$VS_HOME/ruby/2.1.0/bin/gem install foobar"
+            return 0
+        fi
+    fi
+    ## normalized language name
+    lang=`__vs_lang_name $lang`
+    ## command name
+    if [ "$opt" = '-x' ]; then
+        command=`__vs_command_name $lang`
+    fi
+    ## check whether installed or not
+    local basedir=''
+    for dir in `echo $VS_HOME | tr ':' ' '`; do
+        if [ -n "$dir" -a -d "$dir/$lang" ]; then
+            basedir="$dir/$lang"
+            break
+        fi
+    done
+    [ -n "$basedir" ] || __vs_error "$lang is not installed." || return 1
+    ## find 'bin' directory
+    local bindir
+    local ver
+    if [ "$version" = "-" ]; then
+        __vs_error "version should not be '-'\n"
+        return 1
+    elif [ "$version" = "latest" ]; then
+        ver=`__vs_versions "$basedir" | tail -1`
+        bindir=""
+        [ -n "$ver" ] && bindir="$basedir/$ver/bin"
+    else
+        bindir="$basedir/$version/bin"
+        if ! [ -d "$bindir" ]; then
+            ver=`__vs_versions "$basedir" "$version" | tail -1`
+            bindir=""
+            [ -n "$ver" ] && bindir="$basedir/$ver/bin"
+        fi
+    fi
+    [ -n "$bindir" ] || __vs_error "$lang version $version is not installed." || return 1
+    ## execute command
+    $bindir/$command "$@"
+}
+
+
+###
 #alias vs=versionswitcher
 vs() {
-    versionswitcher $@
+    versionswitcher "$@"
 }
