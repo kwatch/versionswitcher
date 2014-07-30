@@ -86,11 +86,11 @@ versionswitcher() {
         ;;
     -x|--execute)
         shift                 # ignore option
-        __vs_execute -x $@
+        __vs_execute -x "$@"
         ;;
     -X|--execute-command)
         shift                 # ignore option
-        __vs_execute -X $@
+        __vs_execute -X "$@"
         ;;
     -*)
         echo "versionswitcher: $1: unknown option." 1>&2
@@ -596,12 +596,12 @@ __vs_execute() {
     fi
     [ -n "$bindir" ] || __vs_error "$lang version $version is not installed." || return 1
     ## execute command
-    $bindir/$command $@         || return 1
+    $bindir/$command "$@"
 }
 
 
 ###
 #alias vs=versionswitcher
 vs() {
-    versionswitcher $@
+    versionswitcher "$@"
 }
