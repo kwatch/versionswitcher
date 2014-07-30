@@ -178,6 +178,21 @@ The above steps are same for other languages such as ruby, python, lua
 and luajit.
 
 
+Command Execution
+=================
+
+It is possible to execute command of specified version.
+Example::
+
+    $ vs -x ruby 2.1.2       # execute $VS_HOME/ruby/2.1.2/bin/ruby
+    $ vs -x ruby 2.1.2 file.rb arg1 arg2  # execute with arguments
+    $ vs -X ruby 2.1.2 gem   # execute $VS_HOME/ruby/2.1.2/bin/gem
+    $ vs -X ruby 2.1.2 gem install foo    # execute with arguments
+
+Notice that this feature doesn't change any environment variables
+such as $PATH, $PYTHONPATH, and so on.
+
+
 Tips
 ====
 
@@ -202,18 +217,25 @@ Changes
 =======
 
 
-Release 0.7.0 (2014-07-30)
+Release 0.7.0 (2014-07-31)
 --------------------------
 
-* Go language installer supported.
-* Rust language installer supported.
-* Node.js installer fixed to work with 0.10 or later.
-* Ruby installer fixed to work with new url structure.
-* Python installer fixed to download *.tgz instead of *.tar.bz2
+* [New] New option '-x' and '-X' to execute command on specified version.
+  ex::
+     $ vs -x ruby 2.1.2       # execute $VS_HOME/ruby/2.1.2/bin/ruby
+     $ vs -x ruby 2.1.2 file.rb arg1 arg2  # execute with arguments
+     $ vs -X ruby 2.1.2 gem   # execute $VS_HOME/ruby/2.1.2/bin/gem
+     $ vs -X ruby 2.1.2 gem install foo    # execute with arguments
+* [New] Go language installer supported.
+* [New] Rust language installer supported.
+* [Fix] Node.js installer fixed to work with 0.10 or later.
+* [Fix] Ruby installer fixed to work with new url structure.
+* [New] Ruby installer changed to skip RDoc document generation.
+* [Fix] Python installer fixed to download *.tgz instead of *.tar.bz2
   because *.tar.bz2 is not provided by python.org since Python 3.3.4.
-* Rubinius isntaller fixed to download from new url.
-* PyPy installer fixed to support PyPy3.
-* Gauche installer fixed to recognize 4-digits version format.
+* [Fix] Rubinius isntaller fixed to download from new url.
+* [New] PyPy installer fixed to support PyPy3.
+* [Fix] Gauche installer fixed to recognize 4-digits version format.
 
 
 Release 0.6.1 (2012-10-02)
