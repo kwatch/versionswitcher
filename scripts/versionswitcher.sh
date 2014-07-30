@@ -8,7 +8,7 @@
 ### versionswitcher.sh -- switch version of language or application
 ###
 ### setup:
-###   $ VS_HOME=$HOME/lang
+###   $ VS_HOME=$HOME/vs
 ###   $ . /some/where/to/versionswitcher.sh'
 ###   $ vs --help
 ###
@@ -17,7 +17,7 @@ __vs_version=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
 
 
 ###
-[ -z "$VS_HOME" -a -d $HOME/lang ] && VS_HOME=$HOME/lang
+[ -z "$VS_HOME" -a -d $HOME/vs ] && VS_HOME=$HOME/vs
 
 
 ###
