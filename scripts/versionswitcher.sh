@@ -7,9 +7,9 @@
 ###
 ### versionswitcher.sh -- switch version of language or application
 ###
-### setup:
+### Setup example:
 ###   $ VS_HOME=$HOME/vs
-###   $ . /some/where/to/versionswitcher.sh'
+###   $ . ~/.vs/scripts/versionswitcher.sh'
 ###   $ vs --help
 ###
 
@@ -37,13 +37,13 @@ Examples:
    $ vs -h               # show help
    $ vs                  # list language names installed
    $ vs python           # list python vesrions installed
-   $ vs python 2.6.6     # use \$HOME/lang/python/2.6.6
-   $ vs python 2         # use \$HOME/lang/python/2.x.x (ex. 2.7.2)
-   $ vs python latest    # use latest version under \$HOME/lang/python
+   $ vs python 3.4.0     # use \$VS_HOME/python/3.4.0
+   $ vs python 3         # use \$VS_HOME/python/3.x.x (ex. 3.4.2)
+   $ vs python latest    # use latest version under \$VS_HOME/python
    $ vs python -         # use system-installed one (ex. /usr/bin/python)
    $ vs -i               # list language names installable
    $ vs -i python        # list python versions installable
-   $ vs -i python 3.2.2  # install python 3.2.2 ('latest' is not available!)
+   $ vs -i python 3.4.5  # install python 3.4.5 ('latest' is not available!)
 
 Tips:
    * Short name 'vs' is an alias to 'versionswitcher'.
