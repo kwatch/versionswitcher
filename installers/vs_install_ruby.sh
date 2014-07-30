@@ -17,7 +17,7 @@ _install_ruby() {
     local prompt="**"
     ## confirm configure option
     local input
-    local configure="./configure --prefix=$prefix"
+    local configure="./configure --prefix=$prefix --disable-install-doc"
     echo -n "$prompt Configure is '$configure'. OK? [Y/n]: "
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
