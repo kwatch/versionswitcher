@@ -132,6 +132,37 @@ __vs_echo() {
 
 
 ###
+__vs_lang_name() {             # you can override this in your .bashrc
+    __vs_lang_name__ "$1"
+}
+__vs_lang_name__() {
+    case "$1" in
+    py)      echo 'python'   ;;
+    rb)      echo 'ruby'     ;;
+    rbx)     echo 'rubinius' ;;
+    pl)      echo 'perl'     ;;
+    gosh)    echo 'gauche'   ;;
+    *)       echo "$lang"    ;;
+    esac
+}
+
+
+###
+__vs_command_name() {          # you can override this in your .bashrc
+    __vs_command_name__ "$1"
+}
+__vs_command_name__() {
+    case "$1" in
+    rubinius)  echo 'rbx'    ;;
+    gauche)    echo 'gosh'   ;;
+    pypy3)     echo 'pypy'   ;;
+    rust)      echo 'rustc'  ;;
+    *)         echo "$lang"  ;;
+    esac
+}
+
+
+###
 __vs_downloader() {
     local curlopt=$1
     local wgetopt=$2
@@ -506,23 +537,10 @@ __vs_execute() {
         echo "         # execute \$VS_HOME/python/3.4.0/bin/python file.py arg1 arg2"
         return 0
     fi
-    ## expand shorter name
-    case "$lang" in
-    py)      lang='python'   ;;
-    rb)      lang='ruby'     ;;
-    rbx)     lang='rubinius' ;;
-    pl)      lang='perl'     ;;
-    gosh)    lang='gauche'   ;;
-    esac
+    ## normalized language name
+    local lang=`__vs_lang_name $lang`
     ## command name
-    local command
-    case "$lang" in
-    rubinius)   command="rbx"    ;;
-    gauche)     command="gosh"   ;;
-    pypy3)      command="pypy"   ;;
-    rust)       command="rustc"  ;;
-    *)          command="$lang"  ;;
-    esac
+    local command=`__vs_command_name $lang`
     ## check whether installed or not
     local basedir=''
     for dir in `echo $VS_HOME | tr ':' ' '`; do
