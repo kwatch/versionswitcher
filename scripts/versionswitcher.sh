@@ -85,8 +85,12 @@ versionswitcher() {
         __vs_upgrade
         ;;
     -x|--execute)
-        shift                 # ignore '-x' or '--execute'
-        __vs_execute $@
+        shift                 # ignore option
+        __vs_execute -x $@
+        ;;
+    -X|--execute-command)
+        shift                 # ignore option
+        __vs_execute -X $@
         ;;
     -*)
         echo "versionswitcher: $1: unknown option." 1>&2
@@ -521,26 +525,48 @@ __vs_upgrade() {
 
 ###
 __vs_execute() {
-    local lang="$1"
-    local version="$2"
+    local opt="$1"
+    local lang="$2"
+    local version="$3"
+    local command=''
+    if [ $opt = '-X' ]; then
+        command="$4"
+        shift
+    fi
+    shift
     shift
     shift
     ## exit if $VS_HOME is not set
     [ -n "$VS_HOME" ] || __vs_error '$VS_HOME is not set.' || return 1
     ## list all languages when lang is not specified
-    if [ -z "$lang" -o -z "$version" ]; then
-        echo "Usage: vs -x lang version [arg1 arg2 ...]"
-        echo "Example:"
-        echo "   $ vs -x python 3.4.0"
-        echo "         # execute \$VS_HOME/python/3.4.0/bin/python"
-        echo "   $ vs -x python 3.4.0 file.py arg1 arg2"
-        echo "         # execute \$VS_HOME/python/3.4.0/bin/python file.py arg1 arg2"
-        return 0
+    if [ "$opt" = '-x' ]; then
+        if [ -z "$lang" -o -z "$version" ]; then
+            echo "Usage: vs -x lang version [arg1 arg2 ...]"
+            echo "Example:"
+            echo "   $ vs -x python 3.4.0"
+            echo "         # execute \$VS_HOME/python/3.4.0/bin/python"
+            echo "   $ vs -x python 3.4.0 file.py arg1 arg2"
+            echo "         # execute \$VS_HOME/python/3.4.0/bin/python file.py arg1 arg2"
+            return 0
+        fi
+    fi
+    if [ "$opt" = '-X' ]; then
+        if [ -z "$lang" -o -z "$version" -z "$command" ]; then
+            echo "Usage: vs -X lang version command [arg1 arg2 ...]"
+            echo "Example:"
+            echo "   $ vs -x ruby 2.1.0 irb"
+            echo "         # execute \$VS_HOME/ruby/2.1.2/bin/irb"
+            echo "   $ vs -x ruby 2.1.0 gem install foobar"
+            echo "         # execute \$VS_HOME/ruby/2.1.0/bin/gem install foobar"
+            return 0
+        fi
     fi
     ## normalized language name
-    local lang=`__vs_lang_name $lang`
+    lang=`__vs_lang_name $lang`
     ## command name
-    local command=`__vs_command_name $lang`
+    if [ "$opt" = '-x' ]; then
+        command=`__vs_command_name $lang`
+    fi
     ## check whether installed or not
     local basedir=''
     for dir in `echo $VS_HOME | tr ':' ' '`; do
@@ -570,7 +596,7 @@ __vs_execute() {
     fi
     [ -n "$bindir" ] || __vs_error "$lang version $version is not installed." || return 1
     ## execute command
-    $bindir/$command $@
+    $bindir/$command $@         || return 1
 }
 
 
