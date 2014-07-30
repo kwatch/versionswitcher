@@ -2,7 +2,6 @@
 
 ###
 ### $Release: 0.0.0 $
-### $Copyright: copyright(c) 2011-2012 kuwata-lab.com all rights reserved $
 ### $License: Public Domain $
 ###
 
