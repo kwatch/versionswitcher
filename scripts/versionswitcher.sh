@@ -44,6 +44,7 @@ Examples:
    $ vs -i               # list language names installable
    $ vs -i python        # list python versions installable
    $ vs -i python 3.4.5  # install python 3.4.5 ('latest' is not available!)
+   $ vs -x python 3.4.5  # execute \$VS_HOME/python/3.4.5/python
 
 Tips:
    * Short name 'vs' is an alias to 'versionswitcher'.
@@ -82,6 +83,10 @@ versionswitcher() {
         ;;
     -u|--upgrade)
         __vs_upgrade
+        ;;
+    -x|--execute)
+        shift                 # ignore '-x' or '--execute'
+        __vs_execute $@
         ;;
     -*)
         echo "versionswitcher: $1: unknown option." 1>&2
@@ -480,6 +485,74 @@ __vs_upgrade() {
         __vs_echo ". $dir/versionswitcher.sh"
         . $dir/versionswitcher.sh
     fi
+}
+
+
+###
+__vs_execute() {
+    local lang="$1"
+    local version="$2"
+    shift
+    shift
+    ## exit if $VS_HOME is not set
+    [ -n "$VS_HOME" ] || __vs_error '$VS_HOME is not set.' || return 1
+    ## list all languages when lang is not specified
+    if [ -z "$lang" -o -z "$version" ]; then
+        echo "Usage: vs -x lang version [arg1 arg2 ...]"
+        echo "Example:"
+        echo "   $ vs -x python 3.4.0"
+        echo "         # execute \$VS_HOME/python/3.4.0/bin/python"
+        echo "   $ vs -x python 3.4.0 file.py arg1 arg2"
+        echo "         # execute \$VS_HOME/python/3.4.0/bin/python file.py arg1 arg2"
+        return 0
+    fi
+    ## expand shorter name
+    case "$lang" in
+    py)      lang='python'   ;;
+    rb)      lang='ruby'     ;;
+    rbx)     lang='rubinius' ;;
+    pl)      lang='perl'     ;;
+    gosh)    lang='gauche'   ;;
+    esac
+    ## command name
+    local command
+    case "$lang" in
+    rubinius)   command="rbx"    ;;
+    gauche)     command="gosh"   ;;
+    pypy3)      command="pypy"   ;;
+    rust)       command="rustc"  ;;
+    *)          command="$lang"  ;;
+    esac
+    ## check whether installed or not
+    local basedir=''
+    for dir in `echo $VS_HOME | tr ':' ' '`; do
+        if [ -n "$dir" -a -d "$dir/$lang" ]; then
+            basedir="$dir/$lang"
+            break
+        fi
+    done
+    [ -n "$basedir" ] || __vs_error "$lang is not installed." || return 1
+    ## find 'bin' directory
+    local bindir
+    local ver
+    if [ "$version" = "-" ]; then
+        __vs_error "version should not be '-'\n"
+        return 1
+    elif [ "$version" = "latest" ]; then
+        ver=`__vs_versions "$basedir" | tail -1`
+        bindir=""
+        [ -n "$ver" ] && bindir="$basedir/$ver/bin"
+    else
+        bindir="$basedir/$version/bin"
+        if ! [ -d "$bindir" ]; then
+            ver=`__vs_versions "$basedir" "$version" | tail -1`
+            bindir=""
+            [ -n "$ver" ] && bindir="$basedir/$ver/bin"
+        fi
+    fi
+    [ -n "$bindir" ] || __vs_error "$lang version $version is not installed." || return 1
+    ## execute command
+    $bindir/$command $@
 }
 
 
