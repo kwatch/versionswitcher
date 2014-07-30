@@ -235,6 +235,8 @@ Release 0.7.0 (2014-07-31)
 * [Fix] Rubinius isntaller fixed to download from new url.
 * [New] PyPy installer fixed to support PyPy3.
 * [Fix] Gauche installer fixed to recognize 4-digits version format.
+* [New] creates '~/.vs/bootstrap.sh' which is a symbolic link to
+  '~/.vs/scripts/bootstrap.sh'.
 
 
 Release 0.6.1 (2012-10-02)
