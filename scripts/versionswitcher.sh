@@ -95,15 +95,8 @@ versionswitcher() {
         echo "versionswitcher: $1: unknown option." 1>&2
         ;;
     *)
-        lang=$1
+        lang=`__vs_lang_name "$1"`
         version=$2
-        case $lang in
-        rb)    lang="ruby"    ;;
-        py)    lang="python"  ;;
-        pl)    lang="perl"    ;;
-        rbx)   lang="rubinius";;
-        gosh)  lang="gauche"  ;;
-        esac
         __vs_switch "$lang" "$version"
         ;;
     esac
@@ -433,13 +426,7 @@ __vs_install() {
         return 0
     fi
     ## expand shorter name
-    case "$lang" in
-    py)   lang='python';;
-    rb)   lang='ruby';;
-    rbx)  lang='rubinius';;
-    pl)   lang='perl';;
-    gosh) lang='gauche';;
-    esac
+    lang=`__vs_lang_name "$lang"`
     ## show installable versions when version is not specified
     if [ -z "$version" ]; then
         __vs_installable_versions "$lang" y y
