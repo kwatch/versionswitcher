@@ -24,13 +24,13 @@
 [bash]$ # or wget http://versionswitcher.appspot.com/install.sh
 [bash]$ bash install.sh      # or zsh install.sh if you are a zsh user
 [bash]$ bash                 # restart bash or zsh to enable settings
-[bash]$ export VS_HOME=$HOME/lang
+[bash]$ export VS_HOME=$HOME/vs
 </pre>
 </div>
 
 
 <div class="post" id="Install">
-  <h2 class="title"><a href="#Install">How to install Python, Ruby, Node.js, and so on</a></h2>
+  <h2 class="title"><a href="#Install">How to install Python, Ruby, Node.js, ...</a></h2>
   <pre class="terminal">
 [bash]$ <strong>vs -i</strong>                # list installable languages
 [bash]$ <strong>vs -i python</strong>         # list installable versions of Python
@@ -44,7 +44,7 @@ python/
 
 
 <div class="post" id="Switch">
-  <h2 class="title"><a href="#Switch">How to switch version of Python, Ruby, Node.js, and so on</a></h2>
+  <h2 class="title"><a href="#Switch">How to switch version of Python, Ruby, Node.js, ...</a></h2>
   <pre class="terminal">
 [bash]$ <strong>vs</strong>                   # list installed languages
 [bash]$ <strong>vs python</strong>            # list installed versions of Python
@@ -61,7 +61,6 @@ python/
   <h2 class="title"><a href="#License">License</a></h2>
   <ul>
     <li>Public Domain</li>
-    <li>Copyright(c) 2011-2012 kuwata-lab.com all rights reserved.</li>
   </ul>
   <!--
   <table class="docinfo" frame="void" rules="none">

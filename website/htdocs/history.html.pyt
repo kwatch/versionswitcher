@@ -4,19 +4,31 @@
 
 <div class="post">
   <h2 class="title"><a href="#">Release 0.7.0</a></h2>
-  <p class="meta"><span class="posted">Jul 30, 2014</span></p>
+  <p class="meta"><span class="posted">Jul 31, 2014</span></p>
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
     <ul>
-      <li>Go language installer supported.</li>
-      <li>Rust language installer supported.</li>
-      <li>Node.js installer fixed to work with 0.10 or later.</li>
-      <li>Ruby installer fixed to work with new url structure.</li>
-      <li>Python installer fixed to download *.tgz instead of *.tar.bz2
+      <li>[New] New option '-x' and '-X' to execute command on specified version.<br />
+        ex::<br />
+<pre class="terminal">
+$ vs <strong>-x</strong> ruby 2.1.2       # execute $VS_HOME/ruby/2.1.2/bin/ruby
+$ vs <strong>-x</strong> ruby 2.1.2 file.rb arg1 arg2  # execute with arguments
+$ vs <strong>-X</strong> ruby 2.1.2 gem   # execute $VS_HOME/ruby/2.1.2/bin/gem
+$ vs <strong>-X</strong> ruby 2.1.2 gem install foo    # execute with arguments
+</pre>
+</li>
+      <li>[New] Go language installer supported.</li>
+      <li>[New] Rust language installer supported.</li>
+      <li>[Fix] Node.js installer fixed to work with 0.10 or later.</li>
+      <li>[Fix] Ruby installer fixed to work with new url structure.</li>
+      <li>[New] Ruby installer changed to skip RDoc document generation.</li>
+      <li>[Fix] Python installer fixed to download *.tgz instead of *.tar.bz2
         because *.tar.bz2 is not provided by python.org since Python 3.3.4.</li>
-      <li>Rubinius isntaller fixed to download from new url.</li>
-      <li>PyPy installer fixed to support PyPy3.</li>
-      <li>Gauche installer fixed to recognize 4-digits version format.</li>
+      <li>[Fix] Rubinius isntaller fixed to download from new url.</li>
+      <li>[New] PyPy installer fixed to support PyPy3.</li>
+      <li>[Fix] Gauche installer fixed to recognize 4-digits version format.</li>
+      <li>[New] creates '~/.vs/bootstrap.sh' which is a symbolic link to
+        '~/.vs/scripts/bootstrap.sh'.</li>
     </ul>
     <!--p class="links"><a href="#">Comments</a></p-->
   </div>

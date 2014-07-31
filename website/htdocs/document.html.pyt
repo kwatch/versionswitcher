@@ -22,7 +22,7 @@
 *** You have to write the following lines into your ~/.bashrc:
 ***
 ***     export VS_HOME=$HOME/vs     # or other directory
-***     . $HOME/.vs/scripts/bootstrap.sh
+***     . $HOME/.vs/bootstrap.sh
 ***
 *** Do you want to add above lines into your ~/.bashrc? [Y/n]: y
 ***
@@ -40,7 +40,7 @@
 <div class="post" id="usage">
   <h2 class="title"><a href="#usage">Usage</a></h2>
   <pre class="terminal">
-[bash]$ ls -F $HOME/lang/python           # several versions are installed
+[bash]$ ls -F $HOME/vs/python           # several versions are installed
 2.5.6/          2.7.2/          3.1.4/
 2.6.7/          3.0.1/          3.2.0/
 [bash]$ <strong>export VS_HOME=$HOME/lang</strong>         # setup
@@ -48,13 +48,13 @@
 /usr/bin/python
 [bash]$ <strong>vs python 2.6.7</strong>       # switch to 2.6.7
 [bash]$ which python
-/home/yourname/lang/python/<strong>2.6.7</strong>/bin/python
+/home/yourname/vs/python/<strong>2.6.7</strong>/bin/python
 [bash]$ <strong>vs python 2.</strong>          # switch to latest version of 2.x
 [bash]$ which python
-/home/yourname/lang/python/<strong>2.7.2</strong>/bin/python
+/home/yourname/vs/python/<strong>2.7.2</strong>/bin/python
 [bash]$ <strong>vs python latest</strong>      # switch to latest version
 [bash]$ which python
-/home/yourname/lang/python/<strong>3.2.0</strong>/bin/python
+/home/yourname/vs/python/<strong>3.2.0</strong>/bin/python
 [bash]$ <strong>vs python -</strong>           # switch to system-installed python
 [bash]$ which python
 /usr/bin/python
@@ -65,14 +65,26 @@
 <pre class="terminal">
 [bash]$ . /some/where/to/versionswitcher.sh
 [bash]$ export VS_HOME=$HOME/lang
-[bash]$ vs python 2.6.7   # use $HOME/lang/python/2.6.7
-[bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.2)
-[bash]$ vs python latest  # use latest version under $HOME/lang/python
+[bash]$ vs python 2.6.7   # use $HOME/vs/python/2.6.7
+[bash]$ vs python 2       # use $HOME/vs/python/2.x.x (ex. 2.7.2)
+[bash]$ vs python latest  # use latest version under $HOME/vs/python
 [bash]$ vs python -       # use system-installed one (ex. /usr/bin/python)
 [bash]$ vs python         # show installed versions of python
 [bash]$ vs                # show all languages installed
 </pre>
 -->
+  <p>It is possible to execute command on specified version <em>without</em> switching version.</p>
+  <pre class="terminal">
+[bash]$ vs python 2.7.2
+[bash]$ which python
+/home/yourname/vs/python/<strong>2.7.2</strong>/bin/python
+[bash]$ vs <strong>-x</strong> python 3.2.0                 # execute $VS_HOME/python/<strong>3.2.0</strong>/bin/<strong>python</strong>
+[bash]$ vs <strong>-x</strong> python 3.2.0 file.py x y z   # execute with arguments
+[bash]$ vs <strong>-X</strong> python 3.2.0 2to3            # execute $VS_HOME/python/<strong>3.2.0</strong>/bin/<strong>2to3</strong>
+[bash]$ vs <strong>-X</strong> python 3.2.0 2to3 --help     # execute with arguments
+[bash]$ which python
+/home/yourname/vs/python/<strong>2.7.2</strong>/bin/python
+</pre>
   <div class="tips">
     <p>Tips: Shell variables $<em>xxx</em>root and $<em>xxx</em>version are set automatically when switching.
         For example, shell variables $rubyroot and $rubyversion are set when you execute <code>vs ruby 1.9</code>.</p>
@@ -157,19 +169,19 @@ rust        # http://www.rust-lang.org/
 0.7.{0,1,2,3,4}
 [bash]$ <strong>vs -i node 0.7.4</strong>
 ** latest version is 0.7.4
-** Install into '/home/yourname/lang/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
-** Configure is './configure --prefix=/home/yourname/lang/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
+** Install into '/home/yourname/vs/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
+** Configure is './configure --prefix=/home/yourname/vs/node/0.7.4'. OK? [Y/n]: <strong>y</strong>
 $ curl -ORL http://nodejs.org/dist/node-v0.7.4.tar.gz
 $ tar xzf node-v0.7.4.tar.gz
 $ cd node-v0.7.4/
-$ time ./configure --prefix=/home/yourname/lang/node/0.7.4
+$ time ./configure --prefix=/home/yourname/vs/node/0.7.4
 ...(snip)...
 $ time JOBS=2 make
 ...(snip)...
 $ cd ..
 $ hash -r
 $ which node
-/home/yourname/lang/node/0.7.4/bin/node
+/home/yourname/vs/node/0.7.4/bin/node
 
 ** Install npm (Node Package Manger)? [Y/n]: <strong>y</strong>
 $ curl -L - http://npmjs.org/install.sh | sh
@@ -183,14 +195,14 @@ node cli.js cache clean
 ** Installation is finished successfully.
 **   language:  node
 **   version:   0.7.4
-**   directory: /home/yourname/lang/node/0.7.4
+**   directory: /home/yourname/vs/node/0.7.4
 
 ** vs node 0.7.4
-$ export PATH=/home/yourname/lang/node/0.7.4/bin:/usr/local/bin:/usr/bin:/bin
-$ noderoot='/home/yourname/lang/node/0.7.4'
+$ export PATH=/home/yourname/vs/node/0.7.4/bin:/usr/local/bin:/usr/bin:/bin
+$ noderoot='/home/yourname/vs/node/0.7.4'
 $ nodeversion='0.7.4'
 $ which node
-/home/yourname/lang/node/0.7.4/bin/node
+/home/yourname/vs/node/0.7.4/bin/node
 </pre>
   <p>The above steps are same for other languages such as ruby, python, lua and luajit.</p>
   <div class="tips">
@@ -205,19 +217,19 @@ $ which node
 
 <!--
   <h3 class="title">Ruby</h3>
-  <p>The following is an example to install Ruby 1.9.3 into $HOME/lang/ruby:</p>
+  <p>The following is an example to install Ruby 1.9.3 into $HOME/vs/ruby:</p>
 <pre class="terminal">
 [bash]$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p0.tar.bz2
 [bash]$ tar xjf ruby-1.9.3-p0.tar.bz2
 [bash]$ cd ruby-1.9.3-p0/
-[bash]$ ./configure --prefix=$HOME/lang/ruby/1.9.3-p0
+[bash]$ ./configure --prefix=$HOME/vs/ruby/1.9.3-p0
 [bash]$ JOBS=2 make
 [bash]$ make install
 [bash]$ vs ruby 1.9.3       # or vs ruby latest
 [bash]$ which ruby
-/home/yourname/lang/ruby/1.9.3-p0/bin/ruby
+/home/yourname/vs/ruby/1.9.3-p0/bin/ruby
 [bash]$ which gem
-/home/yourname/lang/ruby/1.9.3-p0/bin/gem
+/home/yourname/vs/ruby/1.9.3-p0/bin/gem
 [bash]$ gem -v
 1.3.7
 [bash]$ gem update --system
@@ -226,46 +238,46 @@ $ which node
 </pre>
 
   <h3 class="title">Python</h3>
-  <p>The following is an example to install Python 3.2 and distribute module into $HOME/lang/python:</p>
+  <p>The following is an example to install Python 3.2 and distribute module into $HOME/vs/python:</p>
 <pre class="terminal">
 [bash]$ wget http://www.python.org/ftp/python/3.2/Python-3.2.tar.bz2
 [bash]$ tar xjf Python-3.2.tar.bz2
 [bash]$ cd Python-3.2/
-[bash]$ ./configure --prefix=$HOME/lang/python/3.2.0    # not '3.2'!
+[bash]$ ./configure --prefix=$HOME/vs/python/3.2.0    # not '3.2'!
 [bash]$ JOBS=2 make
 [bash]$ make install
-[bash]$ (cd $HOME/lang/python/3.2.0/bin; ln python3.2 python)
+[bash]$ (cd $HOME/vs/python/3.2.0/bin; ln python3.2 python)
 [bash]$ vs python 3.2       # or vs python latest
 [bash]$ which python
-/home/yourname/lang/python/3.2.0/bin/python
+/home/yourname/vs/python/3.2.0/bin/python
 [bash]$ wget http://python-distribute.org/distribute_setup.py
 [bash]$ python distribute_setup.py
 [bash]$ which easy_install
-/home/yourname/lang/python/3.2.0/bin/easy_install
+/home/yourname/vs/python/3.2.0/bin/easy_install
 [bash]$ easy_install --version
 distribute 0.6.15
 [bash]$ easy_install readline     # for Mac OS X
 </pre>
 
   <h3 class="title">Node.js</h3>
-  <p>The following is an example to install Node.js 0.7.4 into $HOME/lang/node:</p>
+  <p>The following is an example to install Node.js 0.7.4 into $HOME/vs/node:</p>
 <pre class="terminal">
 [bash]$ wget http://nodejs.org/dist/node-v0.7.4.tar.gz
 [bash]$ tar xzf node-v0.7.4.tar.gz
 [bash]$ cd node-v0.7.4/
-[bash]$ ./configure --prefix=$HOME/lang/node/0.7.4
+[bash]$ ./configure --prefix=$HOME/vs/node/0.7.4
 [bash]$ JOBS=2 make
 [bash]$ make test
 [bash]$ make install
 [bash]$ vs node 0.7.4       # or vs node latest
 [bash]$ which node
-/home/yourname/lang/node/0.7.4/bin/node
+/home/yourname/vs/node/0.7.4/bin/node
 [bash]$ node -v
 v0.7.4
 [bash]$ wget http://npmjs.org/install.sh
 [bash]$ sh install.sh
 [bash]$ which npm
-/home/yourname/lang/node/0.7.4/bin/npm
+/home/yourname/vs/node/0.7.4/bin/npm
 [bash]$ npm -v
 1.1.1
 </pre>
