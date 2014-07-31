@@ -25,11 +25,13 @@ __vs_help_message() {
 versionswitcher - change version of language or application
 Release: $release
 Usage: vs [options] [lang] [version]
-   -h        : help
-   -v        : version
-   -i        : install
-   -u        : self upgrade
-   -q        : quiet
+   -h                       : help
+   -v                       : version
+   -i [lang] [version]      : install
+   -u                       : self upgrade
+   -q                       : quiet
+   -x lang version          : execute language command
+   -X lang version command  : execute specific command
 
 Examples:
    $ VS_HOME=\$HOME/lang
@@ -37,13 +39,14 @@ Examples:
    $ vs                  # list language names installed
    $ vs python           # list python vesrions installed
    $ vs python 3.4.0     # use \$VS_HOME/python/3.4.0
-   $ vs python 3         # use \$VS_HOME/python/3.x.x (ex. 3.4.2)
+   $ vs python 3         # use \$VS_HOME/python/3.x.x (ex. 3.4.5)
    $ vs python latest    # use latest version under \$VS_HOME/python
    $ vs python -         # use system-installed one (ex. /usr/bin/python)
    $ vs -i               # list language names installable
    $ vs -i python        # list python versions installable
    $ vs -i python 3.4.5  # install python 3.4.5 ('latest' is not available!)
-   $ vs -x python 3.4.5  # execute \$VS_HOME/python/3.4.5/python
+   $ vs -x python 3.4.5       # execute \$VS_HOME/python/3.4.5/python
+   $ vs -X python 3.4.5 2to3  # execute \$VS_HOME/python/3.4.5/2to3
 
 Tips:
    * Short name 'vs' is an alias to 'versionswitcher'.
