@@ -98,8 +98,9 @@ versionswitcher() {
         echo "versionswitcher: $1: unknown option." 1>&2
         ;;
     *)
-        lang=`__vs_lang_name "$1"`
-        version=$2
+        lang="$1"
+        version="$2"
+        lang=`__vs_lang_name "$lang"`
         __vs_switch "$lang" "$version"
         ;;
     esac
