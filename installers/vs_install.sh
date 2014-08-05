@@ -37,9 +37,14 @@ _vs_inform_required_libraries() {
     if [ -f "/etc/debian_version" ]; then
         echo "$prompt On Ubuntu or Debian, please install the followings beforehand:"
         echo
-        echo "    bash% sudo apt-get install -y build-essential libssl-dev zlib1g-dev"
-        echo "    bash% sudo apt-get install -y libyaml-dev libffi-dev libgdbm-dev"
-        echo "    bash% sudo apt-get install -y libreadline-dev libncurses-dev"
+        echo "    [bash]$ sudo apt-get update"
+        echo "    [bash]$ sudo apt-get install curl wget build-essential"
+        echo "    [bash]$ sudo apt-get install libc6-dev zlib1g-dev libbz2-dev libssl-dev"
+        echo "    [bash]$ sudo apt-get install libncurses-dev libreadline-dev libgdbm-dev"
+        echo "    [bash]$ sudo apt-get install libyaml-dev libffi-dev  # for Ruby>=1.9"
+        echo "    [bash]$ sudo apt-get install pkg-config              # for Node.js"
+        echo "    [bash]$ sudo apt-get install libsqlite3-dev          # for Python"
+        echo "    [bash]$ sudo apt-get install readline subversion     # for Python2.5"
         echo
         echo -n "$prompt (Press enter key): "
         read input
