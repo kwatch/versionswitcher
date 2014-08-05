@@ -55,7 +55,7 @@ _install_lua() {
     #_vs_inform_required_libraries "$prompt"       || return 1
     ## compile and install
     local nice="nice -10"
-    _cmd "time $nice make $platform"           || return 1
+    _cmd "time $nice make $platform"              || return 1
     _cmd "time $nice make install INSTALL_TOP=$prefix"  || return 1
     _cmd "cd .."                                  || return 1
     ## verify
