@@ -31,8 +31,7 @@ _install_ruby() {
         ;;
     esac
     ##
-    case `uname -a` in
-    *Ubuntu*|*Debian*)
+    if [ -f "/etc/debian_version" ]; then
         echo "$prompt On ubuntu/debian, it is recommended to install the followings:"
         echo
         echo "    bash% sudo apt-get install -y build-essential libssl-dev zlib1g-dev"
@@ -42,7 +41,7 @@ _install_ruby() {
         echo -n "$prompt (Press enter key): "
         read input
         ;;
-    esac
+    fi
     ## *.tar.bz2 is provided since 1.8.5-p52
     local ext='tar.bz2'
     local tar='tar xjf'
