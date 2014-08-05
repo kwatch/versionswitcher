@@ -76,6 +76,9 @@ _install_rust() {
         _cmd "mv $basedir/$base $prefix"                || return 1
         ;;
     *)
+        ## inform required libraries
+        _vs_inform_required_libraries "$prompt"         || return 1
+        ##
         _cmd "$nice tar -xzf $fname"                    || return 1
         _cmd "cd $base"                                 || return 1
         _cmd "time $nice ./configure --prefix=$prefix"  || return 1

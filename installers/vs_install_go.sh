@@ -74,6 +74,9 @@ _install_go() {
     _cmd "mv $prefix_basedir/go $prefix"          || return 1
     case "$base" in
     *.src)
+        ## inform required libraries
+        _vs_inform_required_libraries "$prompt"   || return 1
+        ##
         _cmd "(cd $prefix/src; ./all.bash)"       || return 1
         ;;
     esac

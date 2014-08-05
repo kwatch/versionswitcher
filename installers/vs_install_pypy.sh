@@ -28,6 +28,10 @@ _install_pypy() {
     *)
         target="src";;
     esac
+    ## inform required libraries
+    if [ "$target" = "src" ]; then
+        _vs_inform_required_libraries "$prompt"   || return 1
+    fi
     ## donwload, extract, and install
     local ver=`echo $version | sed 's/\.0$//'`
     local base="pypy-$ver-$target"

@@ -29,6 +29,9 @@ _install_perl() {
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
     y*|Y*)
+        ## inform required libraries
+        _vs_inform_required_libraries "$prompt"      || return 1
+        ##
         url="http://cpanmin.us/"
         local down
         down=`_downloader "-Lo" "--no-check-certificate -O"` || return 1

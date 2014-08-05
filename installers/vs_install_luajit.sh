@@ -14,6 +14,8 @@ _install_luajit() {
     local prefix=$2
     local lang="luajit"
     local prompt="**"
+    ## inform required libraries
+    _vs_inform_required_libraries "$prompt"       || return 1
     ## donwload
     local base="LuaJIT-$version"
     local url="http://luajit.org/download/$base.tar.gz"

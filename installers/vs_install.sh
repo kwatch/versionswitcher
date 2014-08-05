@@ -76,6 +76,8 @@ _generic_installer() {
         fi
         ;;
     esac
+    ## inform required libraries
+    _vs_inform_required_libraries "$prompt"       || return 1
     ## extension
     local untar
     case $filename in

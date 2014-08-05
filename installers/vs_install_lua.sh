@@ -51,6 +51,8 @@ _install_lua() {
         fi
         ;;
     esac
+    ## inform required libraries
+    #_vs_inform_required_libraries "$prompt"       || return 1
     ## compile and install
     local nice="nice -10"
     _cmd "time $nice make $platform"           || return 1

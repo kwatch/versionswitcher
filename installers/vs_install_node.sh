@@ -30,6 +30,8 @@ _install_node() {
         fi
         ;;
     esac
+    ## inform required libraries
+    _vs_inform_required_libraries "$prompt"       || return 1
     ## donwload, compile and install
     local base="node-v$version"
     local url="http://nodejs.org/dist/v$version/$base.tar.gz"

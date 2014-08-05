@@ -30,8 +30,8 @@ _install_ruby() {
         fi
         ;;
     esac
-    ##
-    _vs_inform_required_libraries "$prompt"
+    ## inform required libraries
+    _vs_inform_required_libraries "$prompt"       || return 1
     ## *.tar.bz2 is provided since 1.8.5-p52
     local ext='tar.bz2'
     local tar='tar xjf'

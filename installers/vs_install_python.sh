@@ -74,6 +74,8 @@ _install_python() {
         fi
         ;;
     esac
+    ## inform required libraries
+    _vs_inform_required_libraries "$prompt"       || return 1
     ## donwload, compile and install
     local ver=$version
     case $version in
