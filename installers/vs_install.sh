@@ -31,6 +31,21 @@ _downloader() {
     fi
 }
 
+_vs_inform_required_libraries() {
+    local prompt="$1"
+    ## for Ubuntu/Debian
+    if [ -f "/etc/debian_version" ]; then
+        echo "$prompt On Ubuntu or Debian, please install the followings beforehand:"
+        echo
+        echo "    bash% sudo apt-get install -y build-essential libssl-dev zlib1g-dev"
+        echo "    bash% sudo apt-get install -y libyaml-dev libffi-dev libgdbm-dev"
+        echo "    bash% sudo apt-get install -y libreadline-dev libncurses-dev"
+        echo
+        echo -n "$prompt (Press enter key): "
+        read input
+    fi
+}
+
 _generic_installer() {
     ## arguments and variables
     local lang=$1

@@ -31,17 +31,7 @@ _install_ruby() {
         ;;
     esac
     ##
-    if [ -f "/etc/debian_version" ]; then
-        echo "$prompt On ubuntu/debian, it is recommended to install the followings:"
-        echo
-        echo "    bash% sudo apt-get install -y build-essential libssl-dev zlib1g-dev"
-        echo "    bash% sudo apt-get install -y libyaml-dev libffi-dev libgdbm-dev"
-        echo "    bash% sudo apt-get install -y libreadline-dev libncurses-dev"
-        echo
-        echo -n "$prompt (Press enter key): "
-        read input
-        ;;
-    fi
+    _vs_inform_required_libraries "$prompt"
     ## *.tar.bz2 is provided since 1.8.5-p52
     local ext='tar.bz2'
     local tar='tar xjf'
