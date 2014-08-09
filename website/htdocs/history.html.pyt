@@ -3,6 +3,20 @@
 
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.7.1</a></h2>
+  <p class="meta"><span class="posted">Aug 8, 2014</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>[Fix] 'vs' command now switches language version correctly.<br />
+      <li>[Fix] Inform user to install required packages on Ubuntu or Debian.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.7.0</a></h2>
   <p class="meta"><span class="posted">Jul 31, 2014</span></p>
   <div style="clear: both;">&nbsp;</div>
