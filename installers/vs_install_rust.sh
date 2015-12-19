@@ -72,8 +72,21 @@ _install_rust() {
     _cmd "rm -rf $basedir/$base"                        || return 1
     case "$fname" in
     rust-*-*.tar.gz)
+        #_cmd "$nice tar -C $basedir -xzf $fname"        || return 1
+        #_cmd "mv $basedir/$base $prefix"                || return 1
         _cmd "$nice tar -C $basedir -xzf $fname"        || return 1
-        _cmd "mv $basedir/$base $prefix"                || return 1
+        if [ -f $basedir/$base/install.sh ]; then
+            echo export DYLD_LIBRARY_PATH="$prefix/lib"
+            export DYLD_LIBRARY_PATH="$prefix/lib"
+            echo "pushd $basedir/$base"
+            pushd $basedir/$base
+            _cmd "./install.sh --prefix=$prefix"        || return 1
+            echo "popd"
+            popd
+            _cmd "rm -r $basedir/$base"                 || return 1
+        else
+            _cmd "mv $basedir/$base $prefix"            || return 1
+        fi
         ;;
     *)
         ## inform required libraries
