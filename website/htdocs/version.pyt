@@ -1,2 +1,2 @@
-<?py version = '$Release: 0.7.1 $'.split(' ')[1] ?>
+<?py version = '$Release: 0.0.0 $'.split(' ')[1] ?>
 ${version}
