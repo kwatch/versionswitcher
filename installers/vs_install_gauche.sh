@@ -12,7 +12,8 @@ _install_gauche() {
     local bin="gosh"
     local base="Gauche-$version"
     local filename="$base.tgz"
-    local url="http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/$filename"
+    #local url="http://ftp.jaist.ac.jp/pub/sourceforge/g/project/ga/gauche/Gauche/$filename"
+    local url="http://prdownloads.sourceforge.net/gauche/$filename"
     local configure="./configure --prefix=$prefix"
     . $HOME/.vs/installers/vs_install.sh
     _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure"  || return 1
