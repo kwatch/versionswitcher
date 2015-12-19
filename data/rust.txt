@@ -1,3 +1,2 @@
-url='http://www.rust-lang.org/install.html'
-rexp='/dist/rust-([^-]+)\.tar\.gz"'
-sep='.'
+url='http://www.rust-lang.org/downloads.html'
+rexp='/dist/rustc-(.*?)-src\.tar\.gz"'
