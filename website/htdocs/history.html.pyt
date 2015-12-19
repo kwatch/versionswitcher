@@ -8,7 +8,7 @@
   <div style="clear: both;">&nbsp;</div>
   <div class="entry">
     <ul>
-      <li>[Fix] 'vs' command now switches language version correctly.<br />
+      <li>[Fix] 'vs' command now switches language version correctly.</li>
       <li>[Fix] Inform user to install required packages on Ubuntu or Debian.</li>
     </ul>
     <!--p class="links"><a href="#">Comments</a></p-->
