@@ -3,6 +3,22 @@
 
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.7.2</a></h2>
+  <p class="meta"><span class="posted">Dec 19, 2015</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>[Fix] 'vs -i python' now downloads 'distribute_setup.py' from new url.</li>
+      <li>[Fix] 'vs -i go' now lists version numbers correctly.</li>
+      <li>[Fix] 'vs -i rust' now installs Rust by official installer script.</li>
+      <li>[Fix] 'vs -i gauche' downloads source code from new url.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.7.1</a></h2>
   <p class="meta"><span class="posted">Aug 8, 2014</span></p>
   <div style="clear: both;">&nbsp;</div>
