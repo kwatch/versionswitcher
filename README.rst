@@ -2,7 +2,7 @@
 README
 ======
 
-:Release:    0.0.0
+:Release:    0.7.2
 :License:    Public Domain
 
 
