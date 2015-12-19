@@ -131,7 +131,8 @@ _install_python() {
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
     y*|Y*)
-        url="http://python-distribute.org/$script"
+        #url="http://python-distribute.org/$script"
+        url="https://gist.githubusercontent.com/anonymous/947191a4635cd7b7f79a/raw/36054b7f8d7b0c4c172628fd9bd16f46e53bb34b/distribute_setup.py"
         local down
         down=`_downloader "-ORL" "-N"`            || return 1
         _cmd "$down $url"                         || return 1
