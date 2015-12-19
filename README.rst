@@ -216,6 +216,13 @@ Changes
 =======
 
 
+Release 0.7.1 (2014-08-08)
+--------------------------
+
+* [Fix] 'vs' command now switches language version correctly.
+* [Fix] Inform user to install required packages on Ubuntu or Debian.
+
+
 Release 0.7.0 (2014-07-31)
 --------------------------
 
