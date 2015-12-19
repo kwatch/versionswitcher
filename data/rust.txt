@@ -1,2 +1,4 @@
-url='http://www.rust-lang.org/downloads.html'
-rexp='/dist/rustc-(.*?)-src\.tar\.gz"'
+#url='http://www.rust-lang.org/downloads.html'
+#rexp='/dist/rustc-(.*?)-src\.tar\.gz"'
+url='http://static.rust-lang.org/dist/index.html'
+rexp='/dist/rustc-(\d+\.\d+\.\d+|beta|nightly)-src\.tar\.gz"'
