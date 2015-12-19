@@ -22,13 +22,14 @@ _install_go() {
     [ -f /usr/bin/perl ]       && perl='/usr/bin/perl';
     ## donwload, extract, and install
     local ver=`echo $version | sed 's/\.0$//'`
+    local verpat=`echo $ver | sed 's/\./\\\\./g'`
     local down
     down=`_downloader "-sL" "-q -O - --no-check-certificate"` || return 1
-    #$down $archives_url | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$ver'\..*\.tar\.gz)"/'
+    #$down $archives_url | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$verpat'\..*\.tar\.gz)"/'
     $down $archives_url | $perl -e '
     my $i = 0;
     while (<>) {
-      if (/href="\/dl\/(go'$ver'\..*?\.tar\.gz)"/) {
+      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?\.tar\.gz)"/) {
         print "\n** Which one to install?\n" if $i == 0;
         print ++$i, ": ", $1, "\n";
       }
@@ -49,7 +50,7 @@ _install_go() {
     base=`$down $archives_url | $perl -e '
     my $i = 0;
     while (<>) {
-      if (/href="\/dl\/(go'$ver'\..*?)\.tar\.gz"/) {
+      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?)\.tar\.gz"/) {
         if (++$i eq '$num') {
           print $1;
           break;
