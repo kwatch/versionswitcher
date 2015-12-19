@@ -6,7 +6,7 @@ urllib2 = None   # on-demand import
 
 
 
-release   = prop('release',   '0.7.1')
+release   = prop('release',   '0.7.2')
 copyright = prop('copyright', 'copyright(c) 2011-2014 kuwata-lab.com all rights reserved')
 license   = prop('license',   'Public Domain')
 
