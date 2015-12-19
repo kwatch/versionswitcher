@@ -381,9 +381,9 @@ __vs_installable_versions() {
             while (<>) {
                 #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
                 if (/$rexp/) {
-                    my $ver = $1;
+                    my ($ver, $patch) = ($1, $2);
                     my $none_ = $ver =~ m/(rc|beta)\d$/ ? "" : $none;  # for Go
-                    my $patch = length($2) ? $2 : $none_;
+                    $patch = $none_ unless length($patch);
                     my $v = length($patch) ? "$ver$sep$patch" : $ver;
                     push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
                 }
