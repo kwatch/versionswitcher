@@ -29,7 +29,7 @@ _install_go() {
     $down $archives_url | $perl -e '
     my $i = 0;
     while (<>) {
-      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?\.tar\.gz)"/) {
+      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?\.tar\.gz)">go/) {
         print "\n** Which one to install?\n" if $i == 0;
         print ++$i, ": ", $1, "\n";
       }
@@ -50,7 +50,7 @@ _install_go() {
     base=`$down $archives_url | $perl -e '
     my $i = 0;
     while (<>) {
-      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?)\.tar\.gz"/) {
+      if (/href="https:\/\/storage\.googleapis\.com\/golang\/(go'$verpat'\..*?)\.tar\.gz">go/) {
         if (++$i eq '$num') {
           print $1;
           break;
