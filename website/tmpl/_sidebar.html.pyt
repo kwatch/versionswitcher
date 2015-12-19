@@ -1,5 +1,5 @@
 <?py # -*- coding: utf-8 -*- ?>
-<?py version = '$Release: 0.0.0 $'.split(' ')[1] ?>
+<?py version = '$Release: 0.7.2 $'.split(' ')[1] ?>
 <li>
   <div id="download" >
     <?py if False: ?>

@@ -2,7 +2,7 @@
 README
 ======
 
-:Release:    0.0.0
+:Release:    0.7.2
 :License:    Public Domain
 
 
@@ -214,6 +214,21 @@ Tips
 
 Changes
 =======
+
+Release 0.7.2 (2015-12-19)
+--------------------------
+
+* [Fix] 'vs -i python' now downloads 'distribute_setup.py' from new url.
+* [Fix] 'vs -i go' now lists version numbers correctly.
+* [Fix] 'vs -i rust' now installs Rust by official installer script.
+* [Fix] 'vs -i gauche' downloads source code from new url.
+
+
+Release 0.7.1 (2014-08-08)
+--------------------------
+
+* [Fix] 'vs' command now switches language version correctly.
+* [Fix] Inform user to install required packages on Ubuntu or Debian.
 
 
 Release 0.7.0 (2014-07-31)

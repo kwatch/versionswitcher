@@ -1,4 +1,4 @@
 cron:
-  - url: /versionwatcher
-    schedule: every 30 minutes
-    #timezone: GMT
+  #- url: /versionwatcher
+  #  schedule: every 30 minutes
+  #  #timezone: GMT

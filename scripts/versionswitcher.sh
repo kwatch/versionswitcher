@@ -1,5 +1,5 @@
 ###
-### $Release: 0.0.0 $
+### $Release: 0.7.2 $
 ### $License: Public Domain $
 ###
 
@@ -12,7 +12,7 @@
 ###   $ vs --help
 ###
 
-__vs_version=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
+__vs_version=`echo '$Release: 0.7.2 $' | awk '{print $2}'`
 
 
 ###
@@ -65,7 +65,7 @@ versionswitcher() {
     local lang
     local command
     local version
-    local release=`echo '$Release: 0.0.0 $' | awk '{print $2}'`
+    local release=`echo '$Release: 0.7.2 $' | awk '{print $2}'`
     __vs_option_quiet=''
     case "$1" in
     -q)
@@ -98,8 +98,9 @@ versionswitcher() {
         echo "versionswitcher: $1: unknown option." 1>&2
         ;;
     *)
-        lang=`__vs_lang_name "$1"`
-        version=$2
+        lang="$1"
+        version="$2"
+        lang=`__vs_lang_name "$lang"`
         __vs_switch "$lang" "$version"
         ;;
     esac
@@ -380,9 +381,9 @@ __vs_installable_versions() {
             while (<>) {
                 #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
                 if (/$rexp/) {
-                    my $ver = $1;
-                    my $none_ = $ver =~ m/rc\d$/ ? "" : $none;  # for Go
-                    my $patch = length($2) ? $2 : $none_;
+                    my ($ver, $patch) = ($1, $2);
+                    my $none_ = $ver =~ m/(rc|beta)\d$/ ? "" : $none;  # for Go
+                    $patch = $none_ unless length($patch);
                     my $v = length($patch) ? "$ver$sep$patch" : $ver;
                     push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
                 }

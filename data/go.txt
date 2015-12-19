@@ -1,4 +1,4 @@
 url='http://golang.org/dl/'
-rexp='href="/dl/go(\d+\.\d+(?:rc\d)?)(?:\.(\d+))?\.src\.tar\.gz"'
+rexp='href="https://storage\.googleapis\.com/golang/go(\d+\.\d+(?:rc\d|beta\d)?)(?:\.(\d+))?\.src\.tar\.gz">go'
 sep='.'
 none='0'
