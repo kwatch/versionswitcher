@@ -153,6 +153,15 @@ EOF
         local ver=`echo $version | sed 's/^\([0-9]\.[0-9]\).*/\1/'`
         _cmd "(cd $prefix/bin/; ln python$ver python)"
     fi
+    ## create a symbolic link of 'bin/pip3' as 'bin/pip'
+    if [ ! -f "$prefix/bin/pip" ]; then
+        if [ -f "$prefix/bin/pip2" ]; then
+            _cmd "(cd $prefix/bin/; ln -s pip2 pip)"  || return 1
+        fi
+        if [ -f "$prefix/bin/pip3" ]; then
+            _cmd "(cd $prefix/bin/; ln -s pip3 pip)"  || return 1
+        fi
+    fi
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
     _cmd "hash -r"                                || return 1
