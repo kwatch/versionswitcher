@@ -138,14 +138,14 @@ _install_python() {
     local easy_install_path
     local script='distribute_setup.py'
     echo
-    echo -n "$prompt Install 'easy_install' command? [Y/n]: "
-    read input;  [ -z "$input" ] && input="y"
+    echo -n "$prompt Install 'easy_install' command? [y/N]: "
+    read input;  [ -z "$input" ] && input="n"
     case "$input" in
     y*|Y*)
         #url="http://python-distribute.org/$script"
-        url="https://gist.githubusercontent.com/anonymous/947191a4635cd7b7f79a/raw/36054b7f8d7b0c4c172628fd9bd16f46e53bb34b/distribute_setup.py"
+        url="http://bit.ly/distribute_setup_py"
         local down
-        down=`_downloader "-ORL" "-N"`            || return 1
+        down=`_downloader "-RLo $script" "-NO $script"` || return 1
         _cmd "$down $url"                         || return 1
         _cmd "$prefix/bin/python $script"         || return 1
         _cmd "which easy_install"                 || return 1
