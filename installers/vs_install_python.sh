@@ -153,6 +153,15 @@ EOF
         local ver=`echo $version | sed 's/^\([0-9]\.[0-9]\).*/\1/'`
         _cmd "(cd $prefix/bin/; ln python$ver python)"
     fi
+    ## create a symbolic link of 'bin/pip3' as 'bin/pip'
+    if [ ! -f "$prefix/bin/pip" ]; then
+        if [ -f "$prefix/bin/pip2" ]; then
+            _cmd "(cd $prefix/bin/; ln -s pip2 pip)"  || return 1
+        fi
+        if [ -f "$prefix/bin/pip3" ]; then
+            _cmd "(cd $prefix/bin/; ln -s pip3 pip)"  || return 1
+        fi
+    fi
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
     _cmd "hash -r"                                || return 1
@@ -162,33 +171,64 @@ EOF
         echo "$prefix exit 1" 1>&2
         return 1
     fi
+    ## install pip
+    local pip_intalled
+    if [ -f "$prefix/bin/pip" -o -f "$prefix/bin/pip2" -o -f "$prefix/bin/pip3" ]; then
+        pip_intalled='t'
+    else
+        echo
+        echo -n "$prompt Install 'pip' command? [Y/n]: "
+        read input;  [ -z "$input" ] && input="y"
+        case "$input" in
+        y*|Y*)
+            url="https://bootstrap.pypa.io/get-pip.py"
+            local down
+            down=`_downloader "-RLO" "-N"`            || return 1
+            _cmd "$down $url"                         || return 1
+            _cmd "$prefix/bin/python get-pip.py"      || return 1
+            if [ `which pip` != "$prefix/bin/pip" ]; then
+                echo "$prompt ERROR: pip command seems not installed correctly." 1>&2
+                echo "$prompt exit 1" 1>&2
+                return 1
+            fi
+            echo "$prompt pip command installed successfully."
+            pip_installed='t'
+            ;;
+        *)
+            echo "$prompt skip to install pip command."
+            pip_installed=''
+            ;;
+        esac
+    fi
     ## install 'easy_install'
     local easy_install_path
-    local script='distribute_setup.py'
-    echo
-    echo -n "$prompt Install 'easy_install' command? [y/N]: "
-    read input;  [ -z "$input" ] && input="n"
-    case "$input" in
-    y*|Y*)
-        #url="http://python-distribute.org/$script"
-        url="http://bit.ly/distribute_setup_py"
-        local down
-        down=`_downloader "-RLo $script" "-NO $script"` || return 1
-        _cmd "$down $url"                         || return 1
-        _cmd "$prefix/bin/python $script"         || return 1
-        _cmd "which easy_install"                 || return 1
-        easy_install_path=`which easy_install`
-        if [ "$easy_install_path" != "$prefix/bin/easy_install" ]; then
-            echo "$prompt ERROR: easy_install command seems not installed correctly." 1>&2
-            echo "$prompt exit 1" 1>&2
-            return 1
-        fi
-        echo "$prompt easy_install command installed successfully."
-        ;;
-    *)
-        echo "$prompt skip to install easy_install command."
-        ;;
-    esac
+    if [ -z "$pip_installed" ]; then
+        local script='distribute_setup.py'
+        echo
+        echo -n "$prompt Install 'easy_install' command? [y/N]: "
+        read input;  [ -z "$input" ] && input="n"
+        case "$input" in
+        y*|Y*)
+            #url="http://python-distribute.org/$script"
+            url="http://bit.ly/distribute_setup_py"
+            local down
+            down=`_downloader "-RLo $script" "-NO $script"` || return 1
+            _cmd "$down $url"                         || return 1
+            _cmd "$prefix/bin/python $script"         || return 1
+            _cmd "which easy_install"                 || return 1
+            easy_install_path=`which easy_install`
+            if [ "$easy_install_path" != "$prefix/bin/easy_install" ]; then
+                echo "$prompt ERROR: easy_install command seems not installed correctly." 1>&2
+                echo "$prompt exit 1" 1>&2
+                return 1
+            fi
+            echo "$prompt easy_install command installed successfully."
+            ;;
+        *)
+            echo "$prompt skip to install easy_install command."
+            ;;
+        esac
+    fi
     ## install 'readline' package (for Mac OS X)
     if [ -n "$readline_required" -a -n "$easy_install_path" ]; then
         echo
