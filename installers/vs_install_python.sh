@@ -87,7 +87,7 @@ _install_python() {
     esac
     ## inform required libraries
     _vs_inform_required_libraries "$prompt"       || return 1
-    ## donwload, compile and install
+    ## donwload and compile
     local ver=$version
     case $version in
     2.*|3.0*|3.1*|3.2*)
@@ -113,6 +113,34 @@ _install_python() {
     fi
     _cmd "${flags}time $nice $configure"          || return 1
     _cmd "time $nice make"                        || return 1
+    ## ad-hoc patch to compile 'pyexpat' module
+    if ./python.exe -c "import pyexpat" 2>/dev/null; then
+        :   # do nothing
+    else
+        echo "$prompt Apply ad-hoc patch to compile 'pyexpat' module"
+        cat <<EOF > tmp.patch
+Ad-hoc patch to compile 'pyexpat' module.
+
+original: https://github.com/LibreOffice/core/blob/master/external/python3/python-3.3.5-pyexpat-symbols.patch.1
+
+--- python3/Modules/expat/expat_external.h
++++ python3/Modules/expat/expat_external.h
+@@ -7,10 +7,6 @@
+
+ /* External API definitions */
+
+-/* Namespace external symbols to allow multiple libexpat version to
+-   co-exist. */
+-#include "pyexpatns.h"
+-
+ #if defined(_MSC_EXTENSIONS) && !defined(__BEOS__) && !defined(__CYGWIN__)
+ #define XML_USE_MSC_EXTENSIONS 1
+ #endif
+EOF
+        patch -p1 < tmp.patch                     || return 1
+        _cmd "time $nice make"                    || return 1
+    fi
+    ## install
     local make_target
     case $version in
     3.0*)  make_target="fullinstall";;
