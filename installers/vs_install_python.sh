@@ -162,6 +162,32 @@ EOF
         echo "$prefix exit 1" 1>&2
         return 1
     fi
+    ## install pip
+    if [ -f "$prefix/bin/pip" -o -f "$prefix/bin/pip2" -o -f "$prefix/bin/pip3" ]; then
+        :   # do nothing
+    else
+        echo
+        echo -n "$prompt Install 'pip' command? [Y/n]: "
+        read input;  [ -z "$input" ] && input="y"
+        case "$input" in
+        y*|Y*)
+            url="https://bootstrap.pypa.io/get-pip.py"
+            local down
+            down=`_downloader "-RLO" "-N"`            || return 1
+            _cmd "$down $url"                         || return 1
+            _cmd "$prefix/bin/python get-pip.py"      || return 1
+            if [ `which pip` != "$prefix/bin/pip" ]; then
+                echo "$prompt ERROR: pip command seems not installed correctly." 1>&2
+                echo "$prompt exit 1" 1>&2
+                return 1
+            fi
+            echo "$prompt pip command installed successfully."
+            ;;
+        *)
+            echo "$prompt skip to install pip command."
+            ;;
+        esac
+    fi
     ## install 'easy_install'
     local easy_install_path
     local script='distribute_setup.py'
