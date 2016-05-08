@@ -59,8 +59,19 @@ _install_python() {
         fi
         ;;
     esac
+    ## for macports
+    if [ -d '/opt/local/lib' ] && [ -d '/opt/local/include' ]; then
+        echo -n "$prompt Use MacPorts files (/opt/local/*). OK? [Y/n]: "
+        read input;  [ -z "$input" ] && input="y"
+        case "$input" in
+        y*|Y*)
+            #flags="CFLAGS='-I/opt/local/include' LDFLAGS='-L/opt/local/lib' "
+            flags="CFLAGS='-I/opt/local/include' CPPFLAGS='-I/opt/local/include' LDFLAGS='-L/opt/local/lib' "
+            ;;
+        esac
+    fi
     ## confirm configure option
-    local configure="${flags}./configure --prefix=$prefix"
+    local configure="./configure --prefix=$prefix"
     echo -n "$prompt Configure is '$configure'. OK? [Y/n]: "
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
@@ -100,7 +111,7 @@ _install_python() {
             _cmd "patch -p0 < $i"                 #|| return 1
         done
     fi
-    _cmd "time $nice $configure"                  || return 1
+    _cmd "${flags}time $nice $configure"          || return 1
     _cmd "time $nice make"                        || return 1
     local make_target
     case $version in
