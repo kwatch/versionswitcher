@@ -1,2 +1,2 @@
 url='http://sourceforge.net/projects/gauche/files/Gauche/'
-rexp='\bGauche-(\d+(?:\.\d+)+)\.tgz</a>'
+rexp='>Gauche-(\d+(?:\.\d+)+)\.tgz</'
