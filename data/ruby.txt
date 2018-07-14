@@ -1,4 +1,4 @@
-#url='http://cache.ruby-lang.org/pub/ruby/'   # gzipped response even if no accept-encoding header
-url='http://ftp.ruby-lang.org/pub/ruby/'
-rexp='href="ruby-(\d+\.\d+\.\d+)-?(.*?)\.tar\.bz2"'
+#url='https://cache.ruby-lang.org/pub/ruby/'   # gzipped response even if no accept-encoding header
+url='https://ftp.ruby-lang.org/pub/ruby/'
+rexp='href="/pub/ruby/ruby-(\d+\.\d+\.\d+)-?(.*?)\.tar\.bz2"'
 sep='-'
