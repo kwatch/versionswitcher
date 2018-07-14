@@ -386,7 +386,7 @@ __vs_installable_versions() {
                     if    (/^([^-_]+)([-_])(.+)$/)    { $k = $1.$2 ; $v = $3; }
                     elsif (/^(\d+\.\d+)(\.)(\d+)$/)   { $k = $1.$2 ; $v = $3; }
                     elsif (/^(\d+\.\d+)$/ && $none_p) { $k = $1."."; $v = $none; } # Go
-                    elsif (/^(\d+(\.\d+)+)(\w+)$/)    { $k = $1    ; $v = $3; } # Go
+                    elsif (/^(\d+(\.\d+)+)([a-z]\w*)$/) { $k = $1  ; $v = $3; } # Go
                     else                              { $k = $ver  ; $v = ""; }
                     $v .= "*" if exists($installed{$ver});
                     push @{$data{$k}}, $v;
