@@ -372,13 +372,15 @@ __vs_installable_versions() {
             my $none = "'$none'";
             my $lang = "'$lang'";
             my $none_p = length($none);
-            my (%data, %installed);
+            my (%data, %installed, %done);
             for my $dir (split(/:/, $ENV{"VS_HOME"})) {
                 $installed{(split /[;\/]/, $_)[-2]} = 1 for (glob("$dir/$lang/*/bin"));
             }
             while (my $line = <>) {
                 while ($line =~ /$rexp/g) {
                     my $ver = $1;   # version (ex: "1.2.3")
+                    last if exists($done{$ver});
+                    $done{$ver} = 1;
                     my ($k, $v);
                     $_ = $ver;
                     if    (/^([^-_]+)([-_])(.+)$/)    { $k = $1.$2 ; $v = $3; }
