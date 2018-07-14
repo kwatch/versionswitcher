@@ -372,7 +372,7 @@ __vs_installable_versions() {
             my $none = "'$none'";
             my $lang = "'$lang'";
             my $none_p = length($none);
-            my (%data, @keys, %installed);
+            my (%data, %installed);
             for my $dir (split(/:/, $ENV{"VS_HOME"})) {
                 $installed{(split /[;\/]/, $_)[-2]} = 1 for (glob("$dir/$lang/*/bin"));
             }
@@ -387,11 +387,16 @@ __vs_installable_versions() {
                     elsif (/^(\d+(\.\d+)+)(\w+)$/)    { $k = $1    ; $v = $3; } # Go
                     else                              { $k = $ver  ; $v = ""; }
                     $v .= "*" if exists($installed{$ver});
-                    push @keys, $k unless exists($data{$k});
                     push @{$data{$k}}, $v;
                 }
             }
-            for (@keys) {
+            sub norm {
+                my $s = shift;
+                $s =~ s/(\d+)/sprintf("%03d",$1)/eg;
+                $s .= "999" if /\.$/;
+                return $s;
+            }
+            for (sort {norm($a) cmp norm($b)} keys %data) {
                 my @a = @{$data{$_}};
                 my $s = $#a == 0 ? $a[0] : "{".join(",", @a)."}";
                 print $_, $s, "\n";
