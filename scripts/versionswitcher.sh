@@ -411,9 +411,9 @@ __vs_installable_versions() {
             my $none = "'$none'";
             while (<>) {
                 while (/$rexp/g) {
-                    my ($ver, $patch) = ($1, $2);
-                    $patch = $none if $2 eq "";
-                    push @arr, ($patch eq "" ? $ver : "$ver$sep$patch");
+                    my $ver = $1;
+                    $ver .= ".$none" if length($none) && $ver =~ /^\d+\.\d+$/;
+                    push @arr, $ver;
                 }
             }
             print $_, "\n" for sort @arr;
