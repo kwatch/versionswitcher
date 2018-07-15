@@ -11,11 +11,8 @@ _install_perl() {
     local lang="perl"
     local bin="perl"
     local base="perl-$version"
-    local filename="$base.tar.bz2"
+    local filename="$base.tar.gz"
     local configure="./Configure -des -Dprefix=$prefix"
-    case "$version" in
-    5.6.*|5.7.*|5.8.*|5.9.*|5.10.*)   filename="$base.tar.gz";;
-    esac
     local url="http://www.cpan.org/src/5.0/$filename"
     . $HOME/.vs/installers/vs_install.sh
     _generic_installer "$lang" "$bin" "$version" "$base" "$filename" "$url" "$prefix" "$configure" || return 1
