@@ -1,4 +1,3 @@
 url='https://golang.org/dl/'
-rexp='class="download"\shref="https://dl\.google\.com/go/go(\d+\.\d+(?:rc\d|beta\d)?)(?:\.(\d+))?\.src\.tar\.gz">go'
-sep='.'
+rexp='class="download"\shref="https://dl\.google\.com/go/go(\d+[.\d]+\w*?)\.src\.tar\.gz">go'
 none='0'
