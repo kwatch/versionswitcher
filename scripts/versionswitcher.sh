@@ -399,7 +399,7 @@ __vs_installable_versions() {
                 return $s;
             }
             for (sort {norm($a) cmp norm($b)} keys %data) {
-                my @a = @{$data{$_}};
+                my @a = sort {norm($a) cmp norm($b)} @{$data{$_}};
                 my $s = $#a == 0 ? $a[0] : "{".join(",", @a)."}";
                 print $_, $s, "\n";
             }
