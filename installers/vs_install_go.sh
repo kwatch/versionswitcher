@@ -14,8 +14,8 @@ _install_go() {
     local prefix=$2
     local lang="go"
     local prompt="**"
-    local archives_url='http://golang.org/dl/'
-    local download_url='http://golang.org/dl'
+    local archives_url='https://golang.org/dl/'
+    local download_url='https://golang.org/dl'
     ##
     local perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
@@ -25,45 +25,46 @@ _install_go() {
     local verpat=`echo $ver | sed 's/\./\\\\./g'`
     local down
     down=`_downloader "-sL" "-q -O -"` || return 1
-    $down $archives_url | $perl -e '
-    my $i = 0;
+    local items=`$down $archives_url | $perl -e '
+    my %checked;
     while (<>) {
-      if (/href="https:\/\/dl\.google\.com\/go\/(go'$verpat'\.[^.]+\.tar\.gz)">go/) {
-        print "\n** Which one to install?\n" if $i == 0;
-        print ++$i, ": ", $1, "\n";
+      while (/href="https:\/\/dl\.google\.com\/go\/(go'$verpat'\.[^.]+)\.tar\.gz">go/g) {
+        last if exists($checked{$1});
+        $checked{$1} = 1;
+        print $1, "\n";
       }
-    }
-    if ($i) {
-      print "\n";
-      print "** Select [1-$i]: ";
-    } else {
-      print "** Download file not found. Exit.\n";
-      exit 1
-    }
-    '
-    if [ $? -ne 0 ]; then
-        return 1
+    }'`
+    if [ -z "$items" ]; then
+        echo "$prompt Download file not found. Exit." 1>&2;
+        exit 1
     fi
-    local num
-    read num
-    base=`$down $archives_url | $perl -e '
-    my $i = 0;
-    while (<>) {
-      if (/href="https:\/\/dl\.google\.com\/go\/(go'$verpat'\..*?)\.tar\.gz">go/) {
-        if (++$i eq '$num') {
-          print $1;
-          break;
-        }
-      }
-    }
-    '`
+    #
+    echo ""
+    echo "$prompt Which one to install?"
+    local i=0;
+    for x in $items; do
+        i=`expr $i + 1`
+        echo "$i: $x"
+    done
+    echo ""
+    echo -n "$prompt Select [1-$i]: ";
+    read input
+    local base
+    local j=0
+    for x in $items; do
+        j=`expr $j + 1`
+        if [ $j = "$input" ]; then
+            base=$x
+            break
+        fi
+    done
     if [ -z "$base" ]; then
         echo "$prompt Not install. exit."
         return 0
     fi
     local fname="$base.tar.gz"
     if [ ! -e "$fname" ]; then
-        down=`_downloader "-LRO" "--no-check-certificate"` || return 1
+        down=`_downloader "-LRO" ""`              || return 1
         _cmd "$down $download_url/$fname"         || return 1
     fi
     local prefix_basedir=`dirname $prefix`
