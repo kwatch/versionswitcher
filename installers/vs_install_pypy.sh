@@ -115,8 +115,8 @@ _install_pypy() {
     ## install 'pip'
     if [ ! -e "$prefix/bin/pip" ]; then
         echo
-        echo -n "$prompt Install 'pip' command? [Y/n]: "
-        read input;  [ -z "$input" ] && input="y"
+        echo -n "$prompt Install 'pip' command? [y/N]: "
+        read input;  [ -z "$input" ] && input="n"
         case "$input" in
         y*|Y*)
             local dlurl="https://bootstrap.pypa.io/get-pip.py"
