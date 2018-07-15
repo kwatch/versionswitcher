@@ -409,10 +409,13 @@ __vs_installable_versions() {
             my $sep  = "'$sep'";
             my $rexp = q`'$rexp'`;
             my $none = "'$none'";
+            my (@arr, %checked);
             while (<>) {
                 while (/$rexp/g) {
                     my $ver = $1;
                     $ver .= ".$none" if length($none) && $ver =~ /^\d+\.\d+$/;
+                    last if exists($checked{$ver});
+                    $checked{$ver} = 1;
                     push @arr, $ver;
                 }
             }
