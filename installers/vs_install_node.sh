@@ -63,8 +63,8 @@ _install_node() {
     fi
     ## install 'npm' (Node Package Manager)
     echo
-    echo -n "$prompt Install npm (Node Package Manger)? [Y/n]: "
-    read input;  [ -z "$input" ] && input="y"
+    echo -n "$prompt Install npm (Node Package Manger)? [y/N]: "
+    read input;  [ -z "$input" ] && input="n"
     case "$input" in
     y*|Y*)
         #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
