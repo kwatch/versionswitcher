@@ -419,7 +419,12 @@ __vs_installable_versions() {
                     push @arr, $ver;
                 }
             }
-            print $_, "\n" for sort @arr;
+            sub norm {
+                $_ = shift;
+                s/(\d+)/sprintf("%03d",$1)/eg;
+                return $_;
+            }
+            print $_, "\n" for sort {norm($a) cmp norm($b)} @arr;
         '
     fi
     return 0
