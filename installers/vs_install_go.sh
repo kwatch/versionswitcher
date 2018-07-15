@@ -24,12 +24,11 @@ _install_go() {
     local ver=`echo $version | sed 's/\.0$//'`
     local verpat=`echo $ver | sed 's/\./\\\\./g'`
     local down
-    down=`_downloader "-sL" "-q -O - --no-check-certificate"` || return 1
-    #$down $archives_url | $perl -e 'print $1,"\n" if /href="\/dl\/(go'$verpat'\..*\.tar\.gz)"/'
+    down=`_downloader "-sL" "-q -O -"` || return 1
     $down $archives_url | $perl -e '
     my $i = 0;
     while (<>) {
-      if (/href="https:\/\/dl\.google\.com\/go\/(go'$verpat'\..*?\.tar\.gz)">go/) {
+      if (/href="https:\/\/dl\.google\.com\/go\/(go'$verpat'\.[^.]+\.tar\.gz)">go/) {
         print "\n** Which one to install?\n" if $i == 0;
         print ++$i, ": ", $1, "\n";
       }
