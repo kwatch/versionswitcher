@@ -14,8 +14,8 @@ _install_go() {
     local prefix=$2
     local lang="go"
     local prompt="**"
-    local archives_url='http://golang.org/dl/'
-    local download_url='http://golang.org/dl'
+    local archives_url='https://golang.org/dl/'
+    local download_url='https://golang.org/dl'
     ##
     local perl='perl';
     [ -f /usr/local/bin/perl ] && perl='/usr/local/bin/perl';
@@ -64,7 +64,7 @@ _install_go() {
     fi
     local fname="$base.tar.gz"
     if [ ! -e "$fname" ]; then
-        down=`_downloader "-LRO" "--no-check-certificate"` || return 1
+        down=`_downloader "-LRO" ""`              || return 1
         _cmd "$down $download_url/$fname"         || return 1
     fi
     local prefix_basedir=`dirname $prefix`
