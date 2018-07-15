@@ -16,6 +16,28 @@ def _debug(msg):
 
 
 @recipe
+def task_help(c, ver='0.8'):
+    """help"""
+    print(r'''
+Release operation
+-----------------
+vi README.rst                          # update changes
+vi website/htdocs/history.html.pyt     # update
+kk update
+git checkout -b rel-%(ver)s
+#vi website/tmpl/_sidebar.html.pyt      # update release number
+#git ci -m "release preparation for %(ver)s.0" website/tmpl
+vi Kookbook.py   # update release number
+git add Kookbook.py
+git ci -m "release preparation for %(ver)s.0"
+git tag rel-%(ver)s.0
+kk edit
+cd website
+kk upload
+''' % {"ver": ver})
+
+
+@recipe
 def task_update_headers(c):
     """edit files"""
     replacer = [
