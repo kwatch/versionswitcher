@@ -409,14 +409,22 @@ __vs_installable_versions() {
             my $sep  = "'$sep'";
             my $rexp = q`'$rexp'`;
             my $none = "'$none'";
+            my (@arr, %checked);
             while (<>) {
                 while (/$rexp/g) {
-                    my ($ver, $patch) = ($1, $2);
-                    $patch = $none if $2 eq "";
-                    push @arr, ($patch eq "" ? $ver : "$ver$sep$patch");
+                    my $ver = $1;
+                    $ver .= ".$none" if length($none) && $ver =~ /^\d+\.\d+$/;
+                    last if exists($checked{$ver});
+                    $checked{$ver} = 1;
+                    push @arr, $ver;
                 }
             }
-            print $_, "\n" for sort @arr;
+            sub norm {
+                $_ = shift;
+                s/(\d+)/sprintf("%03d",$1)/eg;
+                return $_;
+            }
+            print $_, "\n" for sort {norm($a) cmp norm($b)} @arr;
         '
     fi
     return 0
