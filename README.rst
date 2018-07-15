@@ -29,8 +29,9 @@ Usage
 ::
 
     [bash]$ export VS_HOME=$HOME/lang   # or other directory
-    [bash]$ vs python 2.6.6   # use $HOME/lang/python/2.6.6
-    [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.1)
+    [bash]$ vs python 2.6.9   # use $HOME/lang/python/2.6.9
+    [bash]$ vs python 2.7     # use $HOME/lang/python/2.7.x (ex. 2.7.15)
+    [bash]$ vs python 2       # use $HOME/lang/python/2.x.x (ex. 2.7.15)
     [bash]$ vs python latest  # use latest version under $HOME/lang/python
     [bash]$ vs python -       # use system-installed one (ex. /usr/bin/python)
     [bash]$ vs python         # show installed versions of python
@@ -78,25 +79,25 @@ All languages which you want to switch should be installed into $HOME/lang
       + lang/
         + ruby/
           + 1.8.7-p334/
-	    + bin/
-	      - ruby
+            + bin/
+              - ruby
           + 1.9.2-p180/
-	    + bin/
-	      - ruby
+            + bin/
+              - ruby
         + python/
           + 2.6.6/
-	    + bin/
-	      - python
+            + bin/
+              - python
           + 2.7.1/
-	    + bin/
-	      - python
+            + bin/
+              - python
           + 3.2.0/
-	    + bin/
-	      - python
+            + bin/
+              - python
         + node/
           + 0.4.7/
-	    + bin/
-	      - node
+            + bin/
+              - node
 
 VersionSwitcher supports ANY programming languages to switch
 as long as they are installed according to the above structure.
@@ -104,16 +105,17 @@ as long as they are installed according to the above structure.
 In addition, VersionSwitcher has a feature to install the following
 languages easily::
 
-* Python    (http://www.python.org/)
-* PyPy      (http://pypy.org/)
-* Ruby      (http://www.ruby-lang.org/)
-* Rubinius  (http://rubini.us/)
-* Node.js   (http://nodejs.org/)
-* Lua       (http://www.lua.org/)
-* LuaJIT    (http://luajit.org/)
-* Perl      (http://www.perl.org/)
-* Go        (http://golang.org/)
-* Gauche    (http://practical-scheme.net/gauche/)
+* Python    (https://www.python.org/)
+* PyPy      (https://pypy.org/)
+* Ruby      (https://www.ruby-lang.org/)
+* Rubinius  (https://rubini.us/)
+* Node.js   (https://nodejs.org/)
+* Lua       (https://www.lua.org/)
+* LuaJIT    (https://luajit.org/)
+* Perl      (https://www.perl.org/)
+* Go        (https://golang.org/)
+* Gauche    (https://practical-scheme.net/gauche/)
+* Rust      (https://www.rust-lang.org/)
 
 The following is an exaple to install Node.js (and npm command)::
 
@@ -130,48 +132,47 @@ The following is an exaple to install Node.js (and npm command)::
     python      # http://www.python.org/
     rubinius    # http://rubini.us/
     ruby        # http://www.ruby-lang.org/
+    rust        # http://www.rust-lang.org/
     [bash]$ vs -i node
+    ## checking https://nodejs.org/dist/
     ## try 'vs -i node VERSION' where VERSION is one of:
-    0.4.7
-    0.4.6
-    0.4.5
-    0.4.4
-    [bash]$ vs -i node latest    # or vs -i node 0.4.7
-    ** latest version is 0.4.7
-    ** Install into '/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
-    ** Configure is './configure --prefix=/home/yourname/lang/node/0.4.7'. OK? [Y/n]: 
-    $ wget -nc http://nodejs.org/dist/node-v0.4.7.tar.gz
-    $ tar xzf node-v0.4.7.tar.gz
-    $ cd node-v0.4.7/
-    $ time ./configure --prefix=/home/yourname/lang/node/0.4.7
+    ...(snip)...
+    9.10.{0,1}
+    9.11.{0,1,2}
+    10.0.0
+    10.1.0
+    10.2.{0,1}
+    10.3.0
+    10.4.{0,1}
+    10.5.0
+    10.6.0
+    [bash]$ vs -i node latest    # or vs -i node 10.6.0
+    ** latest version is 10.6.0
+    ** Install into '/home/yourname/lang/node/10.6.0'. OK? [Y/n]: 
+    ** Configure is './configure --prefix=/home/yourname/lang/node/10.6.0'. OK? [Y/n]:
+    $ curl -LRO http://nodejs.org/dist/v10.6.0/node-v10.6.0.tar.gz
+    $ tar xzf node-v10.6.0.tar.gz
+    $ cd node-v10.6.0/
+    $ time ./configure --prefix=/home/yourname/lang/node/10.6.0
     ...(snip)...
     $ time JOBS=2 make
     ...(snip)...
     $ cd ..
     $ hash -r
     $ which node
-    /home/yourname/lang/node/0.4.7/bin/node
-    
-    ** Install npm (Node Package Manger)? [Y/n]: 
-    $ wget -qO - http://npmjs.org/install.sh | sh
-    fetching: http://registry.npmjs.org/npm/-/npm-0.3.18.tgz
-    0.4.7
-    ! [ -d .git ] || git submodule update --init
-    node cli.js cache clean
-    ...(snip)...
-    ** npm installed successfully.
+    /home/yourname/lang/node/10.6.0/bin/node
     
     ** Installation is finished successfully.
     **   language:  node
-    **   version:   0.4.7
-    **   directory: /home/yourname/lang/node/0.4.7
+    **   version:   10.6.0
+    **   directory: /home/yourname/lang/node/10.6.0
     
-    ** vs node 0.4.7
-    $ export PATH=/home/yourname/lang/node/0.4.7/bin:/usr/local/bin:/usr/bin:/bin
-    $ noderoot='/home/yourname/lang/node/0.4.7'
-    $ nodeversion='0.4.7'
+    ** vs node 10.6.0
+    $ export PATH=/home/yourname/lang/node/10.6.0/bin:/usr/local/bin:/usr/bin:/bin
+    $ noderoot='/home/yourname/lang/node/10.6.0'
+    $ nodeversion='10.6.0'
     $ which node
-    /home/yourname/lang/node/0.4.7/bin/node
+    /home/yourname/lang/node/10.6.0/bin/node
 
 The above steps are same for other languages such as ruby, python, lua
 and luajit.
@@ -183,10 +184,10 @@ Command Execution
 It is possible to execute command of specified version.
 Example::
 
-    $ vs -x ruby 2.1.2       # execute $VS_HOME/ruby/2.1.2/bin/ruby
-    $ vs -x ruby 2.1.2 file.rb arg1 arg2  # execute with arguments
-    $ vs -X ruby 2.1.2 gem   # execute $VS_HOME/ruby/2.1.2/bin/gem
-    $ vs -X ruby 2.1.2 gem install foo    # execute with arguments
+    $ vs -x ruby 2.5.1       # execute $VS_HOME/ruby/2.5.1/bin/ruby
+    $ vs -x ruby 2.5.1 file.rb arg1 arg2  # execute with arguments
+    $ vs -X ruby 2.5.1 gem   # execute $VS_HOME/ruby/2.5.1/bin/gem
+    $ vs -X ruby 2.5.1 gem install foo    # execute with arguments
 
 Notice that this feature doesn't change any environment variables
 such as $PATH, $PYTHONPATH, and so on.
