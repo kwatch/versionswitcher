@@ -67,11 +67,11 @@ _install_node() {
     read input;  [ -z "$input" ] && input="n"
     case "$input" in
     y*|Y*)
-        #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
-        #_cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
+        #_cmd "curl https://npmjs.org/install.sh | sh" || return 1
+        #_cmd "wget -qO - https://npmjs.org/install.sh | sh" || return 1
         local down
         down=`_downloader "-LRO" "-N"`            || return 1
-        _cmd "$down http://npmjs.org/install.sh"  || return 1
+        _cmd "$down https://npmjs.org/install.sh" || return 1
         _cmd "sh install.sh"                      || return 1
         local npm_path=`which npm`
         if [ "$npm_path" != "$prefix/bin/npm" ]; then
