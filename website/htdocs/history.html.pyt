@@ -3,6 +3,25 @@
 
 
 <div class="post">
+  <h2 class="title"><a href="#">Release 0.8.0</a></h2>
+  <p class="meta"><span class="posted">Jul 15, 2018</span></p>
+  <div style="clear: both;">&nbsp;</div>
+  <div class="entry">
+    <ul>
+      <li>[Fix] 'vs -i python' installs pip command instead of easy_install.</li>
+      <li>[Fix] 'vs -i ruby' parses download html page correctly.</li>
+      <li>[Fix] 'vs -i node' installs npm command only when npm not installed.</li>
+      <li>[Fix] 'vs -i go' supports new package url.</li>
+      <li>[Fix] 'vs -i pypy' and 'vs -i pypy3' parses download html page correctly.</li>
+      <li>[Fix] 'vs -i gauche' parses download html page correctly.</li>
+      <li>[Fix] 'vs -i perl' downloads *.tar.gz instead of *.tar.bz2.</li>
+    </ul>
+    <!--p class="links"><a href="#">Comments</a></p-->
+  </div>
+</div><!-- /post -->
+
+
+<div class="post">
   <h2 class="title"><a href="#">Release 0.7.2</a></h2>
   <p class="meta"><span class="posted">Dec 19, 2015</span></p>
   <div style="clear: both;">&nbsp;</div>
