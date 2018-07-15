@@ -98,10 +98,10 @@ _install_pypy3() {
     fi
     ## create a link of 'bin/pypy3' as 'bin/python3'
     local input=""
-    echo -n "$prompt Create a link of 'bin/pypy3' as 'bin/python3'? [Y/n]: "
+    echo -n "$prompt Create a link of 'bin/pypy3' as 'bin/python'? [Y/n]: "
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
-    y*|Y*)  _cmd "(cd $prefix/bin/; ln -s pypy3 python; n -s pypy3 python3)" ;;
+    y*|Y*)  _cmd "(cd $prefix/bin/; ln -s pypy3 python; ln -s pypy3 python3)" ;;
     esac
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1

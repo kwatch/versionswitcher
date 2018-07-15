@@ -101,7 +101,7 @@ _install_pypy() {
     echo -n "$prompt Create a link of 'bin/pypy' as 'bin/python'? [Y/n]: "
     read input;  [ -z "$input" ] && input="y"
     case "$input" in
-    y*|Y*)  _cmd "(cd $prefix/bin/; ln -s pypy python)" ;;
+    y*|Y*)  _cmd "(cd $prefix/bin/; ln -s pypy python; ln -s pypy python2)" ;;
     esac
     ## verify
     _cmd "export PATH=$prefix/bin:$PATH"          || return 1
