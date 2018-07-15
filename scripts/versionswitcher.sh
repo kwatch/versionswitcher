@@ -388,6 +388,7 @@ __vs_installable_versions() {
                     elsif (/^(\d+\.\d+)$/ && $none_p) { $k = $1."."; $v = $none; } # Go
                     elsif (/^(\d+(\.\d+)+)([a-z]\w*)$/) { $k = $1  ; $v = $3; } # Go
                     else                              { $k = $ver  ; $v = ""; }
+                    $ver .= ".$none" if $none_p;
                     $v .= "*" if exists($installed{$ver});
                     push @{$data{$k}}, $v;
                 }
