@@ -83,7 +83,11 @@ _install_node() {
             echo "$prompt npm installed successfully."
             ;;
         *)
-            echo "$prompt skip to install npm."
+            echo "$prompt Skip to install npm."
+            echo "$prompt Please install npm by yourself."
+            echo "$prompt"
+            echo "$prompt   $ curl -L https://npmjs.org/install.sh | sh"
+            echo "$prompt"
             ;;
         esac
     fi
