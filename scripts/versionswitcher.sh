@@ -365,49 +365,55 @@ __vs_installable_versions() {
     local down
     down=`__vs_downloader "-sL" "-q -O - --no-check-certificate"`          || return 1
     if [ "$condense" = 'y' ]; then
-        eval $down $url $url2 | $perl -pe 's!</Key>!</Key>\n!g' | $perl -e '
-            $sep  = "'$sep'";
-            $rexp = q`'$rexp'`;
-            $none = "'$none'";
-            $lang = "'$lang'";
-            my %verdict;
+        eval $down $url $url2 | $perl -e '
+            #use strit;
+            my $sep  = "'$sep'";
+            my $rexp = q`'$rexp'`;
+            my $none = "'$none'";
+            my $lang = "'$lang'";
+            my $none_p = length($none);
+            my (%data, %installed, %done);
             for my $dir (split(/:/, $ENV{"VS_HOME"})) {
-                $verdict{(split /[;\/]/, $_)[-2]} = 1 for (glob("$dir/$lang/*/bin"));
-                #for my $path (glob("$dir/$lang/*/bin")) {
-                #    my $version = (split(/[;\/]/, $path))[-2];
-                #    $verdict{$version} = 1;
-                #}
+                $installed{(split /[;\/]/, $_)[-2]} = 1 for (glob("$dir/$lang/*/bin"));
             }
-            while (<>) {
-                #push @{$d{$1}}, length($2) ? $2 : $none  if /$rexp/;
-                if (/$rexp/) {
-                    my ($ver, $patch) = ($1, $2);
-                    my $none_ = $ver =~ m/(rc|beta)\d$/ ? "" : $none;  # for Go
-                    $patch = $none_ unless length($patch);
-                    my $v = length($patch) ? "$ver$sep$patch" : $ver;
-                    push @{$d{$ver}}, (exists($verdict{$v}) ? "$patch*" : $patch);
+            while (my $line = <>) {
+                while ($line =~ /$rexp/g) {
+                    my $ver = $1;   # version (ex: "1.2.3")
+                    last if exists($done{$ver});
+                    $done{$ver} = 1;
+                    my ($k, $v);
+                    $_ = $ver;
+                    if    (/^([^-_]+)([-_])(.+)$/)    { $k = $1.$2 ; $v = $3; }
+                    elsif (/^(\d+\.\d+)(\.)(\d+)$/)   { $k = $1.$2 ; $v = $3; }
+                    elsif (/^(\d+\.\d+)$/ && $none_p) { $k = $1."."; $v = $none; } # Go
+                    elsif (/^(\d+(\.\d+)+)([a-z]\w*)$/) { $k = $1  ; $v = $3; } # Go
+                    else                              { $k = $ver  ; $v = ""; }
+                    $v .= "*" if exists($installed{$ver});
+                    push @{$data{$k}}, $v;
                 }
             }
-            #sub norm { join ".", map { sprintf("%03d", $_) } split(/\./, $_[0]) }
-            for (sort keys %d) {
-                @arr = sort {$a<=>$b} @{$d{$_}};
-                if    ($#arr)           { print $_, $sep, "{", join(",", @arr), "}\n"; }
-                elsif ($arr[0] eq "*")  { print $_, "*\n"; }
-                elsif (length($arr[0])) { print $_, $sep, $arr[0], "\n"; }
-                else                    { print $_, "\n"; }
+            sub norm {
+                my $s = shift;
+                $s =~ s/(\d+)/sprintf("%03d",$1)/eg;
+                $s .= "999" if /\.$/;
+                return $s;
+            }
+            for (sort {norm($a) cmp norm($b)} keys %data) {
+                my @a = sort {norm($a) cmp norm($b)} @{$data{$_}};
+                my $s = $#a == 0 ? $a[0] : "{".join(",", @a)."}";
+                print $_, $s, "\n";
             }
         '
     else
         eval $down $url $url2 | $perl -e '
-            $sep  = "'$sep'";
-            $rexp = q`'$rexp'`;
-            $none = "'$none'";
+            my $sep  = "'$sep'";
+            my $rexp = q`'$rexp'`;
+            my $none = "'$none'";
             while (<>) {
-                #push @arr, (($v = $2 ne "" ? $2 : $none) ne "" ? "$1$sep$v" : $1) if /$rexp/;
-                if (/$rexp/) {
-                    my $ver   = $1;
-                    my $patch = $2 ne "" ? $2 : $none;
-                    push @arr, ($patch ne "" ? "$ver$sep$patch" : $ver);
+                while (/$rexp/g) {
+                    my ($ver, $patch) = ($1, $2);
+                    $patch = $none if $2 eq "";
+                    push @arr, ($patch eq "" ? $ver : "$ver$sep$patch");
                 }
             }
             print $_, "\n" for sort @arr;

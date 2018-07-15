@@ -1,6 +1,4 @@
 #url='http://www.python.org/ftp/python/'
 #rexp='href="(\d+\.\d+)(?:\.(\d+))?\/?"'
 url='https://www.python.org/downloads/'
-rexp='>Python\s(\d+\.\d+)(?:\.(\d+))?<'
-sep='.'
-#none='0'
+rexp='>Python\s(\d+\.\d+(?:\.\d+)?)<'

@@ -1,3 +1,2 @@
 url='https://bitbucket.org/pypy/pypy/downloads/'
-rexp='href="/pypy/pypy/downloads/pypy-(\d+\.\d+(?:\.\d+)?)-src\.tar.bz2"'
-sep='.'
+rexp='href="/pypy/pypy/downloads/pypy(?:2[.\d]*)?-v?(\d+(?:\.\d+)+(?:-\w+)?)-src\.tar\.bz2"'

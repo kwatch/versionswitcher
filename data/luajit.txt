@@ -1,2 +1,2 @@
-url='http://luajit.org/download.html'
-rexp='href="download/LuaJIT-(\d+\.\d+(?:\.\d+)?(?:-\w+)?)\.tar\.gz"'
+url='https://luajit.org/download.html'
+rexp='href="download/LuaJIT-(\d+(?:\.\d+)+(?:-\w+)?)\.tar\.gz"'

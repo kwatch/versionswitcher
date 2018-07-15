@@ -1,2 +1,2 @@
 url='http://releases.rubini.us/'
-rexp='<Key>rubinius-(\d+\.\d+)(?:\.(\d+))?\.tar\.bz2<'
+rexp='<Key>rubinius-(\d+\.\d+(?:\.\d+)?)\.tar\.bz2<'

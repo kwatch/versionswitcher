@@ -62,29 +62,35 @@ _install_node() {
         return 1
     fi
     ## install 'npm' (Node Package Manager)
-    echo
-    echo -n "$prompt Install npm (Node Package Manger)? [Y/n]: "
-    read input;  [ -z "$input" ] && input="y"
-    case "$input" in
-    y*|Y*)
-        #_cmd "curl http://npmjs.org/install.sh | sh" || return 1
-        #_cmd "wget -qO - http://npmjs.org/install.sh | sh" || return 1
-        local down
-        down=`_downloader "-LRO" "-N"`            || return 1
-        _cmd "$down http://npmjs.org/install.sh"  || return 1
-        _cmd "sh install.sh"                      || return 1
-        local npm_path=`which npm`
-        if [ "$npm_path" != "$prefix/bin/npm" ]; then
-            echo "$prompt ERROR: npm command seems not installed correctly." 1>&2
-            echo "$prompt exit 1" 1>&2
-            return 1
-        fi
-        echo "$prompt npm installed successfully."
-        ;;
-    *)
-        echo "$prompt skip to install npm."
-        ;;
-    esac
+    if [ ! -e "$prefix/bin/npm" ]; then
+        echo
+        echo -n "$prompt Install npm (Node Package Manger)? [y/N]: "
+        read input;  [ -z "$input" ] && input="n"
+        case "$input" in
+        y*|Y*)
+            #_cmd "curl https://npmjs.org/install.sh | sh" || return 1
+            #_cmd "wget -qO - https://npmjs.org/install.sh | sh" || return 1
+            local down
+            down=`_downloader "-LRO" "-N"`            || return 1
+            _cmd "$down https://npmjs.org/install.sh" || return 1
+            _cmd "sh install.sh"                      || return 1
+            local npm_path=`which npm`
+            if [ "$npm_path" != "$prefix/bin/npm" ]; then
+                echo "$prompt ERROR: npm command seems not installed correctly." 1>&2
+                echo "$prompt exit 1" 1>&2
+                return 1
+            fi
+            echo "$prompt npm installed successfully."
+            ;;
+        *)
+            echo "$prompt Skip to install npm."
+            echo "$prompt Please install npm by yourself."
+            echo "$prompt"
+            echo "$prompt   $ curl -L https://npmjs.org/install.sh | sh"
+            echo "$prompt"
+            ;;
+        esac
+    fi
     ## finish
     echo
     echo "$prompt Installation finished successfully."
