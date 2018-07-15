@@ -205,16 +205,28 @@ Tips
 
       ## $HOME/.vs/hooks/ruby.sh
       if [ -n "$rubyroot" ]; then
-	  ## set prompt to show ruby version
-	  PS1="ruby@$rubyversion> "
+          ## set prompt to show ruby version
+          PS1="ruby@$rubyversion> "
       else
-	  ## clear prompt
-	  PS1="> "
+          ## clear prompt
+          PS1="> "
       fi
 
 
 Changes
 =======
+
+Release 0.8.0 (2018-07-15)
+--------------------------
+
+* [Fix] 'vs -i python' installs pip command instead of easy_install.
+* [Fix] 'vs -i ruby' parses download html page correctly.
+* [Fix] 'vs -i node' installs npm command only when npm not installed.
+* [Fix] 'vs -i go' supports new package url.
+* [Fix] 'vs -i pypy' and 'vs -i pypy3' parses download html page correctly.
+* [Fix] 'vs -i gauche' parses download html page correctly.
+* [Fix] 'vs -i perl' downloads *.tar.gz instead of *.tar.bz2.
+
 
 Release 0.7.2 (2015-12-19)
 --------------------------
